@@ -70,16 +70,21 @@ namespace Лабораторная_работа__5
 
         public static void textBoxMain(object sender, KeyEventArgs e)
         {
+            var textBox = sender as TextBox;
             int temp;
+            int x = 0, y = 0;
             if (int.TryParse(textBox.Text, out temp))
             {
-                int x = 0, y = 0;
-                int tempListLength = textBoxTemp.IndexOf(textBox);
+                int tempListLength = textBoxTemp.IndexOf(textBox) + 1;
                 do
                 {
-                    if (tempListLength > Form1.arrayMainTwo[x].Length)
+                    if (tempListLength > arrayMainTwo[x].Length)
+                    {
+                        tempListLength -= arrayMainTwo[x].Length;
+                        x++;
                     }
-                while ();
+                }
+                while (tempListLength < 0);
                 Form1.arrayMainTwo[x, y] = Convert.ToInt32(textBox.Text);
             }
 
