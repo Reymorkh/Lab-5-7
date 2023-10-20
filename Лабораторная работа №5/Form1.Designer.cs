@@ -31,6 +31,7 @@
             FillArray = new Button();
             HeightBox = new TextBox();
             EnterButton = new Button();
+            MainWindow = new TextBox();
             SuspendLayout();
             // 
             // FillArray
@@ -60,15 +61,26 @@
             EnterButton.UseVisualStyleBackColor = true;
             EnterButton.Click += EnterButton_Click;
             // 
+            // MainWindow
+            // 
+            MainWindow.Location = new Point(29, 29);
+            MainWindow.Multiline = true;
+            MainWindow.Name = "MainWindow";
+            MainWindow.ScrollBars = ScrollBars.Both;
+            MainWindow.Size = new Size(482, 278);
+            MainWindow.TabIndex = 3;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(MainWindow);
             Controls.Add(EnterButton);
             Controls.Add(HeightBox);
             Controls.Add(FillArray);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);
@@ -80,5 +92,6 @@
         private Button FillArray;
         private TextBox HeightBox;
         private Button EnterButton;
+        private TextBox MainWindow;
     }
 }
