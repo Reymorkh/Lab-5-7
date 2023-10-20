@@ -64,7 +64,7 @@
             // 
             // MainButton
             // 
-            MainButton.Location = new Point(40, 30);
+            MainButton.Location = new Point(40, 5);
             MainButton.Name = "MainButton";
             MainButton.Size = new Size(151, 23);
             MainButton.TabIndex = 3;
@@ -76,7 +76,7 @@
             // MainLabel
             // 
             MainLabel.AutoSize = true;
-            MainLabel.Location = new Point(197, 34);
+            MainLabel.Location = new Point(197, 9);
             MainLabel.Name = "MainLabel";
             MainLabel.Size = new Size(220, 15);
             MainLabel.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             // PseudoMainButton
             // 
-            PseudoMainButton.Location = new Point(40, 30);
+            PseudoMainButton.Location = new Point(40, 5);
             PseudoMainButton.Name = "PseudoMainButton";
             PseudoMainButton.Size = new Size(151, 23);
             PseudoMainButton.TabIndex = 5;
