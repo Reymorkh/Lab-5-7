@@ -140,7 +140,7 @@ namespace Лабораторная_работа__5
             {
                 for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
                     for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
-                        arrayMainTwo[i,j] = random.Next(-100, 100);
+                        arrayMainTwo[i, j] = random.Next(-100, 100);
                 TwoDimPrint();
             }
             else
@@ -158,6 +158,31 @@ namespace Лабораторная_работа__5
             }
             else
                 MessageBox.Show("Массив не инициализирован.", "Ошибка");
+        }
+
+        private void Task1Button_Click(object sender, EventArgs e)
+        {
+            int i;
+            for (i = 0; i < arrayMainOne.Length; i++)
+                if (arrayMainOne[i] != 0)
+                    if (arrayMainOne[i] % 2 == 0)
+                    {
+                        arrayMainOne[i] = 0;
+                        for (i += 1; i < arrayMainOne.Length; i++)
+                            SwapInt(ref arrayMainOne[i - 1], ref arrayMainOne[i]);
+                        Array.Resize(ref arrayMainOne, arrayMainOne.Length - 1);
+                        OneDimPrint();
+                        break;
+                    }
+            if (i == arrayMainOne.Length)
+                MessageBox.Show("Чётных чисел не осталось.", "Предупрежедение");
+        }
+
+        public static void SwapInt(ref int a, ref int b)
+        {
+            int temp = a;
+            a = b;
+            b = temp;
         }
     }
 }

@@ -41,6 +41,13 @@
             TwoDimFillButton = new Button();
             TornFillButton = new Button();
             label3 = new Label();
+            Task1Button = new Button();
+            Task2Button = new Button();
+            Task3Button = new Button();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
             SuspendLayout();
             // 
             // TornCreateButton
@@ -169,11 +176,82 @@
             label3.TabIndex = 12;
             label3.Text = "Заполнить";
             // 
+            // Task1Button
+            // 
+            Task1Button.Location = new Point(766, 207);
+            Task1Button.Name = "Task1Button";
+            Task1Button.Size = new Size(90, 23);
+            Task1Button.TabIndex = 13;
+            Task1Button.Text = "Одномерный";
+            Task1Button.UseVisualStyleBackColor = true;
+            Task1Button.Click += Task1Button_Click;
+            // 
+            // Task2Button
+            // 
+            Task2Button.Location = new Point(766, 236);
+            Task2Button.Name = "Task2Button";
+            Task2Button.Size = new Size(90, 23);
+            Task2Button.TabIndex = 14;
+            Task2Button.Text = "Двумерный";
+            Task2Button.UseVisualStyleBackColor = true;
+            // 
+            // Task3Button
+            // 
+            Task3Button.Location = new Point(766, 265);
+            Task3Button.Name = "Task3Button";
+            Task3Button.Size = new Size(90, 23);
+            Task3Button.TabIndex = 15;
+            Task3Button.Text = "Рваный";
+            Task3Button.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(569, 211);
+            label4.Name = "label4";
+            label4.Size = new Size(192, 15);
+            label4.TabIndex = 16;
+            label4.Text = "Удалить первый чётный элемент:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(569, 240);
+            label5.Name = "label5";
+            label5.Size = new Size(166, 15);
+            label5.TabIndex = 17;
+            label5.Text = "Добавить строку с номером:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(569, 269);
+            label6.Name = "label6";
+            label6.Size = new Size(187, 15);
+            label6.TabIndex = 18;
+            label6.Text = "Удалить самую длинную строку:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(658, 178);
+            label7.Name = "label7";
+            label7.Size = new Size(114, 15);
+            label7.TabIndex = 19;
+            label7.Text = "Задания варианта 1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(872, 340);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(Task3Button);
+            Controls.Add(Task2Button);
+            Controls.Add(Task1Button);
             Controls.Add(label3);
             Controls.Add(TornFillButton);
             Controls.Add(TwoDimFillButton);
@@ -210,5 +288,12 @@
         private Button TwoDimFillButton;
         private Button TornFillButton;
         private Label label3;
+        private Button Task1Button;
+        private Button Task2Button;
+        private Button Task3Button;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
     }
 }
