@@ -27,38 +27,42 @@ namespace Лабораторная_работа__5
             f.ShowDialog();
             f.Dispose();
             Form2.textBoxes.Clear();
+            if (Form2.isInitialized)
+            TornPrint();
         }
 
         private void OneDimPrintButton_Click(object sender, EventArgs e)
         {
-            if (Form3.isInitialized)
                 OneDimPrint();
-            else
-                MessageBox.Show("Массив пока не инициализирован.", "Ошибка");
         }
         public void OneDimPrint()
         {
             MainWindow.Text = "Одномерный массив массив:";
-            int temp = 0;
-            do
+            if (Form3.isInitialized)
             {
-                MainWindow.Text += Environment.NewLine;
-                if (arrayMainOne.Length % 10 != 0)
-                    switch (arrayMainOne.Length - temp > 10)
-                    {
-                        case (true):
-                            OneDimSubPrint(temp, 10);
-                            break;
+                int temp = 0;
+                do
+                {
+                    MainWindow.Text += Environment.NewLine;
+                    if (arrayMainOne.Length % 10 != 0)
+                        switch (arrayMainOne.Length - temp > 10)
+                        {
+                            case (true):
+                                OneDimSubPrint(temp, 10);
+                                break;
 
-                        case (false):
-                            OneDimSubPrint(temp, arrayMainOne.Length - temp);
-                            break;
-                    }
-                else
-                    OneDimSubPrint(temp, 10);
-                temp += 10;
+                            case (false):
+                                OneDimSubPrint(temp, arrayMainOne.Length - temp);
+                                break;
+                        }
+                    else
+                        OneDimSubPrint(temp, 10);
+                    temp += 10;
+                }
+                while (temp < arrayMainOne.Length);
             }
-            while (temp < arrayMainOne.Length);
+            else
+                MessageBox.Show("Массив пока не инициализирован.", "Ошибка");
         }
 
         public void OneDimSubPrint(int temp, int x)
@@ -77,21 +81,23 @@ namespace Лабораторная_работа__5
 
         private void TwoDimPrintButton_Click(object sender, EventArgs e)
         {
-            if (arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
                 TwoDimPrint();
-            else
-                MessageBox.Show("Массив пока не инициализирован.", "Ошибка");
         }
 
         public void TwoDimPrint()
         {
-            MainWindow.Text = "Двумерный массив";
-            for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
+            MainWindow.Text = "Двумерный массив:";
+            if (Form3.isInitialized && arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
             {
-                MainWindow.Text += Environment.NewLine;
-                for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
-                    MainWindow.Text += Convert.ToString(arrayMainTwo[i, j]) + " ";
+                for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
+                {
+                    MainWindow.Text += Environment.NewLine;
+                    for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
+                        MainWindow.Text += Convert.ToString(arrayMainTwo[i, j]) + " ";
+                }
             }
+            else
+                MessageBox.Show("Массив пока не инициализирован.", "Ошибка");
         }
 
         private void TwoDimCreateButton_Click(object sender, EventArgs e)
@@ -105,26 +111,28 @@ namespace Лабораторная_работа__5
 
         private void TornPrintButton_Click(object sender, EventArgs e)
         {
-            if (Form2.isInitialized)
                 TornPrint();
-            else
-                MessageBox.Show("Массив пока не инициализирован или вы вышли из меню постройки, не закончив процедуру.", "Ошибка");
         }
 
         public void TornPrint()
         {
             MainWindow.Text = "Рваный массив:";
-            for (int i = 0; i < arrayMainTorn.Length; i++)
+            if (Form2.isInitialized)
             {
-                MainWindow.Text += Environment.NewLine;
-                for (int j = 0; j < arrayMainTorn[i].Length; j++)
-                    MainWindow.Text += arrayMainTorn[i][j] + " ";
+                for (int i = 0; i < arrayMainTorn.Length; i++)
+                {
+                    MainWindow.Text += Environment.NewLine;
+                    for (int j = 0; j < arrayMainTorn[i].Length; j++)
+                        MainWindow.Text += arrayMainTorn[i][j] + " ";
+                }
             }
+            else
+                MessageBox.Show("Массив не инициализирован.", "Ошибка");
         }
 
         private void OneDimFillButton_Click(object sender, EventArgs e)
         {
-            if (arrayMainOne.Length > 0)
+            if (Form3.isInitialized && arrayMainOne.Length > 0)
             {
                 for (int i = 0; i < arrayMainOne.Length; i++)
                     arrayMainOne[i] = random.Next(-100, 100);
@@ -136,7 +144,7 @@ namespace Лабораторная_работа__5
 
         private void TwoDimFillButton_Click(object sender, EventArgs e)
         {
-            if (arrayMainTwo.Length > 0)
+            if (Form4.isInitialized && arrayMainTwo.Length > 0)
             {
                 for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
                     for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
@@ -149,7 +157,7 @@ namespace Лабораторная_работа__5
 
         private void TornFillButton_Click(object sender, EventArgs e)
         {
-            if (arrayMainTorn.Length > 0)
+            if (Form2.isInitialized && arrayMainTorn.Length > 0)
             {
                 for (int i = 0; i < arrayMainTorn.Length; i++)
                     for (int j = 0; j < arrayMainTorn[i].Length; j++)
@@ -162,20 +170,25 @@ namespace Лабораторная_работа__5
 
         private void Task1Button_Click(object sender, EventArgs e)
         {
-            int i;
-            for (i = 0; i < arrayMainOne.Length; i++)
-                if (arrayMainOne[i] != 0)
-                    if (arrayMainOne[i] % 2 == 0)
-                    {
-                        arrayMainOne[i] = 0;
-                        for (i += 1; i < arrayMainOne.Length; i++)
-                            SwapInt(ref arrayMainOne[i - 1], ref arrayMainOne[i]);
-                        Array.Resize(ref arrayMainOne, arrayMainOne.Length - 1);
-                        OneDimPrint();
-                        break;
-                    }
-            if (i == arrayMainOne.Length)
-                MessageBox.Show("Чётных чисел не осталось.", "Предупрежедение");
+            if (Form3.isInitialized)
+            {
+                int i;
+                for (i = 0; i < arrayMainOne.Length; i++)
+                    if (arrayMainOne[i] != 0)
+                        if (arrayMainOne[i] % 2 == 0)
+                        {
+                            arrayMainOne[i] = 0;
+                            for (i += 1; i < arrayMainOne.Length; i++)
+                                SwapInt(ref arrayMainOne[i - 1], ref arrayMainOne[i]);
+                            Array.Resize(ref arrayMainOne, arrayMainOne.Length - 1);
+                            OneDimPrint();
+                            break;
+                        }
+                if (i == arrayMainOne.Length)
+                    MessageBox.Show("Чётных чисел не осталось.", "Предупрежедение");
+            }
+            else
+                MessageBox.Show("Массив не инициализирован.", "Ошибка");
         }
 
         public static void SwapInt(ref int a, ref int b)
@@ -183,6 +196,67 @@ namespace Лабораторная_работа__5
             int temp = a;
             a = b;
             b = temp;
+        }
+
+        private void Task2Button_Click(object sender, EventArgs e)
+        {
+            int x;
+            if (Form4.isInitialized && int.TryParse(textBox1.Text, out x) && x > 0 && x < arrayMainTwo.GetLength(0) + 1)
+            {
+                x -= 1;
+                int index1 = arrayMainTwo.GetLength(0), index2 = arrayMainTwo.GetLength(1), z = 0;
+                int[,] temp = new int[index1 + 1, index2];
+                for (int i = 0; i < index1; i++) //i - строки, j - содержимое строк
+                {
+                    for (int j = 0; j < index2; j++)
+                    {
+                        temp[z, j] = arrayMainTwo[i, j];
+                    }
+                    z++;
+                    if (i + 1 == x)
+                        z++;
+                }
+                arrayMainTwo = temp;
+                TwoDimPrint();
+            }
+        }
+
+        private void Task3Button_Click(object sender, EventArgs e)
+        {
+            if (Form2.isInitialized)
+            {
+                int maxLength = 0, neMaxLength = 0;
+                for (int i = 0; i < arrayMainTorn.Length; i++)  // индекс самой длинной строки массива
+                {
+                    if (maxLength < arrayMainTorn[i].Length)
+                    {
+                        maxLength = arrayMainTorn[i].Length;
+                        neMaxLength = i;
+                    }
+                }
+                arrayMainTorn = Task3(arrayMainTorn, neMaxLength);
+                int z = 0;
+                if (arrayMainTorn.Length == 0)
+                    Form2.isInitialized = false;
+                TornPrint();
+            }
+            else
+                MessageBox.Show("Не с чем работать.", "Ошибка");
+
+            
+        }
+        public static int[][] Task3(int[][] array, int idx)
+        {
+            int[][] arrOut = new int[array.Length - 1][];
+
+            int k = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i != idx)
+                    arrOut[k++] = array[i];
+            }
+
+            return arrOut;
         }
     }
 }

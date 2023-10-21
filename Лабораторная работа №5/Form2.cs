@@ -193,100 +193,12 @@ namespace Лабораторная_работа__5
             isInitialized = true;
             this.Close();
         }
+
         public static void textBoxEraser()
         {
             foreach (var textbox in textBoxes)
                 textbox.Dispose();
             textBoxes.Clear();
         }
-
-        //private void textBox_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    var textBox = sender as TextBox;
-        //    if (e.KeyCode == Keys.Enter)
-        //    {
-        //        textBoxMain(sender, e);
-        //    }
-        //}
-        //public static void textBoxMain(object sender, KeyEventArgs e)
-        //{
-        //    var textBox = sender as TextBox;
-        //    int temp;
-        //    int x = 0, y = 0;
-        //    if (int.TryParse(textBox.Text, out temp))
-        //    {
-        //        arrayTorn[x][y] = Convert.ToInt32(textBox.Text);
-        //    }
-        //}
-        //public void ButtonRewrite()
-        //{
-        //    for (int i = 0; i < Form1.arrayLength; i++)
-        //    {
-        //        //MessageBox.Show(Convert.ToString(i) + "   " + Convert.ToString(Form1.arrayLength), "");
-        //        buttons[i].Text = Convert.ToString(Form1.arrayMain[i]);
-        //    }
-        //} // что-то делает // ничо не делает снова
-
-        //private void ButtonOnClick(object sender, EventArgs eventArgs)
-        //        {
-        //            var button = (Button)sender;
-        //            DialogResult dialogResult = MessageBox.Show("Вы хотите перезаписать значение выбранного элемента массива?" + Environment.NewLine +
-        //                "При выборе варианта нет кнопка будет отмечена для обмена значениями." + Environment.NewLine +
-        //                "При выборе отмены это окно закроется.", "Ща будет сложно", MessageBoxButtons.YesNoCancel);
-        //            if (dialogResult == DialogResult.No)
-        //            {
-
-        //                if (button != null)
-        //                {
-        //                    buttons.IndexOf(button);
-
-
-        //                    if (a == "-101")
-        //                    {
-        //                        a = button.Text;
-        //                        index1 = buttons.IndexOf(button);
-        //                    }
-        //                    else
-        //                    if (b == "-101")
-        //                    {
-        //                        b = button.Text;
-        //                        index2 = buttons.IndexOf(button);
-        //                    }
-        //                    if (a != "-101" && b != "-101")
-        //                    {
-        //                        Form1.SwapInt(ref Form1.arrayMain[index1], ref Form1.arrayMain[index2]);
-        //                        SwapButton(buttons[index1], buttons[index2]);
-
-
-        //                        a = "-101";
-        //                        b = "-101";
-        //                        index1 = -1;
-        //                        index2 = -1;
-        //                    }
-        //                }
-        //            }
-        //            if (dialogResult == DialogResult.Yes)
-        //            {
-        //                Form3.index = buttons.IndexOf(button);
-        //                Form3 gg = new Form3();
-        //                gg.ShowDialog();
-        //                gg.Dispose();
-        //                ButtonRewrite();
-        //                //ButtonEraser();
-        //                //ButtonPrinter();
-        //            }
-        //        }
-        //public static void NewButtonOnLeave(object sender, EventArgs eventArgs)
-        //{
-        //    var button = (Button)sender;
-        //    if (button.Text)
-
-        //}
-        //int[][] array = new int[10][];
-        //    for (int i = 0; i< 10;  i++)
-        //    {
-        //        array[i] = new int[i]; //объявление количества столбцов в строке рваного массива
-        //        Console.Write(array[i] + " ");
-        //    }
     }
 }

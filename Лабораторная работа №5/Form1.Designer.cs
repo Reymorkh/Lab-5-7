@@ -48,6 +48,7 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // TornCreateButton
@@ -194,6 +195,7 @@
             Task2Button.TabIndex = 14;
             Task2Button.Text = "Двумерный";
             Task2Button.UseVisualStyleBackColor = true;
+            Task2Button.Click += Task2Button_Click;
             // 
             // Task3Button
             // 
@@ -203,11 +205,12 @@
             Task3Button.TabIndex = 15;
             Task3Button.Text = "Рваный";
             Task3Button.UseVisualStyleBackColor = true;
+            Task3Button.Click += Task3Button_Click;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(569, 211);
+            label4.Location = new Point(556, 211);
             label4.Name = "label4";
             label4.Size = new Size(192, 15);
             label4.TabIndex = 16;
@@ -216,7 +219,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(569, 240);
+            label5.Location = new Point(556, 240);
             label5.Name = "label5";
             label5.Size = new Size(166, 15);
             label5.TabIndex = 17;
@@ -225,7 +228,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(569, 269);
+            label6.Location = new Point(556, 269);
             label6.Name = "label6";
             label6.Size = new Size(187, 15);
             label6.TabIndex = 18;
@@ -240,11 +243,20 @@
             label7.TabIndex = 19;
             label7.Text = "Задания варианта 1";
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(728, 237);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(32, 23);
+            textBox1.TabIndex = 20;
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(872, 340);
+            Controls.Add(textBox1);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -295,5 +307,6 @@
         private Label label5;
         private Label label6;
         private Label label7;
+        private TextBox textBox1;
     }
 }
