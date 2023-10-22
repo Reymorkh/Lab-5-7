@@ -1,3 +1,5 @@
+using System.Security.Policy;
+
 namespace Лабораторная_работа__5
 {
     public partial class Form1 : Form
@@ -7,7 +9,7 @@ namespace Лабораторная_работа__5
         public static int[] arrayMainOne;
         public static int[,] arrayMainTwo;
         public static int[][] arrayMainTorn;
-        public static bool firstTime = true;
+        public static bool isEdit1, isEdit2, isEdit3;
         public static Random random = new Random();
 
 
@@ -27,13 +29,14 @@ namespace Лабораторная_работа__5
             f.ShowDialog();
             f.Dispose();
             Form2.textBoxes.Clear();
+            Form2.labels.Clear();
             if (Form2.isInitialized)
-            TornPrint();
+                TornPrint();
         }
 
         private void OneDimPrintButton_Click(object sender, EventArgs e)
         {
-                OneDimPrint();
+            OneDimPrint();
         }
         public void OneDimPrint()
         {
@@ -75,19 +78,21 @@ namespace Лабораторная_работа__5
             Form3 f = new Form3();
             f.ShowDialog();
             f.Dispose();
+            Form3.textBoxes.Clear();
+            Form3.labels.Clear();
             if (arrayMainOne.Length > 0)
                 OneDimPrint();
         }
 
         private void TwoDimPrintButton_Click(object sender, EventArgs e)
         {
-                TwoDimPrint();
+            TwoDimPrint();
         }
 
         public void TwoDimPrint()
         {
             MainWindow.Text = "Двумерный массив:";
-            if (Form3.isInitialized && arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
+            if (Form4.isInitialized && arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
             {
                 for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
                 {
@@ -105,13 +110,15 @@ namespace Лабораторная_работа__5
             Form4 f = new Form4();
             f.ShowDialog();
             f.Dispose();
+            Form4.textBoxes.Clear();
+            Form4.labels.Clear();
             if (arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
                 TwoDimPrint();
         }
 
         private void TornPrintButton_Click(object sender, EventArgs e)
         {
-                TornPrint();
+            TornPrint();
         }
 
         public void TornPrint()
@@ -225,17 +232,16 @@ namespace Лабораторная_работа__5
         {
             if (Form2.isInitialized)
             {
-                int maxLength = 0, neMaxLength = 0;
+                int maxLength = 0, maxLengthIndex = 0;
                 for (int i = 0; i < arrayMainTorn.Length; i++)  // индекс самой длинной строки массива
                 {
                     if (maxLength < arrayMainTorn[i].Length)
                     {
                         maxLength = arrayMainTorn[i].Length;
-                        neMaxLength = i;
+                        maxLengthIndex = i;
                     }
                 }
-                arrayMainTorn = Task3(arrayMainTorn, neMaxLength);
-                int z = 0;
+                arrayMainTorn = Task3(arrayMainTorn, maxLengthIndex);
                 if (arrayMainTorn.Length == 0)
                     Form2.isInitialized = false;
                 TornPrint();
@@ -243,20 +249,143 @@ namespace Лабораторная_работа__5
             else
                 MessageBox.Show("Не с чем работать.", "Ошибка");
 
-            
-        }
-        public static int[][] Task3(int[][] array, int idx)
-        {
-            int[][] arrOut = new int[array.Length - 1][];
 
+        }
+
+        public static int[][] Task3(int[][] arrayMain, int idx)
+        {
+            int[][] arrayTemp = new int[arrayMain.Length - 1][];
             int k = 0;
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < arrayMain.Length; i++)
             {
                 if (i != idx)
-                    arrOut[k++] = array[i];
+                    arrayTemp[k++] = arrayMain[i];
             }
+            return arrayTemp;
+        }
 
-            return arrOut;
+        private void OneDimSaveButton_Click(object sender, EventArgs e)
+        {
+            if (Form3.isInitialized)
+            {
+                if (!File.Exists("One Dimensional Array.txt"))
+                {
+                    var file = File.Create("One Dimensional Array.txt");
+                    file.Close();
+                }
+                else
+                    File.WriteAllText("One Dimensional Array.txt", string.Empty);
+                StreamWriter OneDim = new StreamWriter("One Dimensional Array.txt");
+                for (int i = 0; i < arrayMainOne.Length; i++)
+                {
+                    if (i != arrayMainOne.Length - 1)
+                        OneDim.Write(arrayMainOne[i] + " ");
+                    else
+                        OneDim.Write(arrayMainOne[i]);
+                }
+                OneDim.Close();
+                MessageBox.Show("Массив записан");
+            }
+            else
+                MessageBox.Show("Записывать нечего.", "Ошибка");
+        }
+
+        private void TwoDimSaveButton_Click(object sender, EventArgs e)
+        {
+            if (Form4.isInitialized)
+            {
+                if (!File.Exists("Two Dimensional Array.txt"))
+                {
+                    var file = File.Create("Two Dimensional Array.txt");
+                    file.Close();
+                }
+                else
+                    File.WriteAllText("Two Dimensional Array.txt", string.Empty);
+                StreamWriter TwoDim = new StreamWriter("Two Dimensional Array.txt");
+                for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
+                {
+                    for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
+                        if (j != arrayMainTwo.GetLength(1) - 1)
+                            TwoDim.Write(arrayMainTwo[i, j] + " ");
+                        else
+                            TwoDim.WriteLine(arrayMainTwo[i, j]);
+                }
+                TwoDim.Close();
+                MessageBox.Show("Массив записан");
+            }
+            else
+                MessageBox.Show("Записывать нечего.", "Ошибка");
+        }
+
+        private void TornSaveButton_Click(object sender, EventArgs e)
+        {
+            if (Form2.isInitialized)
+            {
+                if (!File.Exists("Torn Array.txt"))
+                {
+                    var file = File.Create("Torn Array.txt");
+                    file.Close();
+                }
+                else
+                    File.WriteAllText("Torn Array.txt", string.Empty);
+                StreamWriter Torn = new StreamWriter("Torn Array.txt");
+                for (int i = 0; i < arrayMainTorn.Length; i++)
+                {
+                    for (int j = 0; j < arrayMainTorn[i].Length; j++)
+                        if (j != arrayMainTorn[i].Length - 1)
+                            Torn.Write(arrayMainTorn[i][j] + " ");
+                        else
+                            Torn.WriteLine(arrayMainTorn[i][j]);
+                }
+                Torn.Close();
+                MessageBox.Show("Массив записан");
+            }
+            else
+                MessageBox.Show("Записывать нечего.", "Ошибка");
+        }
+
+        private void OneDimEditButton_Click(object sender, EventArgs e)
+        {
+            isEdit1 = true;
+            Form3 f = new Form3();
+            f.ShowDialog();
+            f.Dispose();
+            Form3.textBoxes.Clear();
+            Form3.labels.Clear();
+            if (arrayMainOne.Length > 0)
+                OneDimPrint();
+            isEdit1 = false;
+        }
+
+        private void TwoDimEditButton_Click(object sender, EventArgs e)
+        {
+            isEdit2 = true;
+            Form4 f = new Form4();
+            f.ShowDialog();
+            f.Dispose();
+            Form4.textBoxes.Clear();
+            Form4.labels.Clear();
+            if (arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
+                TwoDimPrint();
+            isEdit2 = false;
+        }
+
+        private void TornEditButton_Click(object sender, EventArgs e)
+        {
+            if (Form2.isInitialized)
+            {
+                isEdit3 = true;
+                Form2 f = new Form2();
+                f.ShowDialog();
+                f.Dispose();
+                Form2.textBoxes.Clear();
+                Form2.labels.Clear();
+                if (Form2.isInitialized)
+                    TornPrint();
+                isEdit3 = false;
+            }
+            else
+                MessageBox.Show("Не с чем работать.", "Ошибка");
         }
     }
 }

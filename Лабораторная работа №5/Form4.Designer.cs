@@ -31,6 +31,7 @@
             button1 = new Button();
             textBox1 = new TextBox();
             label1 = new Label();
+            button2 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -60,14 +61,29 @@
             label1.TabIndex = 2;
             label1.Text = "Введите параметры массива через запятую";
             // 
+            // button2
+            // 
+            button2.Location = new Point(12, 9);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 3;
+            button2.Text = "Утвердить";
+            button2.UseVisualStyleBackColor = true;
+            button2.Visible = false;
+            button2.Click += button2_Click;
+            // 
             // Form4
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            AutoSize = true;
             ClientSize = new Size(283, 82);
+            Controls.Add(button2);
             Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(button1);
+            MaximumSize = new Size(520, 320);
             Name = "Form4";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form4";
@@ -80,5 +96,6 @@
         private Button button1;
         private TextBox textBox1;
         private Label label1;
+        private Button button2;
     }
 }

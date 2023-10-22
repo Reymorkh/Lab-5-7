@@ -44,15 +44,25 @@ namespace Лабораторная_работа__5
         public Form2()
         {
             InitializeComponent();
-            if (Form1.firstTime == false)
+            if (Form1.isEdit3 == true)
             {
                 HeightButton.Visible = false;
                 textBox1.Visible = false;
-            }
-            else
-            {
-                HeightButton.Visible = true;
-                textBox1.Visible = true;
+                MainLabel.Visible = true;
+                int j, i, length = 0;
+                for (i = 0; i < arrayTorn.Length; i++)
+                {
+                    LabelPrinter(-0.5, i, i + 1);
+                    if (length < arrayTorn[i].Length)
+                        length = arrayTorn[i].Length;
+                    for (j = 0; j < arrayTorn[i].Length; j++)
+                        TextBoxPrinter(j, i);
+                }
+
+                for (i = 0; i < length; i++)
+                    LabelPrinter(i, -0.8, i + 1);
+                MainLabel.Text = "Введите элементы массива.";
+                PseudoMainButton.Visible = true;
             }
         }
 
@@ -83,7 +93,7 @@ namespace Лабораторная_работа__5
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            isInitialized = false;
+            //isInitialized = false;
         }
 
         private void HeightButton_Click(object sender, EventArgs e)
@@ -100,8 +110,8 @@ namespace Лабораторная_работа__5
                     MainLabel.Visible = true;
                     for (int i = 0; i < arrayTorn.Length; i++)
                     {
-                        TextBoxPrinter(i, 0);
-                        LabelPrinter(i, -0.8, i + 1);
+                        TextBoxPrinter(0, i);
+                        LabelPrinter(-0.5, i, i + 1);
                     }
                 }
                 else
@@ -147,7 +157,7 @@ namespace Лабораторная_работа__5
                 PseudoMainButton.Visible = true;
             }
             else
-                MessageBox.Show("Не все введённые данные соответствуют типу int или являются больше нуля." + Environment.NewLine + "При закрытии окна сохранятся длины строк, но не элементы внутри них.", "Ошибка");
+                MessageBox.Show("Не все введённые данные соответствуют типу int или являются больше нуля.", "Ошибка");
         }
 
         private void PseudoMainButton_Click(object sender, EventArgs e)
