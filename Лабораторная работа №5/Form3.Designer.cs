@@ -76,13 +76,14 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             AutoSize = true;
             ClientSize = new Size(305, 82);
             Controls.Add(button2);
             Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(button1);
-            MaximumSize = new Size(600, 600);
+            MaximumSize = new Size(600, 150);
             Name = "Form3";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form3";

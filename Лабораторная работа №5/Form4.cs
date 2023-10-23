@@ -21,16 +21,22 @@ namespace Лабораторная_работа__5
         public static bool isInitialized;
         public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
         public static int tabindex = 8;
+        public static int[,] arrayTwo;
         public static List<TextBox> textBoxes = new List<TextBox>();
         public static List<Label> labels = new List<Label>();
 
         public Form4()
         {
             InitializeComponent();
-            if Form1.isEdit1 = true;
-            button1.Visible = false;
-            textbox1.Visible = false;
-            label1.Visible = false;
+            if (Form1.isEdit2 == true)
+            {
+                button1.Visible = false;
+                textBox1.Visible = false;
+                label1.Visible = false;
+                button2.Visible = true;
+                Printer();
+                TextToBoxes();
+            }
         }
 
         public void TextBoxPrinter(double multiplierLeft, double multiplierTop)
@@ -56,6 +62,19 @@ namespace Лабораторная_работа__5
             newLabel.AutoSize = true;
             labels.Add(newLabel);
             Controls.Add(newLabel);
+        }
+
+        public void Printer()
+        {
+            for (int i = 0; i < arrayTwo.GetLength(0); i++)
+            {
+                LabelPrinter(-0.5, i, i + 1); //принтит числа слева сверху-внизу
+                for (int j = 0; j < arrayTwo.GetLength(1); j++)
+                    TextBoxPrinter(j, i);
+            }
+            for (int i = 0; i < arrayTwo.GetLength(1); i++)
+                LabelPrinter(i, -0.8, i + 1);
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -86,21 +105,13 @@ namespace Лабораторная_работа__5
 
             if (int.TryParse(strIndex1, out index1) && int.TryParse(strIndex2, out index2))
             {
-                Form1.arrayMainTwo = new int[index1, index2];
+                arrayTwo = new int[index1, index2];
                 isInitialized = true;
                 button2.Visible = true;
                 button1.Visible = false;
                 label1.Visible = false;
                 textBox1.Visible = false;
-                for (i = 0; i < Form1.arrayMainTwo.GetLength(0); i++)
-                {
-                    LabelPrinter(-0.5, i, i + 1);
-                    for (int j = 0; j < Form1.arrayMainTwo.GetLength(1); j++)
-                        TextBoxPrinter(j, i);
-                }
-
-                for (i = 0; i < Form1.arrayMainTwo.GetLength(1); i++)
-                    LabelPrinter(i, -0.8, i + 1);
+                Printer();
             }
             else
                 MessageBox.Show("Попробуйте другой ввод.", "Ошибка");
@@ -143,19 +154,34 @@ namespace Лабораторная_работа__5
         public void BoxesToArray()
         {
             int j, boxIndex = 0, temp;
-            for (int i = 0; i < Form1.arrayMainTwo.GetLength(0); i++)
+            for (int i = 0; i < arrayTwo.GetLength(0); i++)
             {
-                for (j = 0; j < Form1.arrayMainTwo.GetLength(1); j++)
+                for (j = 0; j < arrayTwo.GetLength(1); j++)
                 {
                     if (int.TryParse(textBoxes[boxIndex].Text, out temp))
-                        Form1.arrayMainTwo[i, j] = temp;
+                        arrayTwo[i, j] = temp;
                     else
-                        Form1.arrayMainTwo[i, j] = 0;
+                        arrayTwo[i, j] = 0;
                     boxIndex++;
                 }
             }
+            Form1.arrayMainTwo = arrayTwo;
             isInitialized = true;
             this.Close();
+        }
+        
+        public void TextToBoxes()
+        {
+            int j, boxIndex = 0, temp;
+            for (int i = 0; i < arrayTwo.GetLength(0); i++)
+            {
+                for (j = 0; j < arrayTwo.GetLength(1); j++)
+                {
+                    if (arrayTwo[i, j] !=0)
+                        textBoxes[boxIndex].Text = Convert.ToString(arrayTwo[i, j]);
+                    boxIndex++;
+                }
+            }
         }
     }
 }

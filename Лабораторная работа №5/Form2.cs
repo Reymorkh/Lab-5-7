@@ -49,18 +49,8 @@ namespace Лабораторная_работа__5
                 HeightButton.Visible = false;
                 textBox1.Visible = false;
                 MainLabel.Visible = true;
-                int j, i, length = 0;
-                for (i = 0; i < arrayTorn.Length; i++)
-                {
-                    LabelPrinter(-0.5, i, i + 1);
-                    if (length < arrayTorn[i].Length)
-                        length = arrayTorn[i].Length;
-                    for (j = 0; j < arrayTorn[i].Length; j++)
-                        TextBoxPrinter(j, i);
-                }
-
-                for (i = 0; i < length; i++)
-                    LabelPrinter(i, -0.8, i + 1);
+                Printer();
+                TextToBoxes();
                 MainLabel.Text = "Введите элементы массива.";
                 PseudoMainButton.Visible = true;
             }
@@ -91,9 +81,24 @@ namespace Лабораторная_работа__5
             Controls.Add(newLabel);
         }
 
+        public void Printer()
+        {
+            int length = 0;
+            for (int i = 0; i < arrayTorn.Length; i++)
+            {
+                LabelPrinter(-0.5, i, i + 1);
+                if (length < arrayTorn[i].Length)
+                    length = arrayTorn[i].Length;
+                for (int j = 0; j < arrayTorn[i].Length; j++)
+                    TextBoxPrinter(j, i);
+            }
+            for (int i = 0; i < length; i++)
+                LabelPrinter(i, -0.8, i + 1);
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
-            //isInitialized = false;
+
         }
 
         private void HeightButton_Click(object sender, EventArgs e)
@@ -140,18 +145,7 @@ namespace Лабораторная_работа__5
                     arrayTornLength(textBoxes.IndexOf(x), Convert.ToInt32(x.Text));
                 }
                 textBoxEraser();
-                int j, i, length = 0;
-                for (i = 0; i < arrayTorn.Length; i++)
-                {
-                    LabelPrinter(-0.5, i, i + 1);
-                    if (length < arrayTorn[i].Length)
-                        length = arrayTorn[i].Length;
-                    for (j = 0; j < arrayTorn[i].Length; j++)
-                        TextBoxPrinter(j, i);
-                }
-
-                for (i = 0; i < length; i++)
-                    LabelPrinter(i, -0.8, i + 1);
+                Printer();
                 MainButton.Visible = false;
                 MainLabel.Text = "Введите элементы массива.";
                 PseudoMainButton.Visible = true;
@@ -184,24 +178,38 @@ namespace Лабораторная_работа__5
                     BoxesToArray();
             }
         }
-        
+
         public void BoxesToArray()
         {
-            int j, slozhno = 0, temp;
+            int boxIndex = 0, temp;
             for (int i = 0; i < arrayTorn.Length; i++)
             {
-                for (j = 0; j < arrayTorn[i].Length; j++)
+                for (int j = 0; j < arrayTorn[i].Length; j++)
                 {
-                    if (int.TryParse(textBoxes[slozhno].Text, out temp))
+                    if (int.TryParse(textBoxes[boxIndex].Text, out temp))
                         arrayTorn[i][j] = temp;
                     else
                         arrayTorn[i][j] = 0;
-                    slozhno++;
+                    boxIndex++;
                 }
             }
             Form1.arrayMainTorn = arrayTorn;
             isInitialized = true;
             this.Close();
+        }
+        
+        public void TextToBoxes()
+        {
+            int boxIndex = 0, temp;
+            for (int i = 0; i < arrayTorn.Length; i++)
+            {
+                for (int j = 0; j < arrayTorn[i].Length; j++)
+                {
+                    if (arrayTorn[i][j] != 0)
+                        textBoxes[boxIndex].Text = Convert.ToString(arrayTorn[i][j]);
+                    boxIndex++;
+                }
+            }
         }
 
         public static void textBoxEraser()

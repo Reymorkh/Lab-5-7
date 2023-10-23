@@ -9,7 +9,7 @@ namespace Лабораторная_работа__5
         public static int[] arrayMainOne;
         public static int[,] arrayMainTwo;
         public static int[][] arrayMainTorn;
-        public static bool isEdit1, isEdit2, isEdit3;
+        public static bool isEdit1 = false, isEdit2 = false, isEdit3 = false;
         public static Random random = new Random();
 
 
@@ -73,6 +73,7 @@ namespace Лабораторная_работа__5
             for (int i = temp; i < temp + x; i++)
                 MainWindow.Text += arrayMainOne[i] + " ";
         }
+
         private void OneDimCreateButton_Click(object sender, EventArgs e)
         {
             Form3 f = new Form3();
@@ -80,7 +81,7 @@ namespace Лабораторная_работа__5
             f.Dispose();
             Form3.textBoxes.Clear();
             Form3.labels.Clear();
-            if (arrayMainOne.Length > 0)
+            if (Form3.isInitialized)
                 OneDimPrint();
         }
 
@@ -112,7 +113,7 @@ namespace Лабораторная_работа__5
             f.Dispose();
             Form4.textBoxes.Clear();
             Form4.labels.Clear();
-            if (arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
+            if (Form4.isInitialized)
                 TwoDimPrint();
         }
 
@@ -248,8 +249,6 @@ namespace Лабораторная_работа__5
             }
             else
                 MessageBox.Show("Не с чем работать.", "Ошибка");
-
-
         }
 
         public static int[][] Task3(int[][] arrayMain, int idx)
@@ -346,28 +345,38 @@ namespace Лабораторная_работа__5
 
         private void OneDimEditButton_Click(object sender, EventArgs e)
         {
-            isEdit1 = true;
-            Form3 f = new Form3();
-            f.ShowDialog();
-            f.Dispose();
-            Form3.textBoxes.Clear();
-            Form3.labels.Clear();
-            if (arrayMainOne.Length > 0)
-                OneDimPrint();
-            isEdit1 = false;
+            if (Form3.isInitialized)
+            {
+                isEdit1 = true;
+                Form3 f = new Form3();
+                f.ShowDialog();
+                f.Dispose();
+                Form3.textBoxes.Clear();
+                Form3.labels.Clear();
+                if (arrayMainOne.Length > 0)
+                    OneDimPrint();
+                isEdit1 = false;
+            }
+            else
+                MessageBox.Show("Не с чем работать.", "Ошибка");
         }
 
         private void TwoDimEditButton_Click(object sender, EventArgs e)
         {
-            isEdit2 = true;
-            Form4 f = new Form4();
-            f.ShowDialog();
-            f.Dispose();
-            Form4.textBoxes.Clear();
-            Form4.labels.Clear();
-            if (arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
-                TwoDimPrint();
-            isEdit2 = false;
+            if (Form4.isInitialized)
+            {
+                isEdit2 = true;
+                Form4 f = new Form4();
+                f.ShowDialog();
+                f.Dispose();
+                Form4.textBoxes.Clear();
+                Form4.labels.Clear();
+                if (arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
+                    TwoDimPrint();
+                isEdit2 = false;
+            }
+            else
+                MessageBox.Show("Не с чем работать.", "Ошибка");
         }
 
         private void TornEditButton_Click(object sender, EventArgs e)

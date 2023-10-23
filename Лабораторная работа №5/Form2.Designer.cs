@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             HeightButton = new Button();
             textBox1 = new TextBox();
             MainButton = new Button();
@@ -36,18 +35,9 @@
             PseudoMainButton = new Button();
             SuspendLayout();
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(688, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(80, 15);
-            label1.TabIndex = 0;
-            label1.Text = "ПРИКОЛ, ХА!";
-            // 
             // HeightButton
             // 
-            HeightButton.Location = new Point(132, 23);
+            HeightButton.Location = new Point(121, 12);
             HeightButton.Name = "HeightButton";
             HeightButton.Size = new Size(108, 28);
             HeightButton.TabIndex = 1;
@@ -57,7 +47,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(26, 23);
+            textBox1.Location = new Point(15, 12);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 2;
@@ -99,14 +89,15 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
+            AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(476, 89);
             Controls.Add(PseudoMainButton);
             Controls.Add(MainLabel);
             Controls.Add(MainButton);
             Controls.Add(textBox1);
             Controls.Add(HeightButton);
-            Controls.Add(label1);
+            MaximumSize = new Size(816, 489);
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form2";
@@ -116,8 +107,6 @@
         }
 
         #endregion
-
-        private Label label1;
         private Button HeightButton;
         private TextBox textBox1;
         private Button MainButton;

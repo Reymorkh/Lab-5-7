@@ -21,13 +21,24 @@ namespace Лабораторная_работа__5
         public static bool isInitialized = false;
         public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
         public static int tabindex = 8;
+        public static int[] arrayOne;
         public static List<TextBox> textBoxes = new List<TextBox>();
         public static List<Label> labels = new List<Label>();
 
         public Form3()
         {
             InitializeComponent();
+            if (Form1.isEdit1 == true)
+            {
+                button1.Visible = false;
+                textBox1.Visible = false;
+                label1.Visible = false;
+                button2.Visible = false;
+                Printer();
+                TextToBoxes();
+            }
         }
+
         public void TextBoxPrinter(double multiplierLeft, double multiplierTop)
         {
             TextBox newTextBox = new TextBox();
@@ -53,22 +64,28 @@ namespace Лабораторная_работа__5
             Controls.Add(newLabel);
         }
 
+        public void Printer()
+        {
+            LabelPrinter(-0.5, 0, 0 + 1);
+            for (int i = 0; i < arrayOne.Length; i++)
+            {
+                TextBoxPrinter(i, 0);
+                LabelPrinter(i, -0.8, i + 1);
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             int temp;
             if (int.TryParse(textBox1.Text, out temp) && temp > 0)
             {
-                Form1.arrayMainOne = new int[temp];
+                arrayOne = new int[temp];
                 isInitialized = true;
                 label1.Visible = false;
                 textBox1.Visible = false;
                 button1.Visible = false;
                 button2.Visible = true;
-                LabelPrinter(-0.5, 0, 0 + 1);
-                for (int i = 0; i < Form1.arrayMainOne.Length; i++)
-                    TextBoxPrinter(i, 0);
-                for (int i = 0; i < Form1.arrayMainOne.Length; i++)
-                    LabelPrinter(i, -0.8, i + 1);
+                Printer();
             }
             else
                 MessageBox.Show("Integer больше нуля, пожалуйста.", "Ошибка");
@@ -110,16 +127,29 @@ namespace Лабораторная_работа__5
         public void BoxesToArray()
         {
             int j, boxIndex = 0, temp;
-            for (int i = 0; i < Form1.arrayMainOne.Length; i++)
+            for (int i = 0; i < arrayOne.Length; i++)
             {
                 if (int.TryParse(textBoxes[boxIndex].Text, out temp))
-                    Form1.arrayMainOne[i] = temp;
+                    arrayOne[i] = temp;
                 else
-                    Form1.arrayMainOne[i] = 0;
+                    arrayOne[i] = 0;
                 boxIndex++;
             }
+            Form1.arrayMainOne = arrayOne;
             isInitialized = true;
             this.Close();
         }
+
+        public void TextToBoxes()
+        {
+            int j, boxIndex = 0, temp;
+            for (int i = 0; i < arrayOne.Length; i++)
+            {
+                if (arrayOne[i] != 0)
+                    textBoxes[boxIndex].Text = Convert.ToString(arrayOne[i]);
+                boxIndex++;
+            }
+        }
     }
 }
+
