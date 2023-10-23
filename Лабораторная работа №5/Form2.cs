@@ -96,11 +96,6 @@ namespace Лабораторная_работа__5
                 LabelPrinter(i, -0.8, i + 1);
         }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void HeightButton_Click(object sender, EventArgs e)
         {
             int temp;
@@ -197,7 +192,7 @@ namespace Лабораторная_работа__5
             isInitialized = true;
             this.Close();
         }
-        
+
         public void TextToBoxes()
         {
             int boxIndex = 0, temp;

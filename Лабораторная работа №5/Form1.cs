@@ -1,4 +1,6 @@
+using System.CodeDom.Compiler;
 using System.Security.Policy;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Лабораторная_работа__5
 {
@@ -11,16 +13,12 @@ namespace Лабораторная_работа__5
         public static int[][] arrayMainTorn;
         public static bool isEdit1 = false, isEdit2 = false, isEdit3 = false;
         public static Random random = new Random();
+        //public static List <string> StringLoadList = new List <string> ();
 
 
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void FillTornArray_Click(object sender, EventArgs e)
@@ -38,6 +36,7 @@ namespace Лабораторная_работа__5
         {
             OneDimPrint();
         }
+
         public void OneDimPrint()
         {
             MainWindow.Text = "Одномерный массив массив:";
@@ -267,23 +266,7 @@ namespace Лабораторная_работа__5
         {
             if (Form3.isInitialized)
             {
-                if (!File.Exists("One Dimensional Array.txt"))
-                {
-                    var file = File.Create("One Dimensional Array.txt");
-                    file.Close();
-                }
-                else
-                    File.WriteAllText("One Dimensional Array.txt", string.Empty);
-                StreamWriter OneDim = new StreamWriter("One Dimensional Array.txt");
-                for (int i = 0; i < arrayMainOne.Length; i++)
-                {
-                    if (i != arrayMainOne.Length - 1)
-                        OneDim.Write(arrayMainOne[i] + " ");
-                    else
-                        OneDim.Write(arrayMainOne[i]);
-                }
-                OneDim.Close();
-                MessageBox.Show("Массив записан");
+                FullSaver("One Dimensional Array.txt");
             }
             else
                 MessageBox.Show("Записывать нечего.", "Ошибка");
@@ -293,24 +276,7 @@ namespace Лабораторная_работа__5
         {
             if (Form4.isInitialized)
             {
-                if (!File.Exists("Two Dimensional Array.txt"))
-                {
-                    var file = File.Create("Two Dimensional Array.txt");
-                    file.Close();
-                }
-                else
-                    File.WriteAllText("Two Dimensional Array.txt", string.Empty);
-                StreamWriter TwoDim = new StreamWriter("Two Dimensional Array.txt");
-                for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
-                {
-                    for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
-                        if (j != arrayMainTwo.GetLength(1) - 1)
-                            TwoDim.Write(arrayMainTwo[i, j] + " ");
-                        else
-                            TwoDim.WriteLine(arrayMainTwo[i, j]);
-                }
-                TwoDim.Close();
-                MessageBox.Show("Массив записан");
+                FullSaver("Two Dimensional Array.txt");
             }
             else
                 MessageBox.Show("Записывать нечего.", "Ошибка");
@@ -320,27 +286,56 @@ namespace Лабораторная_работа__5
         {
             if (Form2.isInitialized)
             {
-                if (!File.Exists("Torn Array.txt"))
-                {
-                    var file = File.Create("Torn Array.txt");
-                    file.Close();
-                }
-                else
-                    File.WriteAllText("Torn Array.txt", string.Empty);
-                StreamWriter Torn = new StreamWriter("Torn Array.txt");
-                for (int i = 0; i < arrayMainTorn.Length; i++)
-                {
-                    for (int j = 0; j < arrayMainTorn[i].Length; j++)
-                        if (j != arrayMainTorn[i].Length - 1)
-                            Torn.Write(arrayMainTorn[i][j] + " ");
-                        else
-                            Torn.WriteLine(arrayMainTorn[i][j]);
-                }
-                Torn.Close();
-                MessageBox.Show("Массив записан");
+                FullSaver("Torn Array.txt");
             }
             else
                 MessageBox.Show("Записывать нечего.", "Ошибка");
+        }
+
+        public void FullSaver(string path)
+        {
+            if (!File.Exists(path))
+            {
+                var fie = File.Create(path);
+                fie.Close();
+            }
+            else
+                File.WriteAllText(path, string.Empty);
+            StreamWriter file = new StreamWriter(path);
+            switch(path)
+            {
+                case "One Dimensional Array.txt":
+                    for (int i = 0; i < arrayMainOne.Length; i++)
+                    {
+                        if (i != arrayMainOne.Length - 1)
+                            file.Write(arrayMainOne[i] + " ");
+                        else
+                            file.Write(arrayMainOne[i]);
+                    }
+                    break;
+                case "Two Dimensional Array.txt":
+                    for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
+                            if (j != arrayMainTwo.GetLength(1) - 1)
+                                file.Write(arrayMainTwo[i, j] + " ");
+                            else
+                                file.WriteLine(arrayMainTwo[i, j]);
+                    }
+                    break;
+                case "Torn Array.txt":
+                    for (int i = 0; i < arrayMainTorn.Length; i++)
+                    {
+                        for (int j = 0; j < arrayMainTorn[i].Length; j++)
+                            if (j != arrayMainTorn[i].Length - 1)
+                                file.Write(arrayMainTorn[i][j] + " ");
+                            else
+                                file.WriteLine(arrayMainTorn[i][j]);
+                    }
+                    break;
+            }
+            file.Close();
+            MessageBox.Show("Массив записан");
         }
 
         private void OneDimEditButton_Click(object sender, EventArgs e)
@@ -395,6 +390,143 @@ namespace Лабораторная_работа__5
             }
             else
                 MessageBox.Show("Не с чем работать.", "Ошибка");
+        }
+
+        public static string FileReader()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "E:\\stuff\\Проекты VS\\Лабораторная работа №5\\Лабораторная работа №5\\bin\\Debug\\net7.0-windows";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
+            return fileContent;
+        }
+
+        public static bool Qualifier(string text, int isArray)
+        {
+            string[] arrStrings = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (isArray == 1)
+                if (arrStrings.Length != 1)
+                    return false;
+                else
+                    return true;
+
+            int length, lastLength = 0;
+
+            foreach (string s in arrStrings)
+            {
+                string[] temp = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                length = temp.Length;
+                if (Array.IndexOf(arrStrings, s) == 0)
+                    lastLength = length;
+                if (length != lastLength)
+                    switch (isArray)
+                    {
+                        case 2:
+                            return false;
+                        case 3:
+                            return true;
+                    }
+                lastLength = length;
+            }
+            if (isArray == 2)
+                return true;
+            if (isArray == 3)
+                return true;
+            return false;
+        }
+
+        private void OneDimLoadButton_Click(object sender, EventArgs e)
+        {
+            string fileContent = FileReader();
+            if (Qualifier(fileContent, 1))
+            {
+                string[] oneLine = fileContent.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                int[] OneDimArray = new int [oneLine.Length];
+                for (int i = 0; i < oneLine.Length; i++)
+                {
+                    int x;
+                    if (int.TryParse(oneLine[i], out x))
+                        OneDimArray[i] = x;
+                }
+                arrayMainOne = OneDimArray;
+                Form3.isInitialized = true;
+                OneDimPrint();
+            }
+            else
+                MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как одномерный массив целых чисел в пределах типа integer.", "Ошибка");
+        }
+
+        private void TwoDimLoadButton_Click(object sender, EventArgs e)
+        {
+            string fileContent = FileReader();
+            if (Qualifier(fileContent, 2))
+            {
+                string[] lineNumber = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] columnNubmer = lineNumber[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                int[,] TwoDimArray = new int[lineNumber.Length,columnNubmer.Length];
+
+                for (int i = 0; i < lineNumber.Length; i++)
+                {
+                    columnNubmer = lineNumber[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    for (int j = 0; j < columnNubmer.Length; j++)
+                    {
+                        int x;
+                        if (int.TryParse(columnNubmer[j], out x))
+                            TwoDimArray[i,j] = x;
+                    }
+                }
+                arrayMainTwo = TwoDimArray;
+                Form4.isInitialized = true;
+                TwoDimPrint();
+            }
+            else
+                MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как двумерный массив целых чисел в пределах типа integer.", "Ошибка");
+        }
+
+        private void TornLoadButton_Click(object sender, EventArgs e)
+        {
+            string fileContent = FileReader();
+            if (Qualifier(fileContent, 3))
+            {
+                string[] lineNumber = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] columnNubmer;
+                int[][] TornArray = new int[lineNumber.Length][];
+                for (int i = 0; i < lineNumber.Length; i++)
+                {
+                    columnNubmer = lineNumber[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    TornArray[i] = new int[columnNubmer.Length];
+                    for (int j = 0; j < TornArray[i].Length; j++)
+                    {
+                        int x;
+                        if (int.TryParse(columnNubmer[j], out x))
+                            TornArray[i][j] = x;
+                    }
+                }
+                arrayMainTorn = TornArray;
+                Form2.isInitialized = true;
+                TornPrint();
+            }
+            else
+                MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как рваный массив целых чисел в пределах типа integer.", "Ошибка");
         }
     }
 }

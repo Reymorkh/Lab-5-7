@@ -314,6 +314,7 @@
             OneDimLoadButton.TabIndex = 25;
             OneDimLoadButton.Text = "Одномерный";
             OneDimLoadButton.UseVisualStyleBackColor = true;
+            OneDimLoadButton.Click += OneDimLoadButton_Click;
             // 
             // TwoDimLoadButton
             // 
@@ -323,6 +324,7 @@
             TwoDimLoadButton.TabIndex = 26;
             TwoDimLoadButton.Text = "Двумерный";
             TwoDimLoadButton.UseVisualStyleBackColor = true;
+            TwoDimLoadButton.Click += TwoDimLoadButton_Click;
             // 
             // TornLoadButton
             // 
@@ -332,6 +334,7 @@
             TornLoadButton.TabIndex = 27;
             TornLoadButton.Text = "Рваный";
             TornLoadButton.UseVisualStyleBackColor = true;
+            TornLoadButton.Click += TornLoadButton_Click;
             // 
             // label9
             // 
@@ -432,7 +435,6 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
-            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

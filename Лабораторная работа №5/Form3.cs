@@ -80,7 +80,6 @@ namespace Лабораторная_работа__5
             if (int.TryParse(textBox1.Text, out temp) && temp > 0)
             {
                 arrayOne = new int[temp];
-                isInitialized = true;
                 label1.Visible = false;
                 textBox1.Visible = false;
                 button1.Visible = false;
