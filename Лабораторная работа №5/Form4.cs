@@ -27,6 +27,10 @@ namespace Лабораторная_работа__5
         public Form4()
         {
             InitializeComponent();
+            if Form1.isEdit1 = true;
+            button1.Visible = false;
+            textbox1.Visible = false;
+            label1.Visible = false;
         }
 
         public void TextBoxPrinter(double multiplierLeft, double multiplierTop)
