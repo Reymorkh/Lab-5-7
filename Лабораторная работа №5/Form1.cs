@@ -39,7 +39,7 @@ namespace Лабораторная_работа__5
 
         public void OneDimPrint()
         {
-            MainWindow.Text = "Одномерный массив массив:";
+            MainWindow.Text = "Одномерный массив:";
             if (Form3.isInitialized)
             {
                 int temp = 0;
@@ -467,6 +467,7 @@ namespace Лабораторная_работа__5
                         OneDimArray[i] = x;
                 }
                 arrayMainOne = OneDimArray;
+                Form3.arrayOne = arrayMainOne;
                 Form3.isInitialized = true;
                 OneDimPrint();
             }
@@ -494,6 +495,7 @@ namespace Лабораторная_работа__5
                     }
                 }
                 arrayMainTwo = TwoDimArray;
+                Form4.arrayTwo = arrayMainTwo;
                 Form4.isInitialized = true;
                 TwoDimPrint();
             }
@@ -522,6 +524,7 @@ namespace Лабораторная_работа__5
                     }
                 }
                 arrayMainTorn = TornArray;
+                Form2.arrayTorn = arrayMainTorn;
                 Form2.isInitialized = true;
                 TornPrint();
             }

@@ -21,7 +21,6 @@ namespace Лабораторная_работа__5
         public static int index1 = -1, index2 = -1;
         public static List<TextBox> textBoxes = new List<TextBox>();
         public static List<Label> labels = new List<Label>();
-        //public static List<List> spisokSpiskov = new List<List>();
         public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
         public static int tabindex = 8;
         public static int[] arrayMainOne;
@@ -34,12 +33,11 @@ namespace Лабораторная_работа__5
             int[][] array = new int[x][];
             return array;
         }
+
         public static void arrayTornLength(int x, int y)
         {
             arrayTorn[x] = new int[y];
         }
-
-
 
         public Form2()
         {

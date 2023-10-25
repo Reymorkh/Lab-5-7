@@ -33,7 +33,7 @@ namespace Лабораторная_работа__5
                 button1.Visible = false;
                 textBox1.Visible = false;
                 label1.Visible = false;
-                button2.Visible = false;
+                button2.Visible = true;
                 Printer();
                 TextToBoxes();
             }
@@ -89,6 +89,7 @@ namespace Лабораторная_работа__5
             else
                 MessageBox.Show("Integer больше нуля, пожалуйста.", "Ошибка");
         }
+
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             var textBox = sender as TextBox;
@@ -151,4 +152,3 @@ namespace Лабораторная_работа__5
         }
     }
 }
-
