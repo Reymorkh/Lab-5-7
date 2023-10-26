@@ -13,8 +13,6 @@ namespace Лабораторная_работа__5
     public static int[][] arrayMainTorn;
     public static bool isEdit1 = false, isEdit2 = false, isEdit3 = false;
     public static Random random = new Random();
-    //public static List <string> StringLoadList = new List <string> ();
-
 
     public Form1()
     {
@@ -28,49 +26,12 @@ namespace Лабораторная_работа__5
       f.Dispose();
       Form2.textBoxes.Clear();
       Form2.labels.Clear();
-      if (Form2.isInitialized)
-        TornPrint();
+      ActionsWF.BoxPrint(Form2.isInitialized, MainWindow, arrayMainTorn);
     }
 
     private void OneDimPrintButton_Click(object sender, EventArgs e)
     {
-      OneDimPrint();
-    }
-
-    public void OneDimPrint()
-    {
-      MainWindow.Text = "Одномерный массив:";
-      if (Form3.isInitialized)
-      {
-        int temp = 0;
-        do
-        {
-          MainWindow.Text += Environment.NewLine;
-          if (arrayMainOne.Length % 10 != 0)
-            switch (arrayMainOne.Length - temp > 10)
-            {
-              case (true):
-                OneDimSubPrint(temp, 10);
-                break;
-
-              case (false):
-                OneDimSubPrint(temp, arrayMainOne.Length - temp);
-                break;
-            }
-          else
-            OneDimSubPrint(temp, 10);
-          temp += 10;
-        }
-        while (temp < arrayMainOne.Length);
-      }
-      else
-        MessageBox.Show("Массив пока не инициализирован.", "Ошибка");
-    }
-
-    public void OneDimSubPrint(int temp, int x)
-    {
-      for (int i = temp; i < temp + x; i++)
-        MainWindow.Text += arrayMainOne[i] + " ";
+        ActionsWF.BoxPrint(Form3.isInitialized, MainWindow, arrayMainOne);
     }
 
     private void OneDimCreateButton_Click(object sender, EventArgs e)
@@ -80,29 +41,12 @@ namespace Лабораторная_работа__5
       f.Dispose();
       Form3.textBoxes.Clear();
       Form3.labels.Clear();
-      if (Form3.isInitialized)
-        OneDimPrint();
+      ActionsWF.BoxPrint(Form3.isInitialized, MainWindow, arrayMainOne);
     }
 
     private void TwoDimPrintButton_Click(object sender, EventArgs e)
     {
-      TwoDimPrint();
-    }
-
-    public void TwoDimPrint()
-    {
-      MainWindow.Text = "Двумерный массив:";
-      if (Form4.isInitialized)
-      {
-        for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
-        {
-          MainWindow.Text += Environment.NewLine;
-          for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
-            MainWindow.Text += Convert.ToString(arrayMainTwo[i, j]) + " ";
-        }
-      }
-      else
-        MessageBox.Show("Массив пока не инициализирован.", "Ошибка");
+      ActionsWF.BoxPrint(Form4.isInitialized, MainWindow, arrayMainTwo);
     }
 
     private void TwoDimCreateButton_Click(object sender, EventArgs e)
@@ -112,29 +56,12 @@ namespace Лабораторная_работа__5
       f.Dispose();
       Form4.textBoxes.Clear();
       Form4.labels.Clear();
-      if (Form4.isInitialized)
-        TwoDimPrint();
+      ActionsWF.BoxPrint(Form4.isInitialized, MainWindow, arrayMainTwo);
     }
 
     private void TornPrintButton_Click(object sender, EventArgs e)
     {
-      TornPrint();
-    }
-
-    public void TornPrint()
-    {
-      MainWindow.Text = "Рваный массив:";
-      if (Form2.isInitialized)
-      {
-        for (int i = 0; i < arrayMainTorn.Length; i++)
-        {
-          MainWindow.Text += Environment.NewLine;
-          for (int j = 0; j < arrayMainTorn[i].Length; j++)
-            MainWindow.Text += arrayMainTorn[i][j] + " ";
-        }
-      }
-      else
-        MessageBox.Show("Массив не инициализирован.", "Ошибка");
+      ActionsWF.BoxPrint(Form2.isInitialized, MainWindow, arrayMainTorn);
     }
 
     private void OneDimFillButton_Click(object sender, EventArgs e)
@@ -143,7 +70,7 @@ namespace Лабораторная_работа__5
       {
         for (int i = 0; i < arrayMainOne.Length; i++)
           arrayMainOne[i] = random.Next(-100, 100);
-        OneDimPrint();
+        ActionsWF.BoxPrint(Form3.isInitialized, MainWindow, arrayMainOne);
       }
       else
         MessageBox.Show("Массив не инициализирован.", "Ошибка");
@@ -156,7 +83,7 @@ namespace Лабораторная_работа__5
         for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
           for (int j = 0; j < arrayMainTwo.GetLength(1); j++)
             arrayMainTwo[i, j] = random.Next(-100, 100);
-        TwoDimPrint();
+        ActionsWF.BoxPrint(Form4.isInitialized, MainWindow, arrayMainTwo);
       }
       else
         MessageBox.Show("Массив не инициализирован.", "Ошибка");
@@ -168,8 +95,8 @@ namespace Лабораторная_работа__5
       {
         for (int i = 0; i < arrayMainTorn.Length; i++)
           for (int j = 0; j < arrayMainTorn[i].Length; j++)
-            arrayMainTorn[i][j] = random.Next(-100, 100);
-        TornPrint();
+            arrayMainTorn[i][j] = random.Next(-100, 100); 
+        ActionsWF.BoxPrint(Form2.isInitialized, MainWindow, arrayMainTorn);
       }
       else
         MessageBox.Show("Массив не инициализирован.", "Ошибка");
@@ -186,9 +113,11 @@ namespace Лабораторная_работа__5
             {
               arrayMainOne[i] = 0;
               for (i += 1; i < arrayMainOne.Length; i++)
-                SwapInt(ref arrayMainOne[i - 1], ref arrayMainOne[i]);
+                (arrayMainOne[i - 1], arrayMainOne[i]) = (arrayMainOne[i], arrayMainOne[i - 1]);
+              if (arrayMainOne.Length == 1)
+                Form3.isInitialized = false;
               Array.Resize(ref arrayMainOne, arrayMainOne.Length - 1);
-              OneDimPrint();
+              ActionsWF.BoxPrint(Form3.isInitialized, MainWindow, arrayMainOne);
               break;
             }
         if (i == arrayMainOne.Length)
@@ -196,13 +125,6 @@ namespace Лабораторная_работа__5
       }
       else
         MessageBox.Show("Массив не инициализирован.", "Ошибка");
-    }
-
-    public static void SwapInt(ref int a, ref int b)
-    {
-      int temp = a;
-      a = b;
-      b = temp;
     }
 
     private void Task2Button_Click(object sender, EventArgs e)
@@ -215,16 +137,18 @@ namespace Лабораторная_работа__5
         int[,] temp = new int[index1 + 1, index2];
         for (int i = 0; i < index1; i++) //i - строки, j - содержимое строк
         {
+          if (z == x)
+            z++;
           for (int j = 0; j < index2; j++)
           {
             temp[z, j] = arrayMainTwo[i, j];
           }
-          z++;
-          if (i + 1 == x)
+          if (z == x)
             z++;
+          z++;
         }
         arrayMainTwo = temp;
-        TwoDimPrint();
+        ActionsWF.BoxPrint(Form4.isInitialized, MainWindow, arrayMainTwo);
       }
     }
 
@@ -244,7 +168,7 @@ namespace Лабораторная_работа__5
         arrayMainTorn = Task3(arrayMainTorn, maxLengthIndex);
         if (arrayMainTorn.Length == 0)
           Form2.isInitialized = false;
-        TornPrint();
+        ActionsWF.BoxPrint(Form2.isInitialized, MainWindow, arrayMainTorn);
       }
       else
         MessageBox.Show("Не с чем работать.", "Ошибка");
@@ -313,6 +237,7 @@ namespace Лабораторная_работа__5
               file.Write(arrayMainOne[i]);
           }
           break;
+
         case "Two Dimensional Array.txt":
           for (int i = 0; i < arrayMainTwo.GetLength(0); i++)
           {
@@ -323,6 +248,7 @@ namespace Лабораторная_работа__5
                 file.WriteLine(arrayMainTwo[i, j]);
           }
           break;
+
         case "Torn Array.txt":
           for (int i = 0; i < arrayMainTorn.Length; i++)
           {
@@ -348,8 +274,7 @@ namespace Лабораторная_работа__5
         f.Dispose();
         Form3.textBoxes.Clear();
         Form3.labels.Clear();
-        if (arrayMainOne.Length > 0)
-          OneDimPrint();
+        ActionsWF.BoxPrint(Form3.isInitialized, MainWindow, arrayMainOne);
         isEdit1 = false;
       }
       else
@@ -366,8 +291,7 @@ namespace Лабораторная_работа__5
         f.Dispose();
         Form4.textBoxes.Clear();
         Form4.labels.Clear();
-        if (arrayMainTwo.GetLength(0) > 0 && arrayMainTwo.GetLength(1) > 0)
-          TwoDimPrint();
+        ActionsWF.BoxPrint(Form4.isInitialized, MainWindow, arrayMainTwo);
         isEdit2 = false;
       }
       else
@@ -384,8 +308,7 @@ namespace Лабораторная_работа__5
         f.Dispose();
         Form2.textBoxes.Clear();
         Form2.labels.Clear();
-        if (Form2.isInitialized)
-          TornPrint();
+        ActionsWF.BoxPrint(Form2.isInitialized, MainWindow, arrayMainTorn);
         isEdit3 = false;
       }
       else
@@ -418,46 +341,54 @@ namespace Лабораторная_работа__5
       return fileContent;
     }
 
-    public static bool Qualifier(string text, int isArray)
+    public static bool Qualifier(string text, int[] x)
     {
       string[] arrStrings = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+      if (arrStrings.Length == 1)
+        return true;
+      return false;
+    }
 
-      if (isArray == 1)
-        if (arrStrings.Length != 1)
-          return false;
-        else
-          return true;
-
-      int length, lastLength = 0;
-
+    public static bool Qualifier(string text, int[,] x)
+    {
+      string[] arrStrings = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+      int length = 0, lastLength = 0;
       foreach (string s in arrStrings)
       {
         string[] temp = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
         length = temp.Length;
-        if (Array.IndexOf(arrStrings, s) == 0)
+        if (Array.IndexOf(arrStrings, s) == 0) //Чтобы в самом начале приравнять последнюю длину к длине
           lastLength = length;
         if (length != lastLength)
-          switch (isArray)
-          {
-            case 2:
-              return false;
-            case 3:
-              return true;
-          }
-        lastLength = length;
+          return false;
       }
-      if (isArray == 2)
+      if (length == lastLength)
         return true;
-      if (isArray == 3)
-        return true;
+      return false;
+    }
+
+    public static bool Qualifier(string text, int[][] x)
+    {
+      string[] arrStrings = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+      int length, lastLength = 0;
+      foreach (string s in arrStrings)
+      {
+        string[] temp = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        length = temp.Length;
+        if (Array.IndexOf(arrStrings, s) == 0) //Чтобы в самом начале приравнять последнюю длину к длине
+          lastLength = length;
+        if (length != lastLength)
+          return true;
+      }
       return false;
     }
 
     private void OneDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (Qualifier(fileContent, 1))
+      if (Qualifier(fileContent, arrayMainOne))
       {
+        int errorNumber = 0;
         string[] oneLine = fileContent.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
         int[] OneDimArray = new int[oneLine.Length];
         for (int i = 0; i < oneLine.Length; i++)
@@ -465,11 +396,15 @@ namespace Лабораторная_работа__5
           int x;
           if (int.TryParse(oneLine[i], out x))
             OneDimArray[i] = x;
+          else
+            errorNumber++;
         }
         arrayMainOne = OneDimArray;
         Form3.arrayOne = arrayMainOne;
         Form3.isInitialized = true;
-        OneDimPrint();
+        ActionsWF.BoxPrint(Form3.isInitialized, MainWindow, arrayMainOne);
+        if (errorNumber > 0)
+          MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
       }
       else
         MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как одномерный массив целых чисел в пределах типа integer.", "Ошибка");
@@ -478,8 +413,9 @@ namespace Лабораторная_работа__5
     private void TwoDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (Qualifier(fileContent, 2))
+      if (Qualifier(fileContent, arrayMainTwo))
       {
+        int errorNumber = 0;
         string[] lineNumber = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
         string[] columnNubmer = lineNumber[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
         int[,] TwoDimArray = new int[lineNumber.Length, columnNubmer.Length];
@@ -492,12 +428,16 @@ namespace Лабораторная_работа__5
             int x;
             if (int.TryParse(columnNubmer[j], out x))
               TwoDimArray[i, j] = x;
+            else
+              errorNumber++;
           }
         }
         arrayMainTwo = TwoDimArray;
         Form4.arrayTwo = arrayMainTwo;
         Form4.isInitialized = true;
-        TwoDimPrint();
+        ActionsWF.BoxPrint(Form4.isInitialized, MainWindow, arrayMainTwo);
+        if (errorNumber > 0)
+          MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
       }
       else
         MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как двумерный массив целых чисел в пределах типа integer.", "Ошибка");
@@ -506,8 +446,9 @@ namespace Лабораторная_работа__5
     private void TornLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (Qualifier(fileContent, 3))
+      if (Qualifier(fileContent, arrayMainTorn))
       {
+        int errorNumber = 0;
         string[] lineNumber = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
         string[] columnNubmer;
         int[][] TornArray = new int[lineNumber.Length][];
@@ -521,12 +462,16 @@ namespace Лабораторная_работа__5
             int x;
             if (int.TryParse(columnNubmer[j], out x))
               TornArray[i][j] = x;
+            else
+              errorNumber++;
           }
         }
         arrayMainTorn = TornArray;
         Form2.arrayTorn = arrayMainTorn;
         Form2.isInitialized = true;
-        TornPrint();
+        ActionsWF.BoxPrint(Form2.isInitialized, MainWindow, arrayMainTorn);
+        if (errorNumber > 0)
+          MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
       }
       else
         MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как рваный массив целых чисел в пределах типа integer.", "Ошибка");

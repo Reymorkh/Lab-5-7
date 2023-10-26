@@ -19,9 +19,7 @@ namespace Лабораторная_работа__5
 {
   public partial class Form3 : Form
   {
-    public static bool isInitialized = false;
-    public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
-    public static int tabindex = 8;
+    public static bool isInitialized;
     public static int[] arrayOne;
     public static List<TextBox> textBoxes = ActionsWF.textBoxes;
     public static List<Label> labels = ActionsWF.labels;
@@ -34,6 +32,7 @@ namespace Лабораторная_работа__5
       foreach (var s in labels)
         Controls.Add(s);
     }
+
     public Form3()
     {
       InitializeComponent();

@@ -18,15 +18,12 @@ namespace Лабораторная_работа__5
 {
   public partial class Form2 : Form
   {
-    public string a = "-101", b = "-101";
-    public static int index1 = -1, index2 = -1;
-    public static List<TextBox> textBoxes = ActionsWF.textBoxes;
-    public static List<Label> labels = ActionsWF.labels;
-    public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
-    public static int tabindex = 8;
+    public static bool isInitialized;
     public static int[][] arrayTorn;
     public static int arrayHeight = Form1.arrayHeight;
-    public static bool isInitialized;
+    public static List<TextBox> textBoxes = ActionsWF.textBoxes;
+    public static List<Label> labels = ActionsWF.labels;
+
     public void Printer()
     {
       ActionsWF.Print(arrayTorn);
@@ -35,6 +32,7 @@ namespace Лабораторная_работа__5
       foreach (var s in labels)
         Controls.Add(s);
     }
+
     public static int[][] arrayTornHeight(int x)
     {
       int[][] array = new int[x][];

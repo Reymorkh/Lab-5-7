@@ -20,8 +20,6 @@ namespace Лабораторная_работа__5
   public partial class Form4 : Form
   {
     public static bool isInitialized;
-    public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
-    public static int tabindex = 8;
     public static int[,] arrayTwo;
     public static List<TextBox> textBoxes = ActionsWF.textBoxes;
     public static List<Label> labels = ActionsWF.labels;
