@@ -13,175 +13,99 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 using Label = System.Windows.Forms.Label;
+using MyLibWF;
 
 namespace Лабораторная_работа__5
 {
-    public partial class Form4 : Form
+  public partial class Form4 : Form
+  {
+    public static bool isInitialized;
+    public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
+    public static int tabindex = 8;
+    public static int[,] arrayTwo;
+    public static List<TextBox> textBoxes = ActionsWF.textBoxes;
+    public static List<Label> labels = ActionsWF.labels;
+
+    public void Printer()
     {
-        public static bool isInitialized;
-        public const double fromTop = 30, fromLeft = 60, startLeft = 40, startTop = 60;
-        public static int tabindex = 8;
-        public static int[,] arrayTwo;
-        public static List<TextBox> textBoxes = new List<TextBox>();
-        public static List<Label> labels = new List<Label>();
-
-        public Form4()
-        {
-            InitializeComponent();
-            if (Form1.isEdit2 == true)
-            {
-                button1.Visible = false;
-                textBox1.Visible = false;
-                label1.Visible = false;
-                button2.Visible = true;
-                Printer();
-                TextToBoxes();
-            }
-        }
-
-        public void TextBoxPrinter(double multiplierLeft, double multiplierTop)
-        {
-            TextBox newTextBox = new TextBox();
-            newTextBox.Location = new Point(Convert.ToInt32(Math.Round(startLeft + fromLeft * multiplierLeft, 0)), Convert.ToInt32(Math.Round(startTop + fromTop * multiplierTop, 0)));
-            textBoxes.Add(newTextBox);
-            newTextBox.Size = new Size(40, 20);
-            newTextBox.TabIndex = tabindex;
-            tabindex++;
-            newTextBox.MaxLength = 5;
-            newTextBox.TextAlign = HorizontalAlignment.Center;
-            Controls.Add(newTextBox);
-        }
-
-        public void LabelPrinter(double multiplierLeft, double multiplierTop, int number)
-        {
-            Label newLabel = new Label();
-            newLabel.Location = new Point(Convert.ToInt32(Math.Round(startLeft + fromLeft * multiplierLeft, 0)), Convert.ToInt32(Math.Round(startTop + fromTop * multiplierTop, 0)));
-            newLabel.Text = Convert.ToString(number);
-            newLabel.Size = new Size(20, 20);
-            newLabel.TextAlign = ContentAlignment.MiddleCenter;
-            newLabel.AutoSize = true;
-            labels.Add(newLabel);
-            Controls.Add(newLabel);
-        }
-
-        public void Printer()
-        {
-            for (int i = 0; i < arrayTwo.GetLength(0); i++)
-            {
-                LabelPrinter(-0.5, i, i + 1); //принтит числа слева сверху-внизу
-                for (int j = 0; j < arrayTwo.GetLength(1); j++)
-                    TextBoxPrinter(j, i);
-            }
-            for (int i = 0; i < arrayTwo.GetLength(1); i++)
-                LabelPrinter(i, -0.8, i + 1);
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string temp = textBox1.Text, strIndex1 = "", strIndex2 = "";
-            int index1, index2, i;
-            for (i = 0; i < temp.Length; i++)
-            {
-                if (temp[i] != Convert.ToChar(",") && !Char.IsWhiteSpace(temp[i]))
-                    strIndex1 += Convert.ToChar(temp[i]);
-                else
-                    break;
-            }
-
-            for (i = i; i < temp.Length; i++)
-            {
-                if (temp[i] != Convert.ToChar(",") || !Char.IsWhiteSpace(temp[i]))
-                    break;
-            }
-            i++;
-            for (i = i; i < temp.Length; i++)
-            {
-                if (temp[i] != Convert.ToChar(",") && !Char.IsWhiteSpace(temp[i]))
-                    strIndex2 += Convert.ToChar(temp[i]);
-                else
-                    break;
-            }
-
-            if (int.TryParse(strIndex1, out index1) && int.TryParse(strIndex2, out index2))
-            {
-                arrayTwo = new int[index1, index2];
-                isInitialized = true;
-                button2.Visible = true;
-                button1.Visible = false;
-                label1.Visible = false;
-                textBox1.Visible = false;
-                Printer();
-            }
-            else
-                MessageBox.Show("Попробуйте другой ввод.", "Ошибка");
-        }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (e.KeyCode == Keys.Enter)
-            {
-                button1_Click(sender, e);
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            bool isCorrect = true;
-            foreach (var x in textBoxes)
-            {
-                int y;
-                if (!int.TryParse(x.Text, out y))
-                {
-                    isCorrect = false;
-                    break;
-                }
-            }
-
-            if (isCorrect)
-            {
-                BoxesToArray();
-            }
-            else
-            {
-                DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                    BoxesToArray();
-            }
-        }
-
-        public void BoxesToArray()
-        {
-            int j, boxIndex = 0, temp;
-            for (int i = 0; i < arrayTwo.GetLength(0); i++)
-            {
-                for (j = 0; j < arrayTwo.GetLength(1); j++)
-                {
-                    if (int.TryParse(textBoxes[boxIndex].Text, out temp))
-                        arrayTwo[i, j] = temp;
-                    else
-                        arrayTwo[i, j] = 0;
-                    boxIndex++;
-                }
-            }
-            Form1.arrayMainTwo = arrayTwo;
-            isInitialized = true;
-            this.Close();
-        }
-        
-        public void TextToBoxes()
-        {
-            int j, boxIndex = 0, temp;
-            for (int i = 0; i < arrayTwo.GetLength(0); i++)
-            {
-                for (j = 0; j < arrayTwo.GetLength(1); j++)
-                {
-                    if (arrayTwo[i, j] !=0)
-                        textBoxes[boxIndex].Text = Convert.ToString(arrayTwo[i, j]);
-                    boxIndex++;
-                }
-            }
-        }
+      ActionsWF.Print(arrayTwo);
+      foreach (var s in textBoxes)
+        Controls.Add(s);
+      foreach (var s in labels)
+        Controls.Add(s);
     }
+
+    public Form4()
+    {
+      InitializeComponent();
+      if (Form1.isEdit2 == true)
+      {
+        button1.Visible = false;
+        textBox1.Visible = false;
+        label1.Visible = false;
+        button2.Visible = true;
+        Printer();
+      }
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+      string temp = textBox1.Text, strIndex1 = "", strIndex2 = "";
+      string[] numbers = temp.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+      int index1, index2;
+      if(int.TryParse(numbers[0], out index1) && int.TryParse(numbers[1], out index2))
+      {
+        arrayTwo = new int[index1, index2];
+        Form1.arrayMainTwo = arrayTwo;
+        isInitialized = true;
+        button2.Visible = true;
+        button1.Visible = false;
+        label1.Visible = false;
+        textBox1.Visible = false;
+        Printer();
+      }
+      else
+        MessageBox.Show("Попробуйте другой ввод.", "Ошибка");
+    }
+
+    private void textBox1_KeyDown(object sender, KeyEventArgs e)
+    {
+      var textBox = sender as TextBox;
+      if (e.KeyCode == Keys.Enter)
+      {
+        button1_Click(sender, e);
+      }
+    }
+
+    private void button2_Click(object sender, EventArgs e)
+    {
+      bool isCorrect = true;
+      foreach (var x in textBoxes)
+      {
+        int y;
+        if (!int.TryParse(x.Text, out y))
+        {
+          isCorrect = false;
+          break;
+        }
+      }
+
+      if (isCorrect)
+      {
+        ActionsWF.BtA(arrayTwo);
+        isInitialized = true;
+        this.Close();
+      }
+      else
+      {
+        DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
+        if (dialogResult == DialogResult.Yes)
+        {
+          ActionsWF.BtA(arrayTwo);
+          isInitialized = true;
+          this.Close();
+        }
+      }
+    }
+  }
 }
