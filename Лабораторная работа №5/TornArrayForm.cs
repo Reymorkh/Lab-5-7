@@ -16,11 +16,11 @@ using MyLibWF;
 
 namespace Лабораторная_работа__5
 {
-  public partial class Form2 : Form
+  public partial class TornArrayForm : Form
   {
     public static bool isInitialized;
     public static int[][] arrayTorn;
-    public static int arrayHeight = Form1.arrayHeight;
+    public static int arrayHeight = MainMenu.arrayHeight;
     public static List<TextBox> textBoxes = ActionsWF.textBoxes;
     public static List<Label> labels = ActionsWF.labels;
 
@@ -44,10 +44,10 @@ namespace Лабораторная_работа__5
       arrayTorn[x] = new int[y];
     }
 
-    public Form2()
+    public TornArrayForm()
     {
       InitializeComponent();
-      if (Form1.isEdit3 == true)
+      if (MainMenu.isEdit3 == true)
       {
         HeightButton.Visible = false;
         textBox1.Visible = false;
@@ -109,7 +109,7 @@ namespace Лабораторная_работа__5
         }
         textBoxEraser();
         Printer();
-        Form1.arrayMainTorn = arrayTorn;
+        MainMenu.arrayMainTorn = arrayTorn;
         isInitialized = true;
         MainButton.Visible = false;
         MainLabel.Text = "Введите элементы массива.";
@@ -134,8 +134,8 @@ namespace Лабораторная_работа__5
 
       if (isCorrect)
       {
-        ActionsWF.BtA(arrayTorn);
-        Form1.arrayMainTorn = arrayTorn;
+        ActionsWF.BoxesToArray(arrayTorn);
+        MainMenu.arrayMainTorn = arrayTorn;
         this.Close();
       }
       else
@@ -143,8 +143,8 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          ActionsWF.BtA(arrayTorn);
-          Form1.arrayMainTorn = arrayTorn;
+          ActionsWF.BoxesToArray(arrayTorn);
+          MainMenu.arrayMainTorn = arrayTorn;
           this.Close();
         }
       }

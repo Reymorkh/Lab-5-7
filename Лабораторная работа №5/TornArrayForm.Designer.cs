@@ -1,6 +1,6 @@
 ﻿namespace Лабораторная_работа__5
 {
-  partial class Form2
+  partial class TornArrayForm
   {
     /// <summary>
     /// Required designer variable.
@@ -84,7 +84,7 @@
       PseudoMainButton.Visible = false;
       PseudoMainButton.Click += PseudoMainButton_Click;
       // 
-      // Form2
+      // TornArrayForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
@@ -98,9 +98,9 @@
       Controls.Add(textBox1);
       Controls.Add(HeightButton);
       MaximumSize = new Size(816, 489);
-      Name = "Form2";
+      Name = "TornArrayForm";
       StartPosition = FormStartPosition.CenterScreen;
-      Text = "Form2";
+      Text = "Рваный массив";
       ResumeLayout(false);
       PerformLayout();
     }

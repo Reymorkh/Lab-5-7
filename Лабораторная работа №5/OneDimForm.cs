@@ -17,26 +17,26 @@ using MyLibWF;
 
 namespace Лабораторная_работа__5
 {
-  public partial class Form4 : Form
+  public partial class OneDimForm : Form
   {
     public static bool isInitialized;
-    public static int[,] arrayTwo;
+    public static int[] arrayOne;
     public static List<TextBox> textBoxes = ActionsWF.textBoxes;
     public static List<Label> labels = ActionsWF.labels;
 
     public void Printer()
     {
-      ActionsWF.Print(arrayTwo);
+      ActionsWF.Print(arrayOne);
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
         Controls.Add(s);
     }
 
-    public Form4()
+    public OneDimForm()
     {
       InitializeComponent();
-      if (Form1.isEdit2 == true)
+      if (MainMenu.isEdit1 == true)
       {
         button1.Visible = false;
         textBox1.Visible = false;
@@ -46,24 +46,22 @@ namespace Лабораторная_работа__5
       }
     }
 
+
     private void button1_Click(object sender, EventArgs e)
     {
-      string temp = textBox1.Text, strIndex1 = "", strIndex2 = "";
-      string[] numbers = temp.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-      int index1, index2;
-      if(int.TryParse(numbers[0], out index1) && int.TryParse(numbers[1], out index2))
+      int temp;
+      if (int.TryParse(textBox1.Text, out temp) && temp > 0)
       {
-        arrayTwo = new int[index1, index2];
-        Form1.arrayMainTwo = arrayTwo;
-        isInitialized = true;
-        button2.Visible = true;
-        button1.Visible = false;
+        arrayOne = new int[temp];
+        MainMenu.arrayMainOne = arrayOne;
         label1.Visible = false;
         textBox1.Visible = false;
+        button1.Visible = false;
+        button2.Visible = true;
         Printer();
       }
       else
-        MessageBox.Show("Попробуйте другой ввод.", "Ошибка");
+        MessageBox.Show("Integer больше нуля, пожалуйста.", "Ошибка");
     }
 
     private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -90,7 +88,7 @@ namespace Лабораторная_работа__5
 
       if (isCorrect)
       {
-        ActionsWF.BtA(arrayTwo);
+        ActionsWF.BoxesToArray(arrayOne);
         isInitialized = true;
         this.Close();
       }
@@ -99,7 +97,7 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          ActionsWF.BtA(arrayTwo);
+          ActionsWF.BoxesToArray(arrayOne);
           isInitialized = true;
           this.Close();
         }

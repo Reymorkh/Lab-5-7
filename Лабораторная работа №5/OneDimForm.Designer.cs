@@ -1,6 +1,6 @@
 ﻿namespace Лабораторная_работа__5
 {
-  partial class Form4
+  partial class OneDimForm
   {
     /// <summary>
     /// Required designer variable.
@@ -36,7 +36,7 @@
       // 
       // button1
       // 
-      button1.Location = new Point(155, 42);
+      button1.Location = new Point(222, 45);
       button1.Name = "button1";
       button1.Size = new Size(75, 23);
       button1.TabIndex = 0;
@@ -46,47 +46,47 @@
       // 
       // textBox1
       // 
-      textBox1.Location = new Point(12, 42);
+      textBox1.Location = new Point(12, 45);
       textBox1.Name = "textBox1";
-      textBox1.Size = new Size(137, 23);
+      textBox1.Size = new Size(204, 23);
       textBox1.TabIndex = 1;
       textBox1.KeyDown += textBox1_KeyDown;
       // 
       // label1
       // 
       label1.AutoSize = true;
-      label1.Location = new Point(12, 9);
+      label1.Location = new Point(39, 18);
       label1.Name = "label1";
-      label1.Size = new Size(242, 15);
+      label1.Size = new Size(135, 15);
       label1.TabIndex = 2;
-      label1.Text = "Введите параметры массива через пробел";
+      label1.Text = "Введите длину массива";
       // 
       // button2
       // 
-      button2.Location = new Point(12, 9);
+      button2.Location = new Point(12, 10);
       button2.Name = "button2";
-      button2.Size = new Size(75, 23);
+      button2.Size = new Size(93, 23);
       button2.TabIndex = 3;
       button2.Text = "Утвердить";
       button2.UseVisualStyleBackColor = true;
       button2.Visible = false;
       button2.Click += button2_Click;
       // 
-      // Form4
+      // OneDimForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       AutoScroll = true;
       AutoSize = true;
-      ClientSize = new Size(283, 82);
+      ClientSize = new Size(305, 101);
       Controls.Add(button2);
       Controls.Add(label1);
       Controls.Add(textBox1);
       Controls.Add(button1);
-      MaximumSize = new Size(520, 320);
-      Name = "Form4";
+      MaximumSize = new Size(600, 150);
+      Name = "OneDimForm";
       StartPosition = FormStartPosition.CenterScreen;
-      Text = "Form4";
+      Text = "Одномерный массив";
       ResumeLayout(false);
       PerformLayout();
     }

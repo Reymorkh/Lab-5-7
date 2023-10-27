@@ -1,6 +1,6 @@
 ﻿namespace Лабораторная_работа__5
 {
-  partial class Form1
+  partial class MainMenu
   {
     /// <summary>
     ///  Required designer variable.
@@ -72,7 +72,7 @@
       TornCreateButton.TabIndex = 3;
       TornCreateButton.Text = "Рваный";
       TornCreateButton.UseVisualStyleBackColor = true;
-      TornCreateButton.Click += FillTornArray_Click;
+      TornCreateButton.Click += TornCreateButton_Click;
       // 
       // MainWindow
       // 
@@ -393,7 +393,7 @@
       label11.TabIndex = 33;
       label11.Text = "Редактировать";
       // 
-      // Form1
+      // MainMenu
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
@@ -432,9 +432,9 @@
       Controls.Add(OneDimCreateButton);
       Controls.Add(MainWindow);
       Controls.Add(TornCreateButton);
-      Name = "Form1";
+      Name = "MainMenu";
       StartPosition = FormStartPosition.CenterScreen;
-      Text = "Form1";
+      Text = "Главное меню";
       ResumeLayout(false);
       PerformLayout();
     }
@@ -475,6 +475,5 @@
     private Button OneDimEditButton;
     private Button TornEditButton;
     private Label label11;
-    private Button button1;
   }
 }
