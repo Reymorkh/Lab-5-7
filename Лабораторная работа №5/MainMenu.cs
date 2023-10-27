@@ -141,7 +141,7 @@ namespace Лабораторная_работа__5
     {
       if (OneDimForm.isInitialized)
       {
-        FullSaver(arrayMainOne);
+        Saver(arrayMainOne);
       }
       else
         MessageBox.Show("Записывать нечего.", "Ошибка");
@@ -151,7 +151,7 @@ namespace Лабораторная_работа__5
     {
       if (TwoDimForm.isInitialized)
       {
-        FullSaver(arrayMainTwo);
+        Saver(arrayMainTwo);
       }
       else
         MessageBox.Show("Записывать нечего.", "Ошибка");
@@ -161,7 +161,7 @@ namespace Лабораторная_работа__5
     {
       if (TornArrayForm.isInitialized)
       {
-        FullSaver(arrayMainTorn);
+        Saver(arrayMainTorn);
       }
       else
         MessageBox.Show("Записывать нечего.", "Ошибка");
@@ -213,7 +213,7 @@ namespace Лабораторная_работа__5
     private void OneDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (Qualifier(fileContent, arrayMainOne))
+      if (IsFileCorrect(fileContent, arrayMainOne))
       {
         int errorNumber = Loader(fileContent, ref arrayMainOne);
         OneDimForm.arrayOne = arrayMainOne;
@@ -229,7 +229,7 @@ namespace Лабораторная_работа__5
     private void TwoDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (Qualifier(fileContent, arrayMainTwo))
+      if (IsFileCorrect(fileContent, arrayMainTwo))
       {
         int errorNumber = Loader(fileContent, ref arrayMainTwo);
         TwoDimForm.arrayTwo = arrayMainTwo;
@@ -245,7 +245,7 @@ namespace Лабораторная_работа__5
     private void TornLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (Qualifier(fileContent, arrayMainTorn))
+      if (IsFileCorrect(fileContent, arrayMainTorn))
       {
         int errorNumber = Loader(fileContent, ref arrayMainTorn);
         TornArrayForm.arrayTorn = arrayMainTorn;
