@@ -173,7 +173,7 @@ namespace Лабораторная_работа__5
       if (OneDimForm.isInitialized)
       {
         isEdit1 = true;
-        TornArrayForm form = new TornArrayForm();
+        OneDimForm form = new OneDimForm();
         FormInit(form);
         BoxPrint(OneDimForm.isInitialized, MainWindow, arrayMainOne);
         isEdit1 = false;
@@ -216,7 +216,7 @@ namespace Лабораторная_работа__5
       if (IsFileCorrect(fileContent, arrayMainOne))
       {
         int errorNumber = Loader(fileContent, ref arrayMainOne);
-        OneDimForm.arrayOne = arrayMainOne;
+        OneDimForm.arrayOne = ArrayCopy(arrayMainOne);
         OneDimForm.isInitialized = true;
         BoxPrint(OneDimForm.isInitialized, MainWindow, arrayMainOne);
         if (errorNumber > 0)
@@ -232,7 +232,7 @@ namespace Лабораторная_работа__5
       if (IsFileCorrect(fileContent, arrayMainTwo))
       {
         int errorNumber = Loader(fileContent, ref arrayMainTwo);
-        TwoDimForm.arrayTwo = arrayMainTwo;
+        TwoDimForm.arrayTwo = ArrayCopy(arrayMainTwo);
         TwoDimForm.isInitialized = true;
         BoxPrint(TwoDimForm.isInitialized, MainWindow, arrayMainTwo);
         if (errorNumber > 0)
@@ -248,7 +248,7 @@ namespace Лабораторная_работа__5
       if (IsFileCorrect(fileContent, arrayMainTorn))
       {
         int errorNumber = Loader(fileContent, ref arrayMainTorn);
-        TornArrayForm.arrayTorn = arrayMainTorn;
+        TornArrayForm.arrayTorn = ArrayCopy(arrayMainTorn);
         TornArrayForm.isInitialized = true;
         BoxPrint(TornArrayForm.isInitialized, MainWindow, arrayMainTorn);
         if (errorNumber > 0)

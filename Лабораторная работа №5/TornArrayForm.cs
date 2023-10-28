@@ -49,6 +49,7 @@ namespace Лабораторная_работа__5
       InitializeComponent();
       if (MainMenu.isEdit3 == true)
       {
+        arrayTorn = ActionsWF.ArrayCopy(MainMenu.arrayMainTorn);
         HeightButton.Visible = false;
         textBox1.Visible = false;
         MainLabel.Visible = true;

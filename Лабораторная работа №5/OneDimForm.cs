@@ -38,6 +38,7 @@ namespace Лабораторная_работа__5
       InitializeComponent();
       if (MainMenu.isEdit1 == true)
       {
+        arrayOne = ActionsWF.ArrayCopy(MainMenu.arrayMainOne);
         button1.Visible = false;
         textBox1.Visible = false;
         label1.Visible = false;
