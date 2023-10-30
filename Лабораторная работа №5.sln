@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Лабораторная работа №5", "Лабораторная работа №5\Лабораторная работа №5.csproj", "{C7EDEFF6-30C1-4351-869C-48D66F122A24}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FB6F1E02-0E1D-4A63-9BEC-C23756CEBD6C} = {FB6F1E02-0E1D-4A63-9BEC-C23756CEBD6C}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLibWF", "..\MyLibWF\MyLibWF\MyLibWF.csproj", "{D02529DB-2913-43C2-B45D-07756340F47B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLibStructWF", "..\MyLibConstructWF\MyLibConstructWF\MyLibStructWF.csproj", "{FB6F1E02-0E1D-4A63-9BEC-C23756CEBD6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +20,10 @@ Global
 		{C7EDEFF6-30C1-4351-869C-48D66F122A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7EDEFF6-30C1-4351-869C-48D66F122A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7EDEFF6-30C1-4351-869C-48D66F122A24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D02529DB-2913-43C2-B45D-07756340F47B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D02529DB-2913-43C2-B45D-07756340F47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D02529DB-2913-43C2-B45D-07756340F47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D02529DB-2913-43C2-B45D-07756340F47B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6F1E02-0E1D-4A63-9BEC-C23756CEBD6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6F1E02-0E1D-4A63-9BEC-C23756CEBD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6F1E02-0E1D-4A63-9BEC-C23756CEBD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6F1E02-0E1D-4A63-9BEC-C23756CEBD6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

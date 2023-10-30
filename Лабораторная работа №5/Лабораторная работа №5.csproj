@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyLibWF\MyLibWF\MyLibWF.csproj" />
+    <ProjectReference Include="..\..\MyLibConstructWF\MyLibConstructWF\MyLibStructWF.csproj" />
   </ItemGroup>
 
 </Project>

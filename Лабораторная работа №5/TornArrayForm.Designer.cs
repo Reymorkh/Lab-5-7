@@ -30,9 +30,10 @@
     {
       HeightButton = new Button();
       textBox1 = new TextBox();
-      MainButton = new Button();
+      LengthButton = new Button();
       MainLabel = new Label();
       PseudoMainButton = new Button();
+      WriteOldArrayInButton = new Button();
       SuspendLayout();
       // 
       // HeightButton
@@ -52,16 +53,16 @@
       textBox1.Size = new Size(100, 23);
       textBox1.TabIndex = 2;
       // 
-      // MainButton
+      // LengthButton
       // 
-      MainButton.Location = new Point(40, 5);
-      MainButton.Name = "MainButton";
-      MainButton.Size = new Size(151, 23);
-      MainButton.TabIndex = 3;
-      MainButton.Text = "Утвердить элементы";
-      MainButton.UseVisualStyleBackColor = true;
-      MainButton.Visible = false;
-      MainButton.Click += MainButton_Click;
+      LengthButton.Location = new Point(40, 5);
+      LengthButton.Name = "LengthButton";
+      LengthButton.Size = new Size(151, 23);
+      LengthButton.TabIndex = 3;
+      LengthButton.Text = "Утвердить длину";
+      LengthButton.UseVisualStyleBackColor = true;
+      LengthButton.Visible = false;
+      LengthButton.Click += LengthButton_Click;
       // 
       // MainLabel
       // 
@@ -82,7 +83,17 @@
       PseudoMainButton.Text = "Утвердить";
       PseudoMainButton.UseVisualStyleBackColor = true;
       PseudoMainButton.Visible = false;
-      PseudoMainButton.Click += PseudoMainButton_Click;
+      PseudoMainButton.Click += ConfirmArrayButton_Click;
+      // 
+      // WriteOldArrayInButton
+      // 
+      WriteOldArrayInButton.Location = new Point(235, 5);
+      WriteOldArrayInButton.Name = "WriteOldArrayInButton";
+      WriteOldArrayInButton.Size = new Size(175, 23);
+      WriteOldArrayInButton.TabIndex = 6;
+      WriteOldArrayInButton.Text = "Вписать старый массив";
+      WriteOldArrayInButton.UseVisualStyleBackColor = true;
+      WriteOldArrayInButton.Visible = false;
       // 
       // TornArrayForm
       // 
@@ -92,11 +103,12 @@
       AutoSize = true;
       AutoSizeMode = AutoSizeMode.GrowAndShrink;
       ClientSize = new Size(476, 89);
-      Controls.Add(PseudoMainButton);
+      Controls.Add(WriteOldArrayInButton);
       Controls.Add(MainLabel);
-      Controls.Add(MainButton);
+      Controls.Add(LengthButton);
       Controls.Add(textBox1);
       Controls.Add(HeightButton);
+      Controls.Add(PseudoMainButton);
       MaximumSize = new Size(816, 489);
       Name = "TornArrayForm";
       StartPosition = FormStartPosition.CenterScreen;
@@ -108,8 +120,9 @@
     #endregion
     private Button HeightButton;
     private TextBox textBox1;
-    private Button MainButton;
+    private Button LengthButton;
     private Label MainLabel;
     private Button PseudoMainButton;
+    private Button WriteOldArrayInButton;
   }
 }

@@ -13,20 +13,18 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 using Label = System.Windows.Forms.Label;
-using MyLibWF;
+using static MyLibStructWF.ArrayManagementWF;
 
 namespace Лабораторная_работа__5
 {
   public partial class TwoDimForm : Form
   {
     public static bool isInitialized;
-    public static int[,] arrayTwo;
-    public static List<TextBox> textBoxes = ActionsWF.textBoxes;
-    public static List<Label> labels = ActionsWF.labels;
+    public static TwoDim arrayTwo = new TwoDim();
 
     public void Printer()
     {
-      ActionsWF.Print(arrayTwo);
+      arrayTwo.PrintBoxes();
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
@@ -38,7 +36,7 @@ namespace Лабораторная_работа__5
       InitializeComponent();
       if (MainMenu.isEdit2 == true)
       {
-        arrayTwo = ActionsWF.ArrayCopy(MainMenu.arrayMainTwo);
+        arrayTwo.array = MainMenu.arrayMainTwo.Copy();
         button1.Visible = false;
         textBox1.Visible = false;
         label1.Visible = false;
@@ -54,9 +52,9 @@ namespace Лабораторная_работа__5
       int index1, index2;
       if (int.TryParse(numbers[0], out index1) && int.TryParse(numbers[1], out index2))
       {
-        arrayTwo = new int[index1, index2];
-        MainMenu.arrayMainTwo = arrayTwo;
-        isInitialized = true;
+        arrayTwo.array = new int[index1, index2];
+       //if (MainMenu.arrayMainTwo.Length(0) > 0 && MainMenu.arrayMainTwo.Length(1) > 0 && MainMenu.arrayMainTwo.Length(0) <= arrayTwo.Length(0) && MainMenu.arrayMainTwo.Length(1) <= arrayTwo.Length(1))
+       //   WriteOldArrayInButton.Visible = true;
         button2.Visible = true;
         button1.Visible = false;
         label1.Visible = false;
@@ -91,7 +89,8 @@ namespace Лабораторная_работа__5
 
       if (isCorrect)
       {
-        ActionsWF.BoxesToArray(arrayTwo);
+        arrayTwo.BoxesToArray();
+        MainMenu.arrayMainTwo.array = arrayTwo.Copy();
         isInitialized = true;
         this.Close();
       }
@@ -100,11 +99,17 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          ActionsWF.BoxesToArray(arrayTwo);
+          arrayTwo.BoxesToArray();
+          MainMenu.arrayMainTwo.array = arrayTwo.Copy();
           isInitialized = true;
           this.Close();
         }
       }
+    }
+
+    private void WriteOldArrayInButton_Click(object sender, EventArgs e)
+    {
+      MainMenu.arrayMainTwo.NumbersToBoxes();
     }
   }
 }

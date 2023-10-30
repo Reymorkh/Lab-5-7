@@ -12,21 +12,19 @@ using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using TextBox = System.Windows.Forms.TextBox;
-using MyLibWF;
+using static MyLibStructWF.ArrayManagementWF;
 
 namespace Лабораторная_работа__5
 {
   public partial class TornArrayForm : Form
   {
     public static bool isInitialized;
-    public static int[][] arrayTorn;
+    public static Torn arrayTorn = new Torn();
     public static int arrayHeight = MainMenu.arrayHeight;
-    public static List<TextBox> textBoxes = ActionsWF.textBoxes;
-    public static List<Label> labels = ActionsWF.labels;
 
     public void Printer()
     {
-      ActionsWF.Print(arrayTorn);
+      arrayTorn.PrintBoxes();
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
@@ -41,7 +39,7 @@ namespace Лабораторная_работа__5
 
     public static void arrayTornLength(int x, int y)
     {
-      arrayTorn[x] = new int[y];
+      arrayTorn.array[x] = new int[y];
     }
 
     public TornArrayForm()
@@ -49,7 +47,7 @@ namespace Лабораторная_работа__5
       InitializeComponent();
       if (MainMenu.isEdit3 == true)
       {
-        arrayTorn = ActionsWF.ArrayCopy(MainMenu.arrayMainTorn);
+        arrayTorn.array = MainMenu.arrayMainTorn.Copy();
         HeightButton.Visible = false;
         textBox1.Visible = false;
         MainLabel.Visible = true;
@@ -66,16 +64,16 @@ namespace Лабораторная_работа__5
       {
         if (temp > 0 && temp < 100)
         {
-          arrayTorn = arrayTornHeight(temp);
+          arrayTorn.array = arrayTornHeight(temp);
           HeightButton.Visible = false;
           textBox1.Visible = false;
-          MainButton.Visible = true;
+          LengthButton.Visible = true;
           MainLabel.Visible = true;
-          ActionsWF.AddLabel(0, -0.8, 1);
-          for (int i = 0; i < arrayTorn.Length; i++)
+          AddLabel(0, -0.8, 1);
+          for (int i = 0; i < arrayTorn.Length(); i++)
           {
-            ActionsWF.AddBox(0, i);
-            ActionsWF.AddLabel(-0.5, i, i + 1);
+            AddBox(0, i);
+            AddLabel(-0.5, i, i + 1);
           }
           foreach (var textbox in textBoxes)
             Controls.Add(textbox);
@@ -89,7 +87,7 @@ namespace Лабораторная_работа__5
         MessageBox.Show("Попробуйте другое число.", "Ошибка");
     }
 
-    private void MainButton_Click(object sender, EventArgs e)
+    private void LengthButton_Click(object sender, EventArgs e)
     {
       bool isCorrect = true;
       foreach (var x in textBoxes)
@@ -108,11 +106,11 @@ namespace Лабораторная_работа__5
         {
           arrayTornLength(textBoxes.IndexOf(x), Convert.ToInt32(x.Text));
         }
+        //if (MainMenu.arrayMainTorn.OldArrayCheck(arrayTorn.array))
+        //  WriteOldArrayInButton.Visible = true;
         textBoxEraser();
         Printer();
-        MainMenu.arrayMainTorn = arrayTorn;
-        isInitialized = true;
-        MainButton.Visible = false;
+        LengthButton.Visible = false;
         MainLabel.Text = "Введите элементы массива.";
         PseudoMainButton.Visible = true;
       }
@@ -120,7 +118,7 @@ namespace Лабораторная_работа__5
         MessageBox.Show("Не все введённые данные соответствуют типу int или являются больше нуля.", "Ошибка");
     }
 
-    private void PseudoMainButton_Click(object sender, EventArgs e)
+    private void ConfirmArrayButton_Click(object sender, EventArgs e)
     {
       bool isCorrect = true;
       foreach (var x in textBoxes)
@@ -135,8 +133,9 @@ namespace Лабораторная_работа__5
 
       if (isCorrect)
       {
-        ActionsWF.BoxesToArray(arrayTorn);
-        MainMenu.arrayMainTorn = arrayTorn;
+        arrayTorn.BoxesToArray();
+        MainMenu.arrayMainTorn.array = arrayTorn.Copy();
+        isInitialized = true;
         this.Close();
       }
       else
@@ -144,8 +143,9 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          ActionsWF.BoxesToArray(arrayTorn);
-          MainMenu.arrayMainTorn = arrayTorn;
+          arrayTorn.BoxesToArray();
+          MainMenu.arrayMainTorn.array = arrayTorn.Copy();
+          isInitialized = true;
           this.Close();
         }
       }

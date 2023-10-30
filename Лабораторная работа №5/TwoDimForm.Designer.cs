@@ -32,6 +32,7 @@
       textBox1 = new TextBox();
       label1 = new Label();
       button2 = new Button();
+      WriteOldArrayInButton = new Button();
       SuspendLayout();
       // 
       // button1
@@ -72,6 +73,17 @@
       button2.Visible = false;
       button2.Click += button2_Click;
       // 
+      // WriteOldArrayInButton
+      // 
+      WriteOldArrayInButton.Location = new Point(96, 9);
+      WriteOldArrayInButton.Name = "WriteOldArrayInButton";
+      WriteOldArrayInButton.Size = new Size(175, 23);
+      WriteOldArrayInButton.TabIndex = 5;
+      WriteOldArrayInButton.Text = "Вписать старый массив";
+      WriteOldArrayInButton.UseVisualStyleBackColor = true;
+      WriteOldArrayInButton.Visible = false;
+      WriteOldArrayInButton.Click += WriteOldArrayInButton_Click;
+      // 
       // TwoDimForm
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
@@ -79,6 +91,7 @@
       AutoScroll = true;
       AutoSize = true;
       ClientSize = new Size(283, 82);
+      Controls.Add(WriteOldArrayInButton);
       Controls.Add(button2);
       Controls.Add(label1);
       Controls.Add(textBox1);
@@ -97,5 +110,6 @@
     private TextBox textBox1;
     private Label label1;
     private Button button2;
+    private Button WriteOldArrayInButton;
   }
 }
