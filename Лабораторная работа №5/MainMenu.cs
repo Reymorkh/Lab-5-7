@@ -209,7 +209,7 @@ namespace Лабораторная_работа__5
       if (arrayMainOne.IsFileCorrect(fileContent))
       {
         int errorNumber = arrayMainOne.Load(fileContent);
-        OneDimForm.arrayOne.array = arrayMainOne.Copy();
+        OneDimForm.arrayOne.array = arrayMainOne.Copy;
         OneDimForm.isInitialized = true;
         arrayMainOne.Show(OneDimForm.isInitialized, MainWindow);
         if (errorNumber > 0)
@@ -225,7 +225,7 @@ namespace Лабораторная_работа__5
       if (arrayMainTwo.IsFileCorrect(fileContent))
       {
         int errorNumber = arrayMainTwo.Load(fileContent);
-        TwoDimForm.arrayTwo.array = arrayMainTwo.Copy();
+        TwoDimForm.arrayTwo.array = arrayMainTwo.Copy;
         TwoDimForm.isInitialized = true;
         arrayMainTwo.Show(TwoDimForm.isInitialized, MainWindow);
         if (errorNumber > 0)
@@ -241,7 +241,7 @@ namespace Лабораторная_работа__5
       if (arrayMainTorn.IsFileCorrect(fileContent))
       {
         int errorNumber = arrayMainTorn.Load(fileContent);
-        TornArrayForm.arrayTorn.array = arrayMainTorn.Copy();
+        TornArrayForm.arrayTorn.array = arrayMainTorn.Copy;
         TornArrayForm.isInitialized = true;
         arrayMainTorn.Show(TornArrayForm.isInitialized, MainWindow);
         if (errorNumber > 0)

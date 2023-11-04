@@ -47,7 +47,7 @@ namespace Лабораторная_работа__5
       InitializeComponent();
       if (MainMenu.isEdit3 == true)
       {
-        arrayTorn.array = MainMenu.arrayMainTorn.Copy();
+        arrayTorn.array = MainMenu.arrayMainTorn.Copy;
         HeightButton.Visible = false;
         textBox1.Visible = false;
         MainLabel.Visible = true;
@@ -134,7 +134,7 @@ namespace Лабораторная_работа__5
       if (isCorrect)
       {
         arrayTorn.BoxesToArray();
-        MainMenu.arrayMainTorn.array = arrayTorn.Copy();
+        MainMenu.arrayMainTorn.array = arrayTorn.Copy;
         isInitialized = true;
         this.Close();
       }
@@ -144,7 +144,7 @@ namespace Лабораторная_работа__5
         if (dialogResult == DialogResult.Yes)
         {
           arrayTorn.BoxesToArray();
-          MainMenu.arrayMainTorn.array = arrayTorn.Copy();
+          MainMenu.arrayMainTorn.array = arrayTorn.Copy;
           isInitialized = true;
           this.Close();
         }

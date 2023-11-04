@@ -36,7 +36,7 @@ namespace Лабораторная_работа__5
       InitializeComponent();
       if (MainMenu.isEdit2 == true)
       {
-        arrayTwo.array = MainMenu.arrayMainTwo.Copy();
+        arrayTwo.array = MainMenu.arrayMainTwo.Copy;
         button1.Visible = false;
         textBox1.Visible = false;
         label1.Visible = false;
@@ -90,7 +90,7 @@ namespace Лабораторная_работа__5
       if (isCorrect)
       {
         arrayTwo.BoxesToArray();
-        MainMenu.arrayMainTwo.array = arrayTwo.Copy();
+        MainMenu.arrayMainTwo.array = arrayTwo.Copy;
         isInitialized = true;
         this.Close();
       }
@@ -100,7 +100,7 @@ namespace Лабораторная_работа__5
         if (dialogResult == DialogResult.Yes)
         {
           arrayTwo.BoxesToArray();
-          MainMenu.arrayMainTwo.array = arrayTwo.Copy();
+          MainMenu.arrayMainTwo.array = arrayTwo.Copy;
           isInitialized = true;
           this.Close();
         }
