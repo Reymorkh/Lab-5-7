@@ -62,7 +62,13 @@ namespace Лабораторная_работа__5
       int temp;
       if (int.TryParse(textBox1.Text, out temp))
       {
-        if (temp > 0 && temp < 100)
+        if (temp == 0)
+        {
+          arrayTornHeight(0);
+          MainMenu.arrayMainTorn.array = new int[0][];
+          this.Close();
+        }
+        else if (temp > 0 && temp < 100)
         {
           arrayTorn.array = arrayTornHeight(temp);
           HeightButton.Visible = false;
@@ -81,10 +87,10 @@ namespace Лабораторная_работа__5
             Controls.Add(label);
         }
         else
-          MessageBox.Show("Число должно быть в пределах 0 < x < 100", "Ошибка");
+          MessageBox.Show("Число должно быть в пределах -1 < x < 100", "Ошибка");
       }
       else
-        MessageBox.Show("Попробуйте другое число.", "Ошибка");
+        MessageBox.Show("Попробуйте ввести целое число.", "Ошибка");
     }
 
     private void LengthButton_Click(object sender, EventArgs e)

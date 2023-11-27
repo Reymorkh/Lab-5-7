@@ -43,7 +43,7 @@
       button1.TabIndex = 0;
       button1.Text = "Ввод";
       button1.UseVisualStyleBackColor = true;
-      button1.Click += button1_Click;
+      button1.Click += SetLength_Click;
       // 
       // textBox1
       // 
@@ -71,7 +71,7 @@
       button2.Text = "Утвердить";
       button2.UseVisualStyleBackColor = true;
       button2.Visible = false;
-      button2.Click += button2_Click;
+      button2.Click += SetElements_Click;
       // 
       // WriteOldArrayInButton
       // 
