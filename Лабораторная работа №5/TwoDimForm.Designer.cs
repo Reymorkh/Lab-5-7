@@ -28,30 +28,29 @@
     /// </summary>
     private void InitializeComponent()
     {
-      button1 = new Button();
-      textBox1 = new TextBox();
+      LengthEnterButton = new Button();
+      LengthEnterTextBox = new TextBox();
       label1 = new Label();
-      button2 = new Button();
-      WriteOldArrayInButton = new Button();
+      ConfirmationButton = new Button();
       SuspendLayout();
       // 
       // button1
       // 
-      button1.Location = new Point(155, 42);
-      button1.Name = "button1";
-      button1.Size = new Size(75, 23);
-      button1.TabIndex = 0;
-      button1.Text = "Ввод";
-      button1.UseVisualStyleBackColor = true;
-      button1.Click += SetLength_Click;
+      LengthEnterButton.Location = new Point(155, 42);
+      LengthEnterButton.Name = "button1";
+      LengthEnterButton.Size = new Size(75, 23);
+      LengthEnterButton.TabIndex = 0;
+      LengthEnterButton.Text = "Ввод";
+      LengthEnterButton.UseVisualStyleBackColor = true;
+      LengthEnterButton.Click += SetLength_Click;
       // 
       // textBox1
       // 
-      textBox1.Location = new Point(12, 42);
-      textBox1.Name = "textBox1";
-      textBox1.Size = new Size(137, 23);
-      textBox1.TabIndex = 1;
-      textBox1.KeyDown += textBox1_KeyDown;
+      LengthEnterTextBox.Location = new Point(12, 42);
+      LengthEnterTextBox.Name = "textBox1";
+      LengthEnterTextBox.Size = new Size(137, 23);
+      LengthEnterTextBox.TabIndex = 1;
+      LengthEnterTextBox.KeyDown += LengthEnterTextBox_KeyDown;
       // 
       // label1
       // 
@@ -64,25 +63,14 @@
       // 
       // button2
       // 
-      button2.Location = new Point(12, 9);
-      button2.Name = "button2";
-      button2.Size = new Size(75, 23);
-      button2.TabIndex = 3;
-      button2.Text = "Утвердить";
-      button2.UseVisualStyleBackColor = true;
-      button2.Visible = false;
-      button2.Click += SetElements_Click;
-      // 
-      // WriteOldArrayInButton
-      // 
-      WriteOldArrayInButton.Location = new Point(96, 9);
-      WriteOldArrayInButton.Name = "WriteOldArrayInButton";
-      WriteOldArrayInButton.Size = new Size(175, 23);
-      WriteOldArrayInButton.TabIndex = 5;
-      WriteOldArrayInButton.Text = "Вписать старый массив";
-      WriteOldArrayInButton.UseVisualStyleBackColor = true;
-      WriteOldArrayInButton.Visible = false;
-      WriteOldArrayInButton.Click += WriteOldArrayInButton_Click;
+      ConfirmationButton.Location = new Point(12, 9);
+      ConfirmationButton.Name = "button2";
+      ConfirmationButton.Size = new Size(75, 23);
+      ConfirmationButton.TabIndex = 3;
+      ConfirmationButton.Text = "Утвердить";
+      ConfirmationButton.UseVisualStyleBackColor = true;
+      ConfirmationButton.Visible = false;
+      ConfirmationButton.Click += ConfirmationButton_Click;
       // 
       // TwoDimForm
       // 
@@ -91,25 +79,24 @@
       AutoScroll = true;
       AutoSize = true;
       ClientSize = new Size(283, 82);
-      Controls.Add(WriteOldArrayInButton);
-      Controls.Add(button2);
+      Controls.Add(ConfirmationButton);
       Controls.Add(label1);
-      Controls.Add(textBox1);
-      Controls.Add(button1);
+      Controls.Add(LengthEnterTextBox);
+      Controls.Add(LengthEnterButton);
       MaximumSize = new Size(520, 320);
       Name = "TwoDimForm";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Двумерный массив";
+      FormClosing += TwoDimForm_FormClosing;
       ResumeLayout(false);
       PerformLayout();
     }
 
     #endregion
 
-    private Button button1;
-    private TextBox textBox1;
+    private Button LengthEnterButton;
+    private TextBox LengthEnterTextBox;
     private Label label1;
-    private Button button2;
-    private Button WriteOldArrayInButton;
+    private Button ConfirmationButton;
   }
 }

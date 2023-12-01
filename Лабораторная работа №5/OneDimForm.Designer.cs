@@ -28,61 +28,49 @@
     /// </summary>
     private void InitializeComponent()
     {
-      button1 = new Button();
-      textBox1 = new TextBox();
-      label1 = new Label();
-      button2 = new Button();
-      WriteOldArrayInButton = new Button();
+      LengthEnterButton = new Button();
+      LengthEnterTextBox = new TextBox();
+      LengthEnterLabel = new Label();
+      ConfirmationButton = new Button();
       SuspendLayout();
       // 
       // button1
       // 
-      button1.Location = new Point(222, 45);
-      button1.Name = "button1";
-      button1.Size = new Size(75, 23);
-      button1.TabIndex = 0;
-      button1.Text = "Ввод";
-      button1.UseVisualStyleBackColor = true;
-      button1.Click += button1_Click;
+      LengthEnterButton.Location = new Point(222, 45);
+      LengthEnterButton.Name = "button1";
+      LengthEnterButton.Size = new Size(75, 23);
+      LengthEnterButton.TabIndex = 0;
+      LengthEnterButton.Text = "Ввод";
+      LengthEnterButton.UseVisualStyleBackColor = true;
+      LengthEnterButton.Click += LengthEnterButton_Click;
       // 
       // textBox1
       // 
-      textBox1.Location = new Point(12, 45);
-      textBox1.Name = "textBox1";
-      textBox1.Size = new Size(204, 23);
-      textBox1.TabIndex = 1;
-      textBox1.KeyDown += textBox1_KeyDown;
+      LengthEnterTextBox.Location = new Point(12, 45);
+      LengthEnterTextBox.Name = "textBox1";
+      LengthEnterTextBox.Size = new Size(204, 23);
+      LengthEnterTextBox.TabIndex = 1;
+      LengthEnterTextBox.KeyDown += LengthEnterTextBox_KeyDown;
       // 
       // label1
       // 
-      label1.AutoSize = true;
-      label1.Location = new Point(39, 18);
-      label1.Name = "label1";
-      label1.Size = new Size(135, 15);
-      label1.TabIndex = 2;
-      label1.Text = "Введите длину массива";
+      LengthEnterLabel.AutoSize = true;
+      LengthEnterLabel.Location = new Point(39, 18);
+      LengthEnterLabel.Name = "label1";
+      LengthEnterLabel.Size = new Size(135, 15);
+      LengthEnterLabel.TabIndex = 2;
+      LengthEnterLabel.Text = "Введите длину массива";
       // 
       // button2
       // 
-      button2.Location = new Point(12, 10);
-      button2.Name = "button2";
-      button2.Size = new Size(93, 23);
-      button2.TabIndex = 3;
-      button2.Text = "Утвердить";
-      button2.UseVisualStyleBackColor = true;
-      button2.Visible = false;
-      button2.Click += button2_Click;
-      // 
-      // WriteOldArrayInButton
-      // 
-      WriteOldArrayInButton.Location = new Point(122, 10);
-      WriteOldArrayInButton.Name = "WriteOldArrayInButton";
-      WriteOldArrayInButton.Size = new Size(175, 23);
-      WriteOldArrayInButton.TabIndex = 4;
-      WriteOldArrayInButton.Text = "Вписать старый массив";
-      WriteOldArrayInButton.UseVisualStyleBackColor = true;
-      WriteOldArrayInButton.Visible = false;
-      WriteOldArrayInButton.Click += WriteOldArrayInButton_Click;
+      ConfirmationButton.Location = new Point(12, 10);
+      ConfirmationButton.Name = "button2";
+      ConfirmationButton.Size = new Size(93, 23);
+      ConfirmationButton.TabIndex = 3;
+      ConfirmationButton.Text = "Утвердить";
+      ConfirmationButton.UseVisualStyleBackColor = true;
+      ConfirmationButton.Visible = false;
+      ConfirmationButton.Click += ConfirmationButton_Click;
       // 
       // OneDimForm
       // 
@@ -91,25 +79,24 @@
       AutoScroll = true;
       AutoSize = true;
       ClientSize = new Size(305, 101);
-      Controls.Add(WriteOldArrayInButton);
-      Controls.Add(button2);
-      Controls.Add(label1);
-      Controls.Add(textBox1);
-      Controls.Add(button1);
+      Controls.Add(ConfirmationButton);
+      Controls.Add(LengthEnterLabel);
+      Controls.Add(LengthEnterTextBox);
+      Controls.Add(LengthEnterButton);
       MaximumSize = new Size(600, 150);
       Name = "OneDimForm";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Одномерный массив";
+      FormClosing += OneDimForm_FormClosing;
       ResumeLayout(false);
       PerformLayout();
     }
 
     #endregion
 
-    private Button button1;
-    private TextBox textBox1;
-    private Label label1;
-    private Button button2;
-    private Button WriteOldArrayInButton;
+    private Button LengthEnterButton;
+    private TextBox LengthEnterTextBox;
+    private Label LengthEnterLabel;
+    private Button ConfirmationButton;
   }
 }

@@ -1,17 +1,15 @@
 using System.CodeDom.Compiler;
 using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
-using static MyLibStructWF.ArrayManagementWF;
+using static MyLibStructWF.ArrayTypes;
+using static Лабораторная_работа__5.BusinessLogic;
 
 namespace Лабораторная_работа__5
 {
   public partial class MainMenu : Form
   {
-    public static int arrayHeight = 0;
-    public static OneDim arrayMainOne = new OneDim();
-    public static TwoDim arrayMainTwo = new TwoDim();
-    public static Torn arrayMainTorn = new Torn();
     public static bool isEdit1 = false, isEdit2 = false, isEdit3 = false;
     public static Random random = new Random();
 
@@ -20,198 +18,179 @@ namespace Лабораторная_работа__5
       InitializeComponent();
     }
 
+    #region Array Init
     private void OneDimCreateButton_Click(object sender, EventArgs e)
     {
       OneDimForm form = new OneDimForm();
-      FormInit(form);
-      arrayMainOne.Show(OneDimForm.isInitialized, MainWindow);
+      form.ShowDialog();
+      MainWindow.Text = OneDimMain.Show;
     }
 
     private void TwoDimCreateButton_Click(object sender, EventArgs e)
     {
       TwoDimForm form = new TwoDimForm();
-      FormInit(form);
-      arrayMainTwo.Show(TwoDimForm.isInitialized, MainWindow);
+      form.ShowDialog();
+      MainWindow.Text = TwoDimMain.Show;
     }
 
     private void TornCreateButton_Click(object sender, EventArgs e)
     {
       TornArrayForm form = new TornArrayForm();
-      FormInit(form);
-      arrayMainTorn.Show(TornArrayForm.isInitialized, MainWindow);
+      form.ShowDialog();
+      MainWindow.Text = TornMain.Show;
     }
+    #endregion
 
+    #region Array Print
     private void OneDimPrintButton_Click(object sender, EventArgs e)
     {
-      arrayMainOne.Show(OneDimForm.isInitialized, MainWindow);
+      MainWindow.Text = OneDimMain.Show;
     }
 
     private void TwoDimPrintButton_Click(object sender, EventArgs e)
     {
-      arrayMainTwo.Show(TwoDimForm.isInitialized, MainWindow);
+      MainWindow.Text = TwoDimMain.Show;
     }
 
 
     private void TornPrintButton_Click(object sender, EventArgs e)
     {
-      arrayMainTorn.Show(TornArrayForm.isInitialized, MainWindow);
+      MainWindow.Text = TornMain.Show;
     }
+    #endregion
 
+    #region Random Fill
     private void OneDimFillButton_Click(object sender, EventArgs e)
     {
-      if (OneDimForm.isInitialized)
-      {
-        for (int i = 0; i < arrayMainOne.Length(); i++)
-          arrayMainOne.array[i] = random.Next(-100, 100);
-        arrayMainOne.Show(OneDimForm.isInitialized, MainWindow);
-      }
-      else
-        MessageBox.Show("Массив не инициализирован.", "Ошибка");
+      RandomFill_OneDim();
+      MainWindow.Text = OneDimMain.Show;
     }
 
     private void TwoDimFillButton_Click(object sender, EventArgs e)
     {
-      if (TwoDimForm.isInitialized)
-      {
-        for (int i = 0; i < arrayMainTwo.Length(0); i++)
-          for (int j = 0; j < arrayMainTwo.Length(1); j++)
-            arrayMainTwo.array[i, j] = random.Next(-100, 100);
-        arrayMainTwo.Show(TwoDimForm.isInitialized, MainWindow);
-      }
-      else
-        MessageBox.Show("Массив не инициализирован.", "Ошибка");
+      RandomFill_TwoDim();
+      MainWindow.Text = TwoDimMain.Show;
     }
 
     private void TornFillButton_Click(object sender, EventArgs e)
     {
-      if (TornArrayForm.isInitialized)
-      {
-        for (int i = 0; i < arrayMainTorn.Length(); i++)
-          for (int j = 0; j < arrayMainTorn.array[i].Length; j++)
-            arrayMainTorn.array[i][j] = random.Next(-100, 100);
-        arrayMainTorn.Show(TornArrayForm.isInitialized, MainWindow);
-      }
-      else
-        MessageBox.Show("Массив не инициализирован.", "Ошибка");
+      RandomFill_Torn();
+      MainWindow.Text = TornMain.Show;
     }
+    #endregion
 
+    #region Major Tasks
     private void Task1Button_Click(object sender, EventArgs e)
     {
-      if (OneDimForm.isInitialized)
-      {
-        arrayMainOne.Task1(ref OneDimForm.isInitialized);
-        arrayMainOne.Show(OneDimForm.isInitialized, MainWindow);
-      }
-      else
-        MessageBox.Show("Массив не инициализирован.", "Ошибка");
+      Task1();
+      MainWindow.Text = OneDimMain.Show;
     }
 
     private void Task2Button_Click(object sender, EventArgs e)
     {
-      int x;
-      if (TwoDimForm.isInitialized && int.TryParse(textBox1.Text, out x) && x > 0 && x < arrayMainTwo.Length(0) + 1)
+      if (TwoDimMain.Length(0) != 0 && int.TryParse(Task2TextBox.Text, out int lineNumber) && lineNumber > 0 && lineNumber <= TwoDimMain.Length(0))
       {
-        arrayMainTwo.Task2(x);
-        arrayMainTwo.Show(TwoDimForm.isInitialized, MainWindow);
+        Task2(lineNumber);
+        MainWindow.Text = TwoDimMain.Show;
       }
+      else
+        MessageBox.Show("Ввод некорректен, введите число в пределах количества строк массива", "Ошибка");
     }
 
     private void Task3Button_Click(object sender, EventArgs e)
     {
-      if (TornArrayForm.isInitialized)
+      if (TornMain.Length != 0)
       {
-
-        arrayMainTorn.Task3();
-        if (arrayMainTorn.Length() == 0)
-          TornArrayForm.isInitialized = false;
-        arrayMainTorn.Show(TornArrayForm.isInitialized, MainWindow);
+        Task3();
       }
-      else
-        MessageBox.Show("Не с чем работать.", "Ошибка");
+      MainWindow.Text = TornMain.Show;
     }
+    #endregion
 
-    private void OneDimSaveButton_Click(object sender, EventArgs e)
-    {
-      if (OneDimForm.isInitialized)
-      {
-        arrayMainOne.Save();
-      }
-      else
-        MessageBox.Show("Записывать нечего.", "Ошибка");
-    }
-
-    private void TwoDimSaveButton_Click(object sender, EventArgs e)
-    {
-      if (TwoDimForm.isInitialized)
-      {
-        arrayMainTwo.Save();
-      }
-      else
-        MessageBox.Show("Записывать нечего.", "Ошибка");
-    }
-
-    private void TornSaveButton_Click(object sender, EventArgs e)
-    {
-      if (TornArrayForm.isInitialized)
-      {
-        arrayMainTorn.Save();
-      }
-      else
-        MessageBox.Show("Записывать нечего.", "Ошибка");
-    }
-
-
+    #region Edit Buttons
     private void OneDimEditButton_Click(object sender, EventArgs e)
     {
-      if (OneDimForm.isInitialized)
+      if (OneDimMain.Length != 0)
       {
         isEdit1 = true;
         OneDimForm form = new OneDimForm();
-        FormInit(form);
-        arrayMainOne.Show(OneDimForm.isInitialized, MainWindow);
+        form.ShowDialog();
+        MainWindow.Text = OneDimMain.Show;
         isEdit1 = false;
       }
       else
-        MessageBox.Show("Не с чем работать.", "Ошибка");
+        MessageBox.Show("Массив пуст.", "Ошибка");
     }
 
     private void TwoDimEditButton_Click(object sender, EventArgs e)
     {
-      if (TwoDimForm.isInitialized)
+      if (TwoDimMain.Length(0) != 0)
       {
         isEdit2 = true;
         TwoDimForm form = new TwoDimForm();
-        FormInit(form);
-        arrayMainTwo.Show(TwoDimForm.isInitialized, MainWindow);
+        form.ShowDialog();
+        MainWindow.Text = TwoDimMain.Show;
         isEdit2 = false;
       }
       else
-        MessageBox.Show("Не с чем работать.", "Ошибка");
+        MessageBox.Show("Массив пуст.", "Ошибка");
     }
 
     private void TornEditButton_Click(object sender, EventArgs e)
     {
-      if (TornArrayForm.isInitialized)
+      if (TornMain.Length != 0)
       {
         isEdit3 = true;
         TornArrayForm form = new TornArrayForm();
-        FormInit(form);
-        arrayMainTorn.Show(TornArrayForm.isInitialized, MainWindow);
+        form.ShowDialog();
+        MainWindow.Text = TornMain.Show;
         isEdit3 = false;
       }
       else
-        MessageBox.Show("Не с чем работать.", "Ошибка");
+        MessageBox.Show("Массив пуст.", "Ошибка");
+    }
+    #endregion
+
+    #region Save
+    private void OneDimSaveButton_Click(object sender, EventArgs e)
+    {
+      if (OneDimMain.Length != 0)
+      {
+        Save(OneDimMain.array);
+      }
+      else
+        MessageBox.Show("Массив пуст, записывать нечего.", "Ошибка");
     }
 
+    private void TwoDimSaveButton_Click(object sender, EventArgs e)
+    {
+      if (TwoDimMain.Length(0) != 0)
+      {
+        Save(TwoDimMain.array);
+      }
+      else
+        MessageBox.Show("Массив пуст, записывать нечего.", "Ошибка");
+    }
+
+    private void TornSaveButton_Click(object sender, EventArgs e)
+    {
+      if (TornMain.Length != 0)
+      {
+       Save(TornMain.array);
+      }
+      else
+        MessageBox.Show("Массив пуст, записывать нечего.", "Ошибка");
+    }
+    #endregion
+
+    #region Load
     private void OneDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (arrayMainOne.IsFileCorrect(fileContent))
+      if (IsFileCorrect_OneDim(fileContent))
       {
-        int errorNumber = arrayMainOne.Load(fileContent);
-        OneDimForm.arrayOne.array = arrayMainOne.Copy;
-        OneDimForm.isInitialized = true;
-        arrayMainOne.Show(OneDimForm.isInitialized, MainWindow);
+        int errorNumber = Load_OneDim(fileContent);
+        MainWindow.Text = OneDimMain.Show;
         if (errorNumber > 0)
           MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
       }
@@ -222,12 +201,10 @@ namespace Лабораторная_работа__5
     private void TwoDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (arrayMainTwo.IsFileCorrect(fileContent))
+      if (IsFileCorrect_TwoDim(fileContent))
       {
-        int errorNumber = arrayMainTwo.Load(fileContent);
-        TwoDimForm.arrayTwo.array = arrayMainTwo.Copy;
-        TwoDimForm.isInitialized = true;
-        arrayMainTwo.Show(TwoDimForm.isInitialized, MainWindow);
+        int errorNumber = Load_TwoDim(fileContent);
+        MainWindow.Text = TwoDimMain.Show;
         if (errorNumber > 0)
           MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
       }
@@ -238,17 +215,16 @@ namespace Лабораторная_работа__5
     private void TornLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (arrayMainTorn.IsFileCorrect(fileContent))
+      if (IsFileCorrect_Torn(fileContent))
       {
-        int errorNumber = arrayMainTorn.Load(fileContent);
-        TornArrayForm.arrayTorn.array = arrayMainTorn.Copy;
-        TornArrayForm.isInitialized = true;
-        arrayMainTorn.Show(TornArrayForm.isInitialized, MainWindow);
+        int errorNumber = Load_Torn(fileContent);
+        MainWindow.Text = TornMain.Show;
         if (errorNumber > 0)
           MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
       }
       else
         MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как рваный массив целых чисел в пределах типа integer.", "Ошибка");
     }
+    #endregion
   }
 }

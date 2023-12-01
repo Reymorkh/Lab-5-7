@@ -48,7 +48,7 @@
       label5 = new Label();
       label6 = new Label();
       label7 = new Label();
-      textBox1 = new TextBox();
+      Task2TextBox = new TextBox();
       label8 = new Label();
       OneDimSaveButton = new Button();
       TwoDimSaveButton = new Button();
@@ -260,11 +260,11 @@
       // 
       // textBox1
       // 
-      textBox1.Location = new Point(743, 238);
-      textBox1.Name = "textBox1";
-      textBox1.Size = new Size(32, 23);
-      textBox1.TabIndex = 20;
-      textBox1.TextAlign = HorizontalAlignment.Center;
+      Task2TextBox.Location = new Point(743, 238);
+      Task2TextBox.Name = "textBox1";
+      Task2TextBox.Size = new Size(32, 23);
+      Task2TextBox.TabIndex = 20;
+      Task2TextBox.TextAlign = HorizontalAlignment.Center;
       // 
       // label8
       // 
@@ -411,7 +411,7 @@
       Controls.Add(TwoDimSaveButton);
       Controls.Add(OneDimSaveButton);
       Controls.Add(label8);
-      Controls.Add(textBox1);
+      Controls.Add(Task2TextBox);
       Controls.Add(label7);
       Controls.Add(label6);
       Controls.Add(label5);
@@ -461,7 +461,7 @@
     private Label label5;
     private Label label6;
     private Label label7;
-    private TextBox textBox1;
+    private TextBox Task2TextBox;
     private Label label8;
     private Button OneDimSaveButton;
     private Button TwoDimSaveButton;

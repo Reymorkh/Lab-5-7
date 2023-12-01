@@ -29,11 +29,10 @@
     private void InitializeComponent()
     {
       HeightButton = new Button();
-      textBox1 = new TextBox();
+      HeightBox = new TextBox();
       LengthButton = new Button();
       MainLabel = new Label();
-      PseudoMainButton = new Button();
-      WriteOldArrayInButton = new Button();
+      ConfirmationButton = new Button();
       SuspendLayout();
       // 
       // HeightButton
@@ -48,10 +47,10 @@
       // 
       // textBox1
       // 
-      textBox1.Location = new Point(15, 12);
-      textBox1.Name = "textBox1";
-      textBox1.Size = new Size(100, 23);
-      textBox1.TabIndex = 2;
+      HeightBox.Location = new Point(15, 12);
+      HeightBox.Name = "textBox1";
+      HeightBox.Size = new Size(100, 23);
+      HeightBox.TabIndex = 2;
       // 
       // LengthButton
       // 
@@ -76,24 +75,14 @@
       // 
       // PseudoMainButton
       // 
-      PseudoMainButton.Location = new Point(40, 5);
-      PseudoMainButton.Name = "PseudoMainButton";
-      PseudoMainButton.Size = new Size(151, 23);
-      PseudoMainButton.TabIndex = 5;
-      PseudoMainButton.Text = "Утвердить";
-      PseudoMainButton.UseVisualStyleBackColor = true;
-      PseudoMainButton.Visible = false;
-      PseudoMainButton.Click += ConfirmArrayButton_Click;
-      // 
-      // WriteOldArrayInButton
-      // 
-      WriteOldArrayInButton.Location = new Point(235, 5);
-      WriteOldArrayInButton.Name = "WriteOldArrayInButton";
-      WriteOldArrayInButton.Size = new Size(175, 23);
-      WriteOldArrayInButton.TabIndex = 6;
-      WriteOldArrayInButton.Text = "Вписать старый массив";
-      WriteOldArrayInButton.UseVisualStyleBackColor = true;
-      WriteOldArrayInButton.Visible = false;
+      ConfirmationButton.Location = new Point(40, 5);
+      ConfirmationButton.Name = "PseudoMainButton";
+      ConfirmationButton.Size = new Size(151, 23);
+      ConfirmationButton.TabIndex = 5;
+      ConfirmationButton.Text = "Утвердить";
+      ConfirmationButton.UseVisualStyleBackColor = true;
+      ConfirmationButton.Visible = false;
+      ConfirmationButton.Click += ConfirmationButton_Click;
       // 
       // TornArrayForm
       // 
@@ -103,26 +92,25 @@
       AutoSize = true;
       AutoSizeMode = AutoSizeMode.GrowAndShrink;
       ClientSize = new Size(476, 89);
-      Controls.Add(WriteOldArrayInButton);
       Controls.Add(MainLabel);
       Controls.Add(LengthButton);
-      Controls.Add(textBox1);
+      Controls.Add(HeightBox);
       Controls.Add(HeightButton);
-      Controls.Add(PseudoMainButton);
+      Controls.Add(ConfirmationButton);
       MaximumSize = new Size(816, 489);
       Name = "TornArrayForm";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Рваный массив";
+      FormClosing += TornArrayForm_FormClosing;
       ResumeLayout(false);
       PerformLayout();
     }
 
     #endregion
     private Button HeightButton;
-    private TextBox textBox1;
+    private TextBox HeightBox;
     private Button LengthButton;
     private Label MainLabel;
-    private Button PseudoMainButton;
-    private Button WriteOldArrayInButton;
+    private Button ConfirmationButton;
   }
 }

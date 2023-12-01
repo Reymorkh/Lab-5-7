@@ -13,83 +13,71 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 using Label = System.Windows.Forms.Label;
-using static MyLibStructWF.ArrayManagementWF;
+using static MyLibStructWF.ArrayTypes;
+using static Лабораторная_работа__5.BusinessLogic;
 
 namespace Лабораторная_работа__5
 {
   public partial class OneDimForm : Form
   {
-    public static bool isInitialized;
-    public static OneDim arrayOne = new OneDim();
+    public OneDimForm()
+    {
+      InitializeComponent();
+      if (MainMenu.isEdit1 == true)
+      {
+        OneDimTemp.array = Copy(OneDimMain.array);
+        LengthEnterButton.Visible = false;
+        LengthEnterTextBox.Visible = false;
+        LengthEnterLabel.Visible = false;
+        ConfirmationButton.Visible = true;
+        Printer();
+      }
+    }
 
     public void Printer()
     {
-      arrayOne.PrintBoxes();
+      OneDimTemp.PrintBoxes();
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
         Controls.Add(s);
     }
 
-    public OneDimForm()
+    private void LengthEnterButton_Click(object sender, EventArgs e)
     {
-      InitializeComponent();
-      if (MainMenu.isEdit1 == true)
+      if (int.TryParse(LengthEnterTextBox.Text, out int temp) && temp > -1)
       {
-        arrayOne.array = MainMenu.arrayMainOne.Copy;
-        button1.Visible = false;
-        textBox1.Visible = false;
-        label1.Visible = false;
-        button2.Visible = true;
-        Printer();
-      }
-    }
-
-    private void button1_Click(object sender, EventArgs e)
-    {
-      int temp;
-      if (int.TryParse(textBox1.Text, out temp) && temp > 0)
-      {
-        arrayOne.array = new int[temp];
-        //if (MainMenu.arrayMainOne.Length() > 0 && MainMenu.arrayMainOne.Length() <= arrayOne.Length())
-          WriteOldArrayInButton.Visible = true;
-        label1.Visible = false;
-        textBox1.Visible = false;
-        button1.Visible = false;
-        button2.Visible = true;
+        if (temp == 0)
+        {
+          OneDimMain.array = new int[0];
+          this.Close();
+        }
+        OneDimTemp.array = new int[temp];
+        LengthEnterLabel.Visible = false;
+        LengthEnterTextBox.Visible = false;
+        LengthEnterButton.Visible = false;
+        ConfirmationButton.Visible = true;
         Printer();
       }
       else
         MessageBox.Show("Integer больше нуля, пожалуйста.", "Ошибка");
     }
 
-    private void textBox1_KeyDown(object sender, KeyEventArgs e)
+    private void LengthEnterTextBox_KeyDown(object sender, KeyEventArgs e)
     {
       var textBox = sender as TextBox;
       if (e.KeyCode == Keys.Enter)
       {
-        button1_Click(sender, e);
+        LengthEnterButton_Click(sender, e);
       }
     }
 
-    private void button2_Click(object sender, EventArgs e)
-    {
-      bool isCorrect = true;
-      foreach (var x in textBoxes)
+    private void ConfirmationButton_Click(object sender, EventArgs e)
+    { 
+      if (OneDimBoxesCheck)
       {
-        int y;
-        if (!int.TryParse(x.Text, out y))
-        {
-          isCorrect = false;
-          break;
-        }
-      }
-
-      if (isCorrect)
-      {
-        arrayOne.BoxesToArray();
-        MainMenu.arrayMainOne.array = arrayOne.Copy;
-        isInitialized = true;
+        OneDimTemp.BoxesToArray();
+        OneDimMain.array = Copy(OneDimTemp.array);
         this.Close();
       }
       else
@@ -97,17 +85,18 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          arrayOne.BoxesToArray();
-          MainMenu.arrayMainOne.array = arrayOne.Copy;
-          isInitialized = true;
+          OneDimTemp.BoxesToArray();
+          OneDimMain.array = Copy(OneDimTemp.array);
           this.Close();
         }
       }
     }
 
-    private void WriteOldArrayInButton_Click(object sender, EventArgs e)
+    private void OneDimForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-      MainMenu.arrayMainOne.NumbersToBoxes();
+      textBoxes.Clear();
+      labels.Clear();
+      this.Dispose();
     }
   }
 }
