@@ -9,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Лабораторная_работа__5
 {
-  public struct BusinessLogic
+  public static class BusinessLogic
   {
     public static OneDim OneDimMain = new OneDim(0), OneDimTemp = new OneDim(0);
     public static TwoDim TwoDimMain = new TwoDim(0, 0), TwoDimTemp = new TwoDim(0, 0);
