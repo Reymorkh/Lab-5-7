@@ -31,7 +31,7 @@ namespace Лабораторная_работа__5
     public TornArrayForm()
     {
       InitializeComponent();
-      if (MainMenu.isEdit3 == true)
+      if (MainMenu.isEdit == true)
       {
         TornTemp.array = Copy(TornMain.array);
         HeightButton.Visible = false;

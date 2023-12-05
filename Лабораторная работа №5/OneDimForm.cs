@@ -23,7 +23,7 @@ namespace Лабораторная_работа__5
     public OneDimForm()
     {
       InitializeComponent();
-      if (MainMenu.isEdit1 == true)
+      if (MainMenu.isEdit == true)
       {
         OneDimTemp.array = Copy(OneDimMain.array);
         LengthEnterButton.Visible = false;

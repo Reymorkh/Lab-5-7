@@ -32,7 +32,7 @@ namespace Лабораторная_работа__5
     public TwoDimForm()
     {
       InitializeComponent();
-      if (MainMenu.isEdit2 == true)
+      if (MainMenu.isEdit == true)
       {
         TwoDimTemp.array = Copy(TwoDimMain.array);
         LengthEnterButton.Visible = false;

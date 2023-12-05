@@ -17,33 +17,24 @@ namespace Лабораторная_работа__5
     public static Random random = new Random();
 
     #region random fill
-    public static void RandomFill_OneDim()
+    public static void RandomFill(int[] array)
     {
-      if (OneDimMain.Length != 0)
-      {
-        for (int i = 0; i < OneDimMain.Length; i++)
-          OneDimMain.array[i] = random.Next(-100, 100);
-      }
+      for (int i = 0; i < array.Length; i++)
+        array[i] = random.Next(-100, 100);
     }
 
-    public static void RandomFill_TwoDim()
+    public static void RandomFill(int[,] array)
     {
-      if (TwoDimMain.Length(0) != 0)
-      {
-        for (int i = 0; i < TwoDimMain.Length(0); i++)
-          for (int j = 0; j < TwoDimMain.Length(1); j++)
-            TwoDimMain.array[i, j] = random.Next(-100, 100);
-      }
+      for (int i = 0; i < array.GetLength(0); i++)
+        for (int j = 0; j < array.GetLength(1); j++)
+          array[i, j] = random.Next(-100, 100);
     }
 
-    public static void RandomFill_Torn()
+    public static void RandomFill(int[][] array)
     {
-      if (TornMain.Length != 0)
-      {
-        for (int i = 0; i < TornMain.Length; i++)
-          for (int j = 0; j < TornMain.array[i].Length; j++)
-            TornMain.array[i][j] = random.Next(-100, 100);
-      }
+      for (int i = 0; i < array.Length; i++)
+        for (int j = 0; j < array[i].Length; j++)
+          array[i][j] = random.Next(-100, 100);
     }
     #endregion
 

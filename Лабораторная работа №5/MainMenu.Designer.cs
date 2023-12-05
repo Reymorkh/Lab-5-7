@@ -76,6 +76,8 @@
       // 
       // MainWindow
       // 
+      MainWindow.BackColor = Color.White;
+      MainWindow.BorderStyle = BorderStyle.FixedSingle;
       MainWindow.Location = new Point(29, 29);
       MainWindow.Multiline = true;
       MainWindow.Name = "MainWindow";
@@ -258,10 +260,10 @@
       label7.TabIndex = 19;
       label7.Text = "Задания варианта 1. Лабораторная 5";
       // 
-      // textBox1
+      // Task2TextBox
       // 
       Task2TextBox.Location = new Point(743, 238);
-      Task2TextBox.Name = "textBox1";
+      Task2TextBox.Name = "Task2TextBox";
       Task2TextBox.Size = new Size(32, 23);
       Task2TextBox.TabIndex = 20;
       Task2TextBox.TextAlign = HorizontalAlignment.Center;
@@ -397,6 +399,7 @@
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
+      BackColor = Color.Gainsboro;
       ClientSize = new Size(918, 471);
       Controls.Add(label11);
       Controls.Add(TwoDimEditButton);
@@ -432,6 +435,7 @@
       Controls.Add(OneDimCreateButton);
       Controls.Add(MainWindow);
       Controls.Add(TornCreateButton);
+      ForeColor = SystemColors.ControlText;
       Name = "MainMenu";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Главное меню";

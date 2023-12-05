@@ -10,7 +10,7 @@ namespace Лабораторная_работа__5
 {
   public partial class MainMenu : Form
   {
-    public static bool isEdit1 = false, isEdit2 = false, isEdit3 = false;
+    public static bool isEdit = false;
     public static Random random = new Random();
 
     public MainMenu()
@@ -62,19 +62,19 @@ namespace Лабораторная_работа__5
     #region Random Fill
     private void OneDimFillButton_Click(object sender, EventArgs e)
     {
-      RandomFill_OneDim();
+      RandomFill(OneDimMain.array);
       MainWindow.Text = OneDimMain.Show;
     }
 
     private void TwoDimFillButton_Click(object sender, EventArgs e)
     {
-      RandomFill_TwoDim();
+      RandomFill(TwoDimMain.array);
       MainWindow.Text = TwoDimMain.Show;
     }
 
     private void TornFillButton_Click(object sender, EventArgs e)
     {
-      RandomFill_Torn();
+      RandomFill(TornMain.array);
       MainWindow.Text = TornMain.Show;
     }
     #endregion
@@ -112,11 +112,11 @@ namespace Лабораторная_работа__5
     {
       if (OneDimMain.Length != 0)
       {
-        isEdit1 = true;
+        isEdit = true;
         OneDimForm form = new OneDimForm();
         form.ShowDialog();
         MainWindow.Text = OneDimMain.Show;
-        isEdit1 = false;
+        isEdit = false;
       }
       else
         MessageBox.Show("Массив пуст.", "Ошибка");
@@ -126,11 +126,11 @@ namespace Лабораторная_работа__5
     {
       if (TwoDimMain.Length(0) != 0)
       {
-        isEdit2 = true;
+        isEdit = true;
         TwoDimForm form = new TwoDimForm();
         form.ShowDialog();
         MainWindow.Text = TwoDimMain.Show;
-        isEdit2 = false;
+        isEdit = false;
       }
       else
         MessageBox.Show("Массив пуст.", "Ошибка");
@@ -140,11 +140,11 @@ namespace Лабораторная_работа__5
     {
       if (TornMain.Length != 0)
       {
-        isEdit3 = true;
+        isEdit = true;
         TornArrayForm form = new TornArrayForm();
         form.ShowDialog();
         MainWindow.Text = TornMain.Show;
-        isEdit3 = false;
+        isEdit = false;
       }
       else
         MessageBox.Show("Массив пуст.", "Ошибка");
@@ -176,7 +176,7 @@ namespace Лабораторная_работа__5
     {
       if (TornMain.Length != 0)
       {
-       Save(TornMain.array);
+        Save(TornMain.array);
       }
       else
         MessageBox.Show("Массив пуст, записывать нечего.", "Ошибка");
