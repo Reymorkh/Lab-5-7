@@ -47,11 +47,11 @@ namespace Лабораторная_работа__5
     {
       if (TwoDimParamCheck(LengthEnterTextBox.Text, out int param1, out int param2))
       {
-        if (param1 == 0 | param2 == 0) 
-        { 
+        if (param1 == 0 | param2 == 0)
+        {
           TwoDimMain.array = SetArrayLength(param1, param2);
           this.Close();
-      }
+        }
         TwoDimTemp.array = SetArrayLength(param1, param2);
         LengthEnterButton.Visible = false;
         ConfirmationButton.Visible = true;
@@ -61,12 +61,11 @@ namespace Лабораторная_работа__5
       }
       else
         MessageBox.Show("Ввод некорректен, введите 2 параметра длины массива больше нуля и типа integer.", "Ошибка");
-      
+
     }
 
     private void LengthEnterTextBox_KeyDown(object sender, KeyEventArgs e)
     {
-      var textBox = sender as TextBox;
       if (e.KeyCode == Keys.Enter)
       {
         SetLength_Click(sender, e);

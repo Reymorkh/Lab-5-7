@@ -34,22 +34,22 @@
       ConfirmationButton = new Button();
       SuspendLayout();
       // 
-      // button1
+      // LengthEnterButton
       // 
       LengthEnterButton.Location = new Point(155, 42);
-      LengthEnterButton.Name = "button1";
+      LengthEnterButton.Name = "LengthEnterButton";
       LengthEnterButton.Size = new Size(75, 23);
-      LengthEnterButton.TabIndex = 0;
+      LengthEnterButton.TabIndex = 1;
       LengthEnterButton.Text = "Ввод";
       LengthEnterButton.UseVisualStyleBackColor = true;
       LengthEnterButton.Click += SetLength_Click;
       // 
-      // textBox1
+      // LengthEnterTextBox
       // 
       LengthEnterTextBox.Location = new Point(12, 42);
-      LengthEnterTextBox.Name = "textBox1";
+      LengthEnterTextBox.Name = "LengthEnterTextBox";
       LengthEnterTextBox.Size = new Size(137, 23);
-      LengthEnterTextBox.TabIndex = 1;
+      LengthEnterTextBox.TabIndex = 0;
       LengthEnterTextBox.KeyDown += LengthEnterTextBox_KeyDown;
       // 
       // label1
@@ -61,10 +61,10 @@
       label1.TabIndex = 2;
       label1.Text = "Введите параметры массива через пробел";
       // 
-      // button2
+      // ConfirmationButton
       // 
       ConfirmationButton.Location = new Point(12, 9);
-      ConfirmationButton.Name = "button2";
+      ConfirmationButton.Name = "ConfirmationButton";
       ConfirmationButton.Size = new Size(75, 23);
       ConfirmationButton.TabIndex = 3;
       ConfirmationButton.Text = "Утвердить";

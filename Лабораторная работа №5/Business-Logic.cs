@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MyLibStructWF.ArrayTypes;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Лабораторная_работа__5
@@ -330,57 +331,87 @@ namespace Лабораторная_работа__5
       return fileContent;
     }
 
-    public static bool IsFileCorrect_OneDim(string text) //проверка на корректность указанного файла одномерного массива
+    public static bool IsFileCorrect_OneDim(string text, out string[] line) //проверка на корректность указанного файла одномерного массива
     {
-      string[] arrStrings = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-      if (arrStrings.Length == 1)
+      line = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+      if (line.Length == 1)
         return true;
       return false;
     }
 
-    public static bool IsFileCorrect_TwoDim(string text) //проверка на корректность указанного файла двумерного массива
+    public static bool IsFileCorrect_TwoDim(string text, out string[][] lines) //проверка на корректность указанного файла двумерного массива
     {
-      string[] arrStrings = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-      int length = 0, lastLength = 0;
-      foreach (string s in arrStrings)
+      if (text.Length > 4 && text[0] == 'C' && text[1] == 'o' && text[2] == 'l')
       {
-        string[] temp = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        length = temp.Length;
-        if (Array.IndexOf(arrStrings, s) == 0) //Чтобы в самом начале приравнять последнюю длину к длине
-          lastLength = length;
-        if (length != lastLength)
-          return false;
+        lines = new string[1][];
+        lines[0] = new string[text.Length];
+        lines[0][0] = text;
+        return true;
       }
+      //else if (text.Length >= 5 && text[0] == 'E' && text[1] == 'm' && text[2] == 'p' && text[3] == 't' && text[4] == 'y')
+      //{
+      //  lines = new string[text.Split('\n', StringSplitOptions.RemoveEmptyEntries).Length][];
+      //  lines[0] = new string[1];
+      //  lines[0][0] = "Empty";
+      //  return true;
+      //}
+      else if (text.Length > 0)
+      {
+        string[] arrStrings = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+        int length = 0, lastLength = 0;
+        lines = new string[arrStrings.Length][];
+        for (int i = 0; i < arrStrings.Length; i++)
+        {
+          string[] line = arrStrings[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+          lines[i] = line;
+          if (line.Length > 0 && line[0][0] == 'E' && line[0][1] == 'm' && line[0][2] == 'p' && line[0][3] == 't' && line[0][4] == 'y')
+            length = 0;
+          else
+            length = line.Length;
+          if (i == 0) //Чтобы в самом начале приравнять последнюю длину к длине
+            lastLength = length;
+          if (length != lastLength)
+            return false;
+        }
       if (length == lastLength)
         return true;
+      }
+      lines = new string[0][];
       return false;
     }
 
-    public static bool IsFileCorrect_Torn(string text) //проверка на корректность указанного файла рваного массива
+    public static bool IsFileCorrect_Torn(string text, out string[][] lines) //проверка на корректность указанного файла рваного массива
     {
       string[] arrStrings = text.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-      int length, lastLength = 0;
-      foreach (string s in arrStrings)
+      lines = new string[arrStrings.Length][];
+      int minLength = 0, maxLength = 0;
+      for (int i = 0; i < arrStrings.Length; i++)
       {
-        string[] temp = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        length = temp.Length;
-        if (Array.IndexOf(arrStrings, s) == 0) //Чтобы в самом начале приравнять последнюю длину к длине
-          lastLength = length;
-        if (length != lastLength)
-          return true;
+        string[] line = arrStrings[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        lines[i] = line;
+        int tempLength;
+        if (line.Length > 0 && line[0][0] == 'E' && line[0][1] == 'm' && line[0][2] == 'p' && line[0][3] == 't' && line[0][4] == 'y')
+          tempLength = 0;
+        else
+          tempLength = line.Length;
+        if (maxLength < tempLength)
+          maxLength = tempLength;
+        else if (minLength > tempLength)
+          minLength = tempLength;
       }
+      if (minLength != maxLength)
+        return true;
       return false;
     }
 
-    public static int Load_OneDim(string fileContent)
+    public static int Load_OneDim(string[] line)
     {
       int errorNumber = 0;
-      string[] contentLines = fileContent.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-      int[] arrayLocal = new int[contentLines.Length];
-      for (int i = 0; i < contentLines.Length; i++)
+      line = line[0].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+      int[] arrayLocal = new int[line.Length];
+      for (int i = 0; i < line.Length; i++)
       {
-        int x;
-        if (int.TryParse(contentLines[i], out x))
+        if (int.TryParse(line[i], out int x))
           arrayLocal[i] = x;
         else
           errorNumber++;
@@ -389,47 +420,60 @@ namespace Лабораторная_работа__5
       return errorNumber;
     }
 
-    public static int Load_TwoDim(string fileContent)
+    public static int Load_TwoDim(string[][] lines)
     {
-      int errorNumber = 0;
-      string[] contentLines = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-      string[] contentColumns = contentLines[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-      int[,] arrayLocal = new int[contentLines.Length, contentColumns.Length];
-
-      for (int i = 0; i < contentLines.Length; i++)
+      if (lines[0][0][0] == 'C' && lines[0][0][1] == 'o' && lines[0][0][2] == 'l')
       {
-        contentColumns = contentLines[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        for (int j = 0; j < contentColumns.Length; j++)
-        {
-          int x;
-          if (int.TryParse(contentColumns[j], out x))
-            arrayLocal[i, j] = x;
-          else
-            errorNumber++;
-        }
+        string[] colCount = lines[0][0].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (int.TryParse(colCount[1], out int columns))
+          TwoDimMain.array = new int[0, columns];
+        else
+          return -1;
+        return 0;
       }
-      TwoDimMain.array = arrayLocal;
-      return errorNumber;
+      else if (lines[0][0][0] == 'E' && lines[0][0][1] == 'm' && lines[0][0][2] == 'p' && lines[0][0][3] == 't' && lines[0][0][4] == 'y')
+      {
+        TwoDimMain.array = new int[lines.Length, 0];
+        return 0;
+      }
+      else
+      {
+        int errorNumber = 0;
+        int[,] arrayLocal = new int[lines.Length, lines[0].Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+          for (int j = 0; j < lines[i].Length; j++)
+          {
+            if (int.TryParse(lines[i][j], out int x))
+              arrayLocal[i, j] = x;
+            else
+              errorNumber++;
+          }
+        }
+        TwoDimMain.array = arrayLocal;
+        return errorNumber;
+      }
+      return -1;
     }
 
-    public static int Load_Torn(string fileContent)
+    public static int Load_Torn(string[][] lines)
     {
       int errorNumber = 0;
-      string[] lineNumber = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-      string[] columnNubmer;
-      int[][] arrayLocal = new int[lineNumber.Length][];
-      for (int i = 0; i < lineNumber.Length; i++)
+      int[][] arrayLocal = new int[lines.Length][];
+      for (int i = 0; i < lines.Length; i++)
       {
-        columnNubmer = lineNumber[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-        arrayLocal[i] = new int[columnNubmer.Length];
-        for (int j = 0; j < arrayLocal[i].Length; j++)
+        if (lines[i][0][0] == 'E' && lines[i][0][1] == 'm' && lines[i][0][2] == 'p' && lines[i][0][3] == 't' && lines[i][0][4] == 'y')
+          arrayLocal[i] = new int[0];
+        else
         {
-          int x;
-          if (int.TryParse(columnNubmer[j], out x))
-            arrayLocal[i][j] = x;
-          else
-            errorNumber++;
+          arrayLocal[i] = new int[lines[i].Length];
+          for (int j = 0; j < arrayLocal[i].Length; j++)
+          {
+            if (int.TryParse(lines[i][j], out int x))
+              arrayLocal[i][j] = x;
+            else
+              errorNumber++;
+          }
         }
       }
       TornMain.array = arrayLocal;
@@ -470,14 +514,21 @@ namespace Лабораторная_работа__5
       string path = "Two Dimensional Array.txt";
       FileInit(path);
       StreamWriter file = new StreamWriter(path);
-      for (int i = 0; i < array.GetLength(0); i++)
-      {
-        for (int j = 0; j < array.GetLength(1); j++)
-          if (j != array.GetLength(1) - 1)
-            file.Write(array[i, j] + " ");
+      if (array.GetLength(0) == 0 && array.GetLength(1) > 1)
+        file.Write($"Col {array.GetLength(1)}");
+      else
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+          int length = array.GetLength(1);
+          if (length == 0)
+            file.WriteLine("Empty");
           else
-            file.WriteLine(array[i, j]);
-      }
+            for (int j = 0; j < length; j++)
+              if (j != length - 1)
+                file.Write(array[i, j] + " ");
+              else
+                file.WriteLine(array[i, j]);
+        }
       file.Close();
       MessageBox.Show("Массив записан");
     }
@@ -489,11 +540,15 @@ namespace Лабораторная_работа__5
       StreamWriter file = new StreamWriter(path);
       for (int i = 0; i < array.Length; i++)
       {
-        for (int j = 0; j < array[i].Length; j++)
-          if (j != array[i].Length - 1)
-            file.Write(array[i][j] + " ");
-          else
-            file.WriteLine(array[i][j]);
+        int length = array[i].Length;
+        if (length == 0)
+          file.WriteLine("Empty");
+        else
+          for (int j = 0; j < length; j++)
+            if (j != length - 1)
+              file.Write(array[i][j] + " ");
+            else
+              file.WriteLine(array[i][j]);
       }
       file.Close();
       MessageBox.Show("Массив записан");

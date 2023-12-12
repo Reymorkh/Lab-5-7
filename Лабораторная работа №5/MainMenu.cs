@@ -153,7 +153,7 @@ namespace Лабораторная_работа__5
 
     private void TwoDimSaveButton_Click(object sender, EventArgs e)
     {
-      if (TwoDimMain.Length(0) != 0)
+      if (TwoDimMain.Length(0) != 0 | TwoDimMain.Length(1) != 0)
       {
         Save(TwoDimMain.array);
       }
@@ -176,12 +176,15 @@ namespace Лабораторная_работа__5
     private void OneDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (IsFileCorrect_OneDim(fileContent))
+      string[] line;
+      if (IsFileCorrect_OneDim(fileContent, out line))
       {
-        int errorNumber = Load_OneDim(fileContent);
+        int errorNumber = Load_OneDim(line);
         MainWindow.Text = OneDimMain.Show;
         if (errorNumber > 0)
           MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
+        else if (errorNumber == -1)
+          MessageBox.Show("Перепроверьте выбранный файл или повторите выбор.", "Ошибка");
       }
       else
         MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как одномерный массив целых чисел в пределах типа integer.", "Ошибка");
@@ -190,12 +193,15 @@ namespace Лабораторная_работа__5
     private void TwoDimLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (IsFileCorrect_TwoDim(fileContent))
+      string[][] lines = new string[0][];
+      if (IsFileCorrect_TwoDim(fileContent, out lines))
       {
-        int errorNumber = Load_TwoDim(fileContent);
+        int errorNumber = Load_TwoDim(lines);
         MainWindow.Text = TwoDimMain.Show;
         if (errorNumber > 0)
           MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
+        else if (errorNumber == -1)
+          MessageBox.Show("Перепроверьте выбранный файл или повторите выбор.", "Ошибка");
       }
       else
         MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как двумерный массив целых чисел в пределах типа integer.", "Ошибка");
@@ -204,12 +210,15 @@ namespace Лабораторная_работа__5
     private void TornLoadButton_Click(object sender, EventArgs e)
     {
       string fileContent = FileReader();
-      if (IsFileCorrect_Torn(fileContent))
+      string[][] lines = new string[0][];
+      if (IsFileCorrect_Torn(fileContent, out lines))
       {
-        int errorNumber = Load_Torn(fileContent);
+        int errorNumber = Load_Torn(lines);
         MainWindow.Text = TornMain.Show;
         if (errorNumber > 0)
           MessageBox.Show($"При выполнении записи из файла возникли ошибки в количестве: {errorNumber}.\nОни все были записаны как нули.", "Ошибка");
+        else if (errorNumber == -1)
+          MessageBox.Show("Перепроверьте выбранный файл или повторите выбор.", "Ошибка");
       }
       else
         MessageBox.Show("Загруженный файл не является набором данных, который можно было бы идентифицировать как рваный массив целых чисел в пределах типа integer.", "Ошибка");

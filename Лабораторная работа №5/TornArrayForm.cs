@@ -80,7 +80,7 @@ namespace Лабораторная_работа__5
       int[] lineLengths = new int[textBoxes.Count];
       if (TornBoxesCheck1(lineLengths))
       {
-        for( int i = 0; i < textBoxes.Count;i++)
+        for (int i = 0; i < textBoxes.Count; i++)
         {
           SetTornHeight(TornTemp.array, i, lineLengths[i]);
         }
@@ -92,6 +92,14 @@ namespace Лабораторная_работа__5
       }
       else
         MessageBox.Show("Не все введённые данные соответствуют типу integer или являются превосходящими ноль числами.", "Ошибка");
+    }
+
+    private void LengthEnterTextBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+      {
+        HeightButton_Click(sender, e);
+      }
     }
 
     private void ConfirmationButton_Click(object sender, EventArgs e)

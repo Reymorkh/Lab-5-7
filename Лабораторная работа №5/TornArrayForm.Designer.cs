@@ -45,12 +45,13 @@
       HeightButton.UseVisualStyleBackColor = true;
       HeightButton.Click += HeightButton_Click;
       // 
-      // textBox1
+      // HeightBox
       // 
       HeightBox.Location = new Point(15, 12);
-      HeightBox.Name = "textBox1";
+      HeightBox.Name = "HeightBox";
       HeightBox.Size = new Size(100, 23);
-      HeightBox.TabIndex = 2;
+      HeightBox.TabIndex = 0;
+      HeightBox.KeyDown += LengthEnterTextBox_KeyDown;
       // 
       // LengthButton
       // 
@@ -73,10 +74,10 @@
       MainLabel.Text = "Введите длину каждой строки массива";
       MainLabel.Visible = false;
       // 
-      // PseudoMainButton
+      // ConfirmationButton
       // 
       ConfirmationButton.Location = new Point(40, 5);
-      ConfirmationButton.Name = "PseudoMainButton";
+      ConfirmationButton.Name = "ConfirmationButton";
       ConfirmationButton.Size = new Size(151, 23);
       ConfirmationButton.TabIndex = 5;
       ConfirmationButton.Text = "Утвердить";

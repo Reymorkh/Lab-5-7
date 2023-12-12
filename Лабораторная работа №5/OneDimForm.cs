@@ -65,7 +65,6 @@ namespace Лабораторная_работа__5
 
     private void LengthEnterTextBox_KeyDown(object sender, KeyEventArgs e)
     {
-      var textBox = sender as TextBox;
       if (e.KeyCode == Keys.Enter)
       {
         LengthEnterButton_Click(sender, e);
@@ -73,7 +72,7 @@ namespace Лабораторная_работа__5
     }
 
     private void ConfirmationButton_Click(object sender, EventArgs e)
-    { 
+    {
       if (OneDimBoxesCheck)
       {
         BoxesToArray(OneDimTemp.array);

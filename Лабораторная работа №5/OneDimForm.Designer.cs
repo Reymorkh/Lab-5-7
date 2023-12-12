@@ -34,37 +34,37 @@
       ConfirmationButton = new Button();
       SuspendLayout();
       // 
-      // button1
+      // LengthEnterButton
       // 
       LengthEnterButton.Location = new Point(222, 45);
-      LengthEnterButton.Name = "button1";
+      LengthEnterButton.Name = "LengthEnterButton";
       LengthEnterButton.Size = new Size(75, 23);
-      LengthEnterButton.TabIndex = 0;
+      LengthEnterButton.TabIndex = 1;
       LengthEnterButton.Text = "Ввод";
       LengthEnterButton.UseVisualStyleBackColor = true;
       LengthEnterButton.Click += LengthEnterButton_Click;
       // 
-      // textBox1
+      // LengthEnterTextBox
       // 
       LengthEnterTextBox.Location = new Point(12, 45);
-      LengthEnterTextBox.Name = "textBox1";
+      LengthEnterTextBox.Name = "LengthEnterTextBox";
       LengthEnterTextBox.Size = new Size(204, 23);
-      LengthEnterTextBox.TabIndex = 1;
+      LengthEnterTextBox.TabIndex = 0;
       LengthEnterTextBox.KeyDown += LengthEnterTextBox_KeyDown;
       // 
-      // label1
+      // LengthEnterLabel
       // 
       LengthEnterLabel.AutoSize = true;
       LengthEnterLabel.Location = new Point(39, 18);
-      LengthEnterLabel.Name = "label1";
+      LengthEnterLabel.Name = "LengthEnterLabel";
       LengthEnterLabel.Size = new Size(135, 15);
       LengthEnterLabel.TabIndex = 2;
       LengthEnterLabel.Text = "Введите длину массива";
       // 
-      // button2
+      // ConfirmationButton
       // 
       ConfirmationButton.Location = new Point(12, 10);
-      ConfirmationButton.Name = "button2";
+      ConfirmationButton.Name = "ConfirmationButton";
       ConfirmationButton.Size = new Size(93, 23);
       ConfirmationButton.TabIndex = 3;
       ConfirmationButton.Text = "Утвердить";
