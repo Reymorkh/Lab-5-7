@@ -36,7 +36,7 @@ namespace Лабораторная_работа__5
 
     public void Printer()
     {
-      OneDimTemp.PrintBoxes();
+      PrintBoxes(OneDimTemp.array);
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
@@ -45,14 +45,14 @@ namespace Лабораторная_работа__5
 
     private void LengthEnterButton_Click(object sender, EventArgs e)
     {
-      if (int.TryParse(LengthEnterTextBox.Text, out int temp) && temp > -1)
+      if (int.TryParse(LengthEnterTextBox.Text, out int length) && length > -1)
       {
-        if (temp == 0)
+        OneDimTemp.array = SetArrayLength(length);
+        if (length == 0)
         {
-          OneDimMain.array = new int[0];
+          OneDimMain = OneDimTemp;
           this.Close();
         }
-        OneDimTemp.array = new int[temp];
         LengthEnterLabel.Visible = false;
         LengthEnterTextBox.Visible = false;
         LengthEnterButton.Visible = false;
@@ -76,7 +76,7 @@ namespace Лабораторная_работа__5
     { 
       if (OneDimBoxesCheck)
       {
-        OneDimTemp.BoxesToArray();
+        BoxesToArray(OneDimTemp.array);
         OneDimMain.array = Copy(OneDimTemp.array);
         this.Close();
       }
@@ -85,7 +85,7 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          OneDimTemp.BoxesToArray();
+          BoxesToArray(OneDimTemp.array);
           OneDimMain.array = Copy(OneDimTemp.array);
           this.Close();
         }

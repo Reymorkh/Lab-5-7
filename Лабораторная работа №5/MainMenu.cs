@@ -18,25 +18,22 @@ namespace Лабораторная_работа__5
       InitializeComponent();
     }
 
-    #region Array Init
+    #region Array Creation
     private void OneDimCreateButton_Click(object sender, EventArgs e)
     {
-      OneDimForm form = new OneDimForm();
-      form.ShowDialog();
+      FormStartup(new OneDimForm());
       MainWindow.Text = OneDimMain.Show;
     }
 
     private void TwoDimCreateButton_Click(object sender, EventArgs e)
     {
-      TwoDimForm form = new TwoDimForm();
-      form.ShowDialog();
+      FormStartup(new TwoDimForm());
       MainWindow.Text = TwoDimMain.Show;
     }
 
     private void TornCreateButton_Click(object sender, EventArgs e)
     {
-      TornArrayForm form = new TornArrayForm();
-      form.ShowDialog();
+      FormStartup(new TornArrayForm());
       MainWindow.Text = TornMain.Show;
     }
     #endregion
@@ -88,21 +85,13 @@ namespace Лабораторная_работа__5
 
     private void Task2Button_Click(object sender, EventArgs e)
     {
-      if (TwoDimMain.Length(0) != 0 && int.TryParse(Task2TextBox.Text, out int lineNumber) && lineNumber > 0 && lineNumber <= TwoDimMain.Length(0))
-      {
-        Task2(lineNumber);
-        MainWindow.Text = TwoDimMain.Show;
-      }
-      else
-        MessageBox.Show("Ввод некорректен, введите число в пределах количества строк массива", "Ошибка");
+      Task2(Task2TextBox.Text);
+      MainWindow.Text = TwoDimMain.Show;
     }
 
     private void Task3Button_Click(object sender, EventArgs e)
     {
-      if (TornMain.Length != 0)
-      {
-        Task3();
-      }
+      Task3();
       MainWindow.Text = TornMain.Show;
     }
     #endregion
@@ -113,8 +102,8 @@ namespace Лабораторная_работа__5
       if (OneDimMain.Length != 0)
       {
         isEdit = true;
-        OneDimForm form = new OneDimForm();
-        form.ShowDialog();
+        using (OneDimForm form = new OneDimForm())
+          form.ShowDialog();
         MainWindow.Text = OneDimMain.Show;
         isEdit = false;
       }
@@ -127,8 +116,8 @@ namespace Лабораторная_работа__5
       if (TwoDimMain.Length(0) != 0)
       {
         isEdit = true;
-        TwoDimForm form = new TwoDimForm();
-        form.ShowDialog();
+        using (TwoDimForm form = new TwoDimForm())
+          form.ShowDialog();
         MainWindow.Text = TwoDimMain.Show;
         isEdit = false;
       }
@@ -141,8 +130,8 @@ namespace Лабораторная_работа__5
       if (TornMain.Length != 0)
       {
         isEdit = true;
-        TornArrayForm form = new TornArrayForm();
-        form.ShowDialog();
+        using (TornArrayForm form = new TornArrayForm())
+          form.ShowDialog();
         MainWindow.Text = TornMain.Show;
         isEdit = false;
       }

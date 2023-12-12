@@ -6,7 +6,7 @@ using static System.Windows.Forms.DataFormats;
 
 namespace MyLibStructWF
 {
-  public struct ArrayTypes
+  public static class ArrayTypes
   {
     const double fromTop = 30, fromLeft = 60;
     static Size size = new Size(40, 20);
@@ -30,62 +30,37 @@ namespace MyLibStructWF
         {
           if (Length != 0)
           {
-            string Text = "Одномерный массив:";
-            string[] text = new string[array.Length / 10 + 2];
-            int textIndex = 1;
-            for (int temp = 0; temp < array.Length; temp += 10)
+            string Header = "Одномерный массив:" + Environment.NewLine;
+            string[] underHeader = new string[array.Length / 10 + 2];
+            underHeader[0] = "      ";
+            for (int i = 0; i < 10 & i < array.Length; i++)
             {
-              text[textIndex] = LineConverter(temp, text[textIndex]);
-              textIndex++;
+              string temp = $"{i + 1}";
+              underHeader[0] += temp.PadLeft(11 - temp.Length);
             }
-            Text += string.Join(Environment.NewLine, text);
-            return Text;
+            for (int temp = 0, textIndex = 1; temp < array.Length; temp += 10, textIndex++)
+            {
+              underHeader[textIndex] = LineConverter(temp);
+            }
+            return Header + string.Join(Environment.NewLine, underHeader);
           }
           else
             return "Одномерный массив пуст.";
         }
       }
       
-      private string LineConverter(int temp, string line)
+      private string LineConverter(int temp)
       {
+        string line = Convert.ToString(temp / 10 + 1) + '.';
+        line = line.PadRight(7 - line.Length);
         for (int i = temp; i < temp + 10 && i < array.Length; i++)
-          line += Convert.ToString(array[i]) + ' ';
+        {
+          string element = $"{array[i]}";
+          line += element.PadLeft(11 - element.Length);
+        }
         line = line.Trim();
         return line;
       } //Функция для верхней функции
-
-      public void PrintBoxes()
-      {
-        AddLabel(-0.5, 0, 0 + 1);
-        for (int i = 0; i < array.Length; i++)
-        {
-          AddBox(i, 0);
-          AddLabel(i, -0.8, i + 1);
-        }
-        NumbersToBoxes();
-      }
-
-      public void NumbersToBoxes()
-      {
-        int boxIndex = 0;
-        for (int i = 0; i < textBoxes.Count && i < array.Length; i++)
-        {
-          if (array[i] != 0)
-            textBoxes[boxIndex].Text = Convert.ToString(array[i]);
-          boxIndex++;
-
-        }
-      }
-
-      public void BoxesToArray()
-      {
-        int temp;
-        for (int i = 0; i < array.Length; i++)
-        {
-          if (textBoxes[i] != null && int.TryParse(textBoxes[i].Text, out temp))
-            array[i] = Convert.ToInt32(textBoxes[i].Text);
-        }
-      }
       #endregion
 
       public int Length
@@ -103,74 +78,57 @@ namespace MyLibStructWF
         array = new int[length1, length2];
       }
       
-      #region interface
-      public void PrintBoxes()
-      {
-        for (int i = 0; i < array.GetLength(0); i++)
-        {
-          AddLabel(-0.5, i, i + 1); //принтит номера рядов
-          for (int j = 0; j < array.GetLength(1); j++)
-            AddBox(j, i);
-        }
-        for (int i = 0; i < array.GetLength(1); i++) //принтит номера столбцов
-          AddLabel(i, -0.8, i + 1);
-        NumbersToBoxes();
-      }
-
-      public void NumbersToBoxes()
-      {
-        int j, boxIndex = 0;
-        for (int i = 0; i < array.GetLength(0); i++)
-        {
-          for (j = 0; j < array.GetLength(1); j++)
-          {
-            if (array[i, j] != 0)
-              textBoxes[boxIndex].Text = Convert.ToString(array[i, j]);
-            boxIndex++;
-            if (boxIndex == textBoxes.Count)
-              break;
-          }
-        }
-      }
-
-      public void BoxesToArray()
-      {
-        int j, boxIndex = 0, temp;
-        for (int i = 0; i < array.GetLength(0); i++)
-        {
-          for (j = 0; j < array.GetLength(1); j++)
-          {
-            if (int.TryParse(textBoxes[boxIndex].Text, out temp))
-              array[i, j] = temp;
-            else
-              array[i, j] = 0;
-            boxIndex++;
-          }
-        }
-      }
-
       public string Show
       {
         get
         {
           if (Length(0) != 0 && Length(1) != 0)
           {
-            string Text = "Двумерный массив:";
-            string[] text = new string[array.GetLength(0) + 1];
-            for (int i = 0; i < array.GetLength(0); i++)
+            string Header = "Двумерный массив:" + Environment.NewLine;
+            string[] arrayBody = new string[array.GetLength(0) + 2];
+            arrayBody[0] = "      ";
+            for (int i = 0; i < array.GetLength(1); i++)
             {
-              for (int j = 0; j < array.GetLength(1); j++)
-                text[i + 1] += Convert.ToString(array[i, j]) + " ";
-              text[i + 1] = text[i + 1].Trim();
+              string temp = $"{i + 1}";
+              arrayBody[0] += temp.PadLeft(11 - temp.Length);
             }
-            Text += string.Join(Environment.NewLine, text);
+            for (int i = 0, textIndex = 1; i < array.GetLength(0); i++, textIndex++)
+            {
+              arrayBody[textIndex] = Convert.ToString(textIndex) + '.';
+              arrayBody[textIndex] = arrayBody[textIndex].PadRight(7 - arrayBody[textIndex].Length);
+              for (int j = 0; j < array.GetLength(1); j++)
+              {
+                string number = "" + array[i, j];
+                arrayBody[textIndex] += number.PadLeft(11 - number.Length);
+              }
+            }
+            return Header + string.Join(Environment.NewLine, arrayBody);
+          }
+          else if (Length(0) == 0 & Length(1) > 0)
+          {
+            string Text = "В двумерном массиве нет строк, но есть столбцы" + Environment.NewLine;
+            for (int i = 0; i < array.GetLength(1); i++)
+            {
+              string temp = $"{i + 1}";
+              Text += temp.PadLeft(11 - temp.Length);
+            }
             return Text;
           }
-          else
+          else if (Length(0) > 0 & Length(1) == 0)
+          {
+            string Text = "В двумерном массиве нет столбцов, но есть строки" + Environment.NewLine;
+            for (int i = 0; i < array.GetLength(0); i++)
+              if (i < 10)
+              Text += (i + 1 + ".").PadRight(9) + "Строка пуста" + Environment.NewLine;
+            else if (i < 100)
+                Text += (i + 1 + ".").PadRight(8) + "Строка пуста" + Environment.NewLine;
+              else if (i < 1000)
+                Text += (i + 1 + ".").PadRight(7) + "Строка пуста" + Environment.NewLine;
+            return Text;
+          }
             return "Двумерный массив пуст.";
         }
       }
-      #endregion
 
       public int Length(int temp)
       {
@@ -194,50 +152,15 @@ namespace MyLibStructWF
         array = new int[length][];
       }
 
-      #region interface
-      public void PrintBoxes()
-      {
-        int length = 0;
-        for (int i = 0; i < array.Length; i++)
+      public int MaxLengthLine
+      { 
+        get
         {
-          AddLabel(-0.5, i, i + 1);
-          if (length < array[i].Length)
-            length = array[i].Length;
-          for (int j = 0; j < array[i].Length; j++)
-            AddBox(j, i);
-        }
-        for (int i = 0; i < length; i++)
-          AddLabel(i, -0.8, i + 1);
-        NumbersToBoxes();
-      }
-
-      public void NumbersToBoxes()
-      {
-        int boxIndex = 0;
-        for (int i = 0; i < array.Length; i++)
-        {
-          for (int j = 0; j < array[i].Length; j++)
-          {
-            if (array[i][j] != 0)
-              textBoxes[boxIndex].Text = Convert.ToString(array[i][j]);
-            boxIndex++;
-          }
-        }
-      }
-
-      public void BoxesToArray()
-      {
-        int boxIndex = 0, temp;
-        for (int i = 0; i < array.Length; i++)
-        {
-          for (int j = 0; j < array[i].Length; j++)
-          {
-            if (int.TryParse(textBoxes[boxIndex].Text, out temp))
-              array[i][j] = temp;
-            else
-              array[i][j] = 0;
-            boxIndex++;
-          }
+          int maxLength = 0;
+          for (int i = 0; i < Length; i++)  // индекс самой длинной строки массива
+            if (maxLength < array[i].Length)
+              maxLength = array[i].Length;
+          return maxLength; 
         }
       }
 
@@ -247,21 +170,38 @@ namespace MyLibStructWF
         {
           if (Length != 0)
           {
-          string Text = "Рваный массив:";
-          string[] text = new string[array.Length + 1];
-            for (int i = 0; i < Length; i++)
+            string Header = "Рваный массив:" + Environment.NewLine;
+            string[] arrayBody = new string[array.Length + 1];
+            arrayBody[0] = "   ";
+            for (int i = 0; i < MaxLengthLine; i++)
             {
-              for (int j = 0; j < array[i].Length; j++)
-                text[i + 1] += array[i][j] + " ";
+              string lineNumber = $"{i + 1}";
+              arrayBody[0] += lineNumber.PadLeft(11 - lineNumber.Length);
             }
-            Text += string.Join(Environment.NewLine, text);
-            return Text;
+            for (int i = 0, textIndex = 1; i < Length; i++, textIndex++)
+            {
+              if (array[i].Length == 0)
+              {
+                string lineNumber = $"{i + 1}.";
+                arrayBody[textIndex] += lineNumber.PadRight(11 - lineNumber.Length) + "Строка пуста";
+              }
+              else
+              {
+                arrayBody[textIndex] = $"{i + 1}.";
+                for (int j = 0; j < array[i].Length; j++)
+                {
+                  string number = "" + array[i][j];
+                  arrayBody[textIndex] += number.PadLeft(11 - number.Length);
+                }
+              }
+            }
+            Header += string.Join(Environment.NewLine, arrayBody);
+            return Header;
           }
           else
             return "Рваный массив пуст.";
         }
-      } //rewrite
-      #endregion
+      }
 
       public int Length
       {

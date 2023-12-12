@@ -22,7 +22,7 @@ namespace Лабораторная_работа__5
   {
     public void Printer()
     {
-      TwoDimTemp.PrintBoxes();
+      PrintBoxes(TwoDimTemp.array);
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
@@ -45,26 +45,23 @@ namespace Лабораторная_работа__5
 
     private void SetLength_Click(object sender, EventArgs e)
     {
-      string temp = LengthEnterTextBox.Text;
-      string[] numbers = temp.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-      int length1, length2;
-      if (int.TryParse(numbers[0], out length1))
-        if (length1 == 0)
-        {
-          TwoDimMain.array = new int[0, 0];
+      if (TwoDimParamCheck(LengthEnterTextBox.Text, out int param1, out int param2))
+      {
+        if (param1 == 0 | param2 == 0) 
+        { 
+          TwoDimMain.array = SetArrayLength(param1, param2);
           this.Close();
-        }
-        else if (numbers.Length > 1 && int.TryParse(numbers[1], out length2))
-        {
-          TwoDimTemp.array = new int[length1, length2];
-          LengthEnterButton.Visible = false;
-          ConfirmationButton.Visible = true;
-          label1.Visible = false;
-          LengthEnterTextBox.Visible = false;
-          Printer();
-        }
-        else
-          MessageBox.Show("Ввод некорректен, введите 2 параметра длины массива больше нуля и типа integer.", "Ошибка");
+      }
+        TwoDimTemp.array = SetArrayLength(param1, param2);
+        LengthEnterButton.Visible = false;
+        ConfirmationButton.Visible = true;
+        label1.Visible = false;
+        LengthEnterTextBox.Visible = false;
+        Printer();
+      }
+      else
+        MessageBox.Show("Ввод некорректен, введите 2 параметра длины массива больше нуля и типа integer.", "Ошибка");
+      
     }
 
     private void LengthEnterTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -80,7 +77,7 @@ namespace Лабораторная_работа__5
     {
       if (TwoDimBoxesCheck)
       {
-        TwoDimTemp.BoxesToArray();
+        BoxesToArray(TwoDimTemp.array);
         TwoDimMain.array = Copy(TwoDimTemp.array);
         this.Close();
       }
@@ -89,7 +86,7 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          TwoDimTemp.BoxesToArray();
+          BoxesToArray(TwoDimTemp.array);
           TwoDimMain.array = Copy(TwoDimTemp.array);
           this.Close();
         }

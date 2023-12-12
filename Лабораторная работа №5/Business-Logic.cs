@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +16,36 @@ namespace Лабораторная_работа__5
     public static TwoDim TwoDimMain = new TwoDim(0, 0), TwoDimTemp = new TwoDim(0, 0);
     public static Torn TornMain = new Torn(0), TornTemp = new Torn(0);
     public static Random random = new Random();
+
+    public static void FormStartup(Form form) => form.ShowDialog(); // открытие формы
+
+    #region Set Array Length
+    public static int[] SetArrayLength(int length) => new int[length];
+
+    public static bool TwoDimParamCheck(string line, out int param1, out int param2)
+    {
+      string[] parameters;
+      parameters = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+      if (parameters.Length > 1 && int.TryParse(parameters[0], out param1) && param1 > -1 && int.TryParse(parameters[1], out param2) && param2 > -1)
+        return true;
+      else if (parameters.Length == 1 && int.TryParse(parameters[0], out param1) && param1 == 0)
+      {
+        param2 = 0;
+        return true;
+      }
+      param1 = -1; param2 = -1;
+      return false;
+    }
+
+    public static int[,] SetArrayLength(int param1, int param2)
+    {
+      return new int[param1, param2];
+    }
+
+    public static int[][] SetTornLength(int length = 0) => new int[length][];
+
+    public static void SetTornHeight(int[][] array, int number, int length = 0) => array[number] = new int[length];
+    #endregion
 
     #region random fill
     public static void RandomFill(int[] array)
@@ -39,13 +70,13 @@ namespace Лабораторная_работа__5
     #endregion
 
     #region Major Tasks
-    public static void Task1() //удаление первого чётного элемента
+    public static void Task1()
     {
       if (OneDimMain.Length != 0)
       {
         int i;
-        for (i = 0; i < OneDimMain.Length & OneDimMain.array[i] % 2 == 1; i++) ;
-        if (OneDimMain.array[i] != 0 && OneDimMain.array[i] % 2 == 0)
+        for (i = 0; i < OneDimMain.Length && (OneDimMain.array[i] % 2 == 1 | OneDimMain.array[i] == 0); i++) ;
+        if (i < OneDimMain.Length && OneDimMain.array[i] != 0 && OneDimMain.array[i] % 2 == 0)
         {
           OneDimMain.array[i] = 0;
           for (i += 1; i < OneDimMain.Length; i++)
@@ -55,48 +86,191 @@ namespace Лабораторная_работа__5
         else
           MessageBox.Show("Чётных чисел в массиве не осталось.","Предупреждение");
       }
-    }
+      else
+        MessageBox.Show("Массив совершенно пуст.", "");
+    } //удаление первого чётного элемента
 
-    public static void Task2(int lineNumber)
+    public static void Task2(string line)
     {
+      int.TryParse(line, out int lineNumber);
       lineNumber -= 1;
-      int index1 = TwoDimMain.Length(0), index2 = TwoDimMain.Length(1), z = 0;
-      int[,] temp = new int[index1 + 1, index2];
-      for (int i = 0; i < index1; i++) //i - строки, j - содержимое строк
-      {
-        if (z == lineNumber)
-          z++;
-        for (int j = 0; j < index2; j++)
+      if (lineNumber > -1 && lineNumber <= TwoDimMain.Length(0))
         {
-          temp[z, j] = TwoDimMain.array[i, j];
+        int arrParam1 = TwoDimMain.Length(0), arrParam2 = TwoDimMain.Length(1);
+        int[,] newArray = new int[arrParam1 + 1, arrParam2];
+        for (int i = 0, k = 0; i < arrParam1; i++, k++) //i - строки, k - количество строк в новом массиве, j - содержимое строк
+        {
+          if (k == lineNumber)
+            k++;
+          for (int j = 0; j < arrParam2; j++)
+          {
+            newArray[k, j] = TwoDimMain.array[i, j];
+          }
         }
-        if (z == lineNumber)
-          z++;
-        z++;
+      TwoDimMain.array = newArray;
       }
-      TwoDimMain.array = temp;
-    }
+      else
+        MessageBox.Show("Ввод некорректен, введите число в пределах количества строк массива", "Ошибка");
+    } //добавление строки с введённым номером
 
     public static void Task3()
     {
-      int length = TornMain.Length;
-      int maxLength = 0, maxLengthIndex = 0;
-      for (int i = 0; i < length; i++)  // индекс самой длинной строки массива
+      if (TornMain.Length != 0)
       {
-        if (maxLength < TornMain.array[i].Length)
+        int length = TornMain.Length;
+        int maxLength = 0, maxLengthIndex = 0;
+        for (int i = 0; i < length; i++)  //индекс самой длинной строки массива
         {
-          maxLength = TornMain.array[i].Length;
-          maxLengthIndex = i;
+          if (maxLength < TornMain.array[i].Length)
+          {
+            maxLength = TornMain.array[i].Length;
+            maxLengthIndex = i;
+          }
+        }
+        int[][] arrayTemp = new int[length - 1][];
+        for (int i = 0, k = 0; i < length; i++)
+        {
+          if (i != maxLengthIndex)
+          {
+            int[] array = new int[TornMain.array[i].Length]; //создание строки для будущего рваного
+            for (int j = 0; j < array.Length; j++)
+              array[j] = TornMain.array[i][j];
+            arrayTemp[k++] = array; //присваивание новосозданной строки к куску масива
+          }
+        }
+        TornMain.array = arrayTemp;
+      }
+      else
+        MessageBox.Show("Массив совершенно пуст.", "");
+    } //удаление самой длинной строки
+    #endregion
+
+    #region Box Creation & Preparation
+    public static void PrintBoxes(int[] array)
+    {
+      AddLabel(-0.5, 0, 0 + 1);
+      for (int i = 0; i < array.Length; i++)
+      {
+        AddBox(i, 0);
+        AddLabel(i, -0.8, i + 1);
+      }
+      NumbersToBoxes(array);
+    }
+
+    public static void NumbersToBoxes(int[] array)
+    {
+      int boxIndex = 0;
+      for (int i = 0; i < textBoxes.Count && i < array.Length; i++)
+      {
+        if (array[i] != 0)
+          textBoxes[boxIndex].Text = Convert.ToString(array[i]);
+        boxIndex++;
+
+      }
+    }
+
+    public static void PrintBoxes(int[,] array)
+    {
+      for (int i = 0; i < array.GetLength(0); i++)
+      {
+        AddLabel(-0.5, i, i + 1); //принтит номера рядов
+        for (int j = 0; j < array.GetLength(1); j++)
+          AddBox(j, i);
+      }
+      for (int i = 0; i < array.GetLength(1); i++) //принтит номера столбцов
+        AddLabel(i, -0.8, i + 1);
+      NumbersToBoxes(array);
+    }
+
+    public static void NumbersToBoxes(int[,] array)
+    {
+      int j, boxIndex = 0;
+      for (int i = 0; i < array.GetLength(0); i++)
+      {
+        for (j = 0; j < array.GetLength(1); j++)
+        {
+          if (array[i, j] != 0)
+            textBoxes[boxIndex].Text = Convert.ToString(array[i, j]);
+          boxIndex++;
+          if (boxIndex == textBoxes.Count)
+            break;
         }
       }
-      int[][] arrayTemp = new int[length - 1][];
-      int k = 0;
-      for (int i = 0; i < length; i++)
+    }
+
+    public static void PrintBoxes(int[][]array)
+    {
+      int length = 0;
+      for (int i = 0; i < array.Length; i++)
       {
-        if (i != maxLengthIndex)
-          arrayTemp[k++] = TornMain.array[i];
+        AddLabel(-0.5, i, i + 1);
+        if (length < array[i].Length)
+          length = array[i].Length;
+        for (int j = 0; j < array[i].Length; j++)
+          AddBox(j, i);
       }
-      TornMain.array = arrayTemp;
+      for (int i = 0; i < length; i++)
+        AddLabel(i, -0.8, i + 1);
+      NumbersToBoxes(array);
+    }
+
+    public static void NumbersToBoxes(int[][] array)
+    {
+      int boxIndex = 0;
+      for (int i = 0; i < array.Length; i++)
+      {
+        for (int j = 0; j < array[i].Length; j++)
+        {
+          if (array[i][j] != 0)
+            textBoxes[boxIndex].Text = Convert.ToString(array[i][j]);
+          boxIndex++;
+        }
+      }
+    }
+
+    #endregion
+
+    #region Boxes to Array
+    public static void BoxesToArray(int[] array)
+    {
+      int temp;
+      for (int i = 0; i < array.Length; i++)
+      {
+        if (textBoxes[i] != null && int.TryParse(textBoxes[i].Text, out temp))
+          array[i] = Convert.ToInt32(textBoxes[i].Text);
+      }
+    }
+
+    public static void BoxesToArray(int[,] array)
+    {
+      int j, boxIndex = 0, temp;
+      for (int i = 0; i < array.GetLength(0); i++)
+      {
+        for (j = 0; j < array.GetLength(1); j++)
+        {
+          if (int.TryParse(textBoxes[boxIndex].Text, out temp))
+            array[i, j] = temp;
+          else
+            array[i, j] = 0;
+          boxIndex++;
+        }
+      }
+    }
+
+    public static void BoxesToArray(int[][] array)
+    {
+      int boxIndex = 0, temp;
+      for (int i = 0; i < array.Length; i++)
+      {
+        for (int j = 0; j < array[i].Length; j++)
+        {
+          if (int.TryParse(textBoxes[boxIndex].Text, out temp))
+            array[i][j] = temp;
+          else
+            array[i][j] = 0;
+          boxIndex++;
+        }
+      }
     }
     #endregion
 
@@ -150,9 +324,7 @@ namespace Лабораторная_работа__5
           filePath = openFileDialog.FileName;
           var fileStream = openFileDialog.OpenFile();
           using (StreamReader reader = new StreamReader(fileStream))
-          {
             fileContent = reader.ReadToEnd();
-          }
         }
       }
       return fileContent;
@@ -359,20 +531,18 @@ namespace Лабораторная_работа__5
       }
     }
 
-    public static bool TornBoxesCheck1
+    public static bool TornBoxesCheck1(int[] lineLenghts)
     {
-      get
+      for (int i = 0; i < textBoxes.Count; i++)
       {
-        foreach (var x in textBoxes)
+        if (int.TryParse(textBoxes[i].Text, out int y) && y > -1)
         {
-          int y;
-          if (!int.TryParse(x.Text, out y) || y < 0)
-          {
-            return false;
-          }
+          lineLenghts[i] = y;
         }
-        return true;
+        else
+          return false;
       }
+      return true;
     }
 
     public static bool TornBoxesCheck2

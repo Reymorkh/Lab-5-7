@@ -86,6 +86,7 @@
       MainWindow.Size = new Size(482, 430);
       MainWindow.TabIndex = 0;
       MainWindow.Text = "Здесь будут отображаться данные по массивам";
+      MainWindow.WordWrap = false;
       // 
       // OneDimCreateButton
       // 

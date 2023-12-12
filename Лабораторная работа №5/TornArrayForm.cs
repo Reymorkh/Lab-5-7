@@ -21,7 +21,7 @@ namespace Лабораторная_работа__5
   {
     public void Printer()
     {
-      TornTemp.PrintBoxes();
+      PrintBoxes(TornTemp.array);
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
@@ -45,16 +45,16 @@ namespace Лабораторная_работа__5
 
     private void HeightButton_Click(object sender, EventArgs e)
     {
-      if (int.TryParse(HeightBox.Text, out int temp) && temp > -1)
+      if (int.TryParse(HeightBox.Text, out int length1) && length1 > -1)
       {
-        if (temp == 0)
+        if (length1 == 0)
         {
-          TornMain.array = new int[0][];
+          TornMain.array = SetTornLength();
           this.Close();
         }
         else
         {
-          TornTemp.array = new int[temp][];
+          TornTemp.array = SetTornLength(length1);
           HeightButton.Visible = false;
           HeightBox.Visible = false;
           LengthButton.Visible = true;
@@ -77,11 +77,12 @@ namespace Лабораторная_работа__5
 
     private void LengthButton_Click(object sender, EventArgs e)
     {
-      if (TornBoxesCheck1)
+      int[] lineLengths = new int[textBoxes.Count];
+      if (TornBoxesCheck1(lineLengths))
       {
         for( int i = 0; i < textBoxes.Count;i++)
         {
-          TornTemp.array[i] = new int[Convert.ToInt32(textBoxes[i].Text)];
+          SetTornHeight(TornTemp.array, i, lineLengths[i]);
         }
         textBoxEraser();
         Printer();
@@ -97,7 +98,7 @@ namespace Лабораторная_работа__5
     {
       if (TornBoxesCheck2)
       {
-        TornTemp.BoxesToArray();
+        BoxesToArray(TornTemp.array);
         TornMain.array = Copy(TornTemp.array);
         this.Close();
       }
@@ -106,7 +107,7 @@ namespace Лабораторная_работа__5
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          TornTemp.BoxesToArray();
+          BoxesToArray(TornTemp.array);
           TornMain.array = Copy(TornTemp.array);
           this.Close();
         }
